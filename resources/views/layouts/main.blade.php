@@ -12,7 +12,9 @@
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
     
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Vite Assets -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
     <!-- Navigation -->
@@ -20,7 +22,7 @@
         <div class="container">
             <a href="{{ url('/') }}" class="navbar-brand">
                 <i class="fas fa-comments"></i>
-                Konsultasi Online
+                Konsultasi
             </a>
             
             <button class="mobile-menu-button" id="mobileMenuButton">
