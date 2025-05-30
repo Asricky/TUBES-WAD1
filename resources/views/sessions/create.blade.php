@@ -15,7 +15,6 @@
 <div class="dashboard-container">
     <div class="dashboard-header">
         <div class="flex justify-between items-center">
-            <h1 class="dashboard-title">Tambah Sesi Konsultasi Baru</h1>
             <a href="{{ route('sessions.index') }}" class="btn-action btn-secondary">
                 <i class="fas fa-arrow-left icon"></i>
                 Kembali
