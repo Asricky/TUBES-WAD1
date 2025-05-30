@@ -1,18 +1,178 @@
-<?php $__env->startSection('content'); ?>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Akun</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #ffffff;
+            min-height: 100vh;
+            display: flex;
+        }
+
+        .auth-container {
+            display: flex;
+            flex: 1;
+            height: 100vh;
+        }
+
+        .auth-image {
+            flex: 2; /* lebih lebar dari sebelumnya */
+            background: url('/images/background.jpeg') no-repeat center center;
+            background-size: cover;
+        }
+
+        .auth-form-section {
+            flex: 1;
+            background: #ffffff;
+            display: flex;
+            justify-content: flex-start; /* form-nya sekarang ke kanan */
+            align-items: center;
+            padding: 2rem 2rem 2rem 3rem; /* kasih padding kiri lebih gede */
+        }
+
+        .auth-card {
+            width: 100%;
+            max-width: 360px;
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .auth-title {
+            font-size: 2rem;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .auth-subtitle {
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.4rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.6rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .form-input.is-invalid {
+            border-color: red;
+        }
+
+        .invalid-feedback {
+            color: red;
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+        }
+
+        .password-input-group {
+            position: relative;
+        }
+
+        .password-toggle {
+            position: absolute;
+            top: 50%;
+            right: 0.75rem;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .btn {
+            background: #6C5CE7;
+            color: white;
+            padding: 0.75rem;
+            width: 100%;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #5c4edb;
+        }
+
+        .auth-links {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .login-link a {
+            color: #6C5CE7;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .auth-image {
+                display: none;
+            }
+            .auth-container {
+                flex-direction: column;
+            }
+            .auth-form-section {
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
 <div class="auth-container">
-    <div class="auth-card">
-        <div class="auth-header">
-            <h1 class="auth-title">Daftar Akun</h1>
-            <p class="auth-subtitle">Buat akun baru untuk mengakses sistem</p>
-        </div>
+    <div class="auth-image"></div>
 
-        <form method="POST" action="<?php echo e(route('register')); ?>">
-            <?php echo csrf_field(); ?>
+    <div class="auth-form-section">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h1 class="auth-title">Selamat Datang!</h1><br>
+                <p class="auth-subtitle">Buat akun baru untuk mengakses sistem</p>
+            </div>
 
-            <div class="form-group">
-                <label for="name" class="form-label">Nama Lengkap</label>
-                <input id="name" type="text" name="name" value="<?php echo e(old('name')); ?>" 
-                    class="form-input <?php $__errorArgs = ['name'];
+            <form method="POST" action="<?php echo e(route('register')); ?>">
+                <?php echo csrf_field(); ?>
+
+                <div class="form-group">
+                    <label for="name" class="form-label">Nama Lengkap</label>
+                    <input id="name" type="text" name="name" value="<?php echo e(old('name')); ?>"
+                           class="form-input <?php $__errorArgs = ['name'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -20,22 +180,22 @@ $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>" required autofocus>
-                <?php $__errorArgs = ['name'];
+                    <?php $__errorArgs = ['name'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
                     <div class="invalid-feedback"><?php echo e($message); ?></div>
-                <?php unset($message);
+                    <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
-            </div>
+                </div>
 
-            <div class="form-group">
-                <label for="email" class="form-label">Email</label>
-                <input id="email" type="email" name="email" value="<?php echo e(old('email')); ?>" 
-                    class="form-input <?php $__errorArgs = ['email'];
+                <div class="form-group">
+                    <label for="email" class="form-label">Email</label>
+                    <input id="email" type="email" name="email" value="<?php echo e(old('email')); ?>"
+                           class="form-input <?php $__errorArgs = ['email'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -43,23 +203,23 @@ $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>" required>
-                <?php $__errorArgs = ['email'];
+                    <?php $__errorArgs = ['email'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
                     <div class="invalid-feedback"><?php echo e($message); ?></div>
-                <?php unset($message);
+                    <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
-            </div>
+                </div>
 
-            <div class="form-group">
-                <label for="password" class="form-label">Password</label>
-                <div class="password-input-group">
-                    <input id="password" type="password" name="password" 
-                        class="form-input <?php $__errorArgs = ['password'];
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <div class="password-input-group">
+                        <input id="password" type="password" name="password"
+                               class="form-input <?php $__errorArgs = ['password'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -67,63 +227,65 @@ $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>" required>
-                    <button type="button" class="password-toggle" onclick="togglePassword('password')">
-                        <i class="fas fa-eye"></i>
-                    </button>
-                </div>
-                <?php $__errorArgs = ['password'];
+                        <button type="button" class="password-toggle" onclick="togglePassword('password')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <?php $__errorArgs = ['password'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
                     <div class="invalid-feedback"><?php echo e($message); ?></div>
-                <?php unset($message);
+                    <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
-            </div>
-
-            <div class="form-group">
-                <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
-                <div class="password-input-group">
-                    <input id="password_confirmation" type="password" name="password_confirmation" 
-                        class="form-input" required>
-                    <button type="button" class="password-toggle" onclick="togglePassword('password_confirmation')">
-                        <i class="fas fa-eye"></i>
-                    </button>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block">Daftar</button>
-            </div>
+                <div class="form-group">
+                    <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
+                    <div class="password-input-group">
+                        <input id="password_confirmation" type="password" name="password_confirmation"
+                               class="form-input" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword('password_confirmation')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
 
-            <div class="auth-links">
-                <p class="login-link">
-                    Sudah punya akun? 
-                    <a href="<?php echo e(route('login')); ?>">Login sekarang</a>
-                </p>
-            </div>
-        </form>
+                <div class="form-group">
+                    <button type="submit" class="btn">Daftar</button>
+                </div>
+
+                <div class="auth-links">
+                    <p class="login-link">
+                        Sudah punya akun?
+                        <a href="<?php echo e(route('login')); ?>">Login sekarang</a>
+                    </p>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
 <script>
 function togglePassword(inputId) {
     const passwordInput = document.getElementById(inputId);
-    const toggleButton = passwordInput.nextElementSibling.querySelector('i');
-    
+    const toggleIcon = passwordInput.nextElementSibling.querySelector('i');
+
     if (passwordInput.type === 'password') {
         passwordInput.type = 'text';
-        toggleButton.classList.remove('fa-eye');
-        toggleButton.classList.add('fa-eye-slash');
+        toggleIcon.classList.remove('fa-eye');
+        toggleIcon.classList.add('fa-eye-slash');
     } else {
         passwordInput.type = 'password';
-        toggleButton.classList.remove('fa-eye-slash');
-        toggleButton.classList.add('fa-eye');
+        toggleIcon.classList.remove('fa-eye-slash');
+        toggleIcon.classList.add('fa-eye');
     }
 }
 </script>
-<?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('layouts.main', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\ADMIN\Documents\Kuliah\SEMESTER 4\PENGEMBANGAN APLIKASI WEBSITE\TUBES-WAD1\resources\views/auth/register.blade.php ENDPATH**/ ?>
+</body>
+</html>
+<?php /**PATH C:\Users\ADMIN\Documents\Kuliah\SEMESTER 4\PENGEMBANGAN APLIKASI WEBSITE\TUBES-WAD1\resources\views/auth/register.blade.php ENDPATH**/ ?>

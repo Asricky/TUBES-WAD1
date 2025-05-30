@@ -1,14 +1,32 @@
-<x-app-layout>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Sesi Konsultasi</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+@extends('layouts.main')
+
+@section('content')
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <div class="flex justify-between items-center">
+            <h1 class="dashboard-title">Tambah Sesi Konsultasi Baru</h1>
+            <a href="{{ route('sessions.index') }}" class="btn-action btn-secondary">
+                <i class="fas fa-arrow-left icon"></i>
+                Kembali
+            </a>
+        </div>
+    </div>
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 bg-white border-b border-gray-200">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-2xl font-bold">Detail Sesi Konsultasi</h2>
                 <div>
-                    <a href="{{ route('sessions.edit', $session) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2">
+                    <a href="{{ route('sessions.edit', $session->id) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2">
                         Edit
-                    </a>
-                    <a href="{{ route('sessions.index') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
-                        Kembali
                     </a>
                 </div>
             </div>
@@ -23,8 +41,8 @@
 
                     <div>
                         <h3 class="text-gray-600 text-sm font-bold">Jadwal</h3>
-                        <p class="text-gray-900">{{ $session->schedule->date->format('d/m/Y') }}</p>
-                        <p class="text-gray-500 text-sm">{{ $session->schedule->time->format('H:i') }}</p>
+                        <p class="text-gray-900">{{ \Carbon\Carbon::parse($session->schedule->date)->format('d/m/Y') }}</p>
+                        <p class="text-gray-500 text-sm">{{ \Carbon\Carbon::parse($session->schedule->time)->format('H:i') }}</p>
                     </div>
 
                     <div>
@@ -56,6 +74,7 @@
                 </div>
             </div>
 
+            <!-- Lampiran Section -->
             @if($session->attachments->count() > 0)
             <div class="mt-8">
                 <h3 class="text-xl font-bold mb-4">Lampiran</h3>
@@ -67,7 +86,7 @@
                                 <p class="text-gray-900">{{ $attachment->name }}</p>
                                 <p class="text-gray-500 text-sm">{{ $attachment->file_type }} - {{ $attachment->file_size }}</p>
                             </div>
-                            <a href="{{ route('attachments.download', $attachment) }}" class="text-blue-600 hover:text-blue-900">
+                            <a href="{{ route('attachments.download', $attachment->id) }}" class="text-blue-600 hover:text-blue-900">
                                 Download
                             </a>
                         </div>
@@ -78,4 +97,6 @@
             @endif
         </div>
     </div>
-</x-app-layout> 
+
+</body>
+</html>
