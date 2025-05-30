@@ -24,6 +24,7 @@ return array(
     'App\\Http\\Controllers\\TopicController' => $baseDir . '/app/Http/Controllers/TopicController.php',
     'App\\Http\\Requests\\Auth\\LoginRequest' => $baseDir . '/app/Http/Requests/Auth/LoginRequest.php',
     'App\\Http\\Requests\\ProfileUpdateRequest' => $baseDir . '/app/Http/Requests/ProfileUpdateRequest.php',
+    'App\\Models\\Attachment' => $baseDir . '/app/Models/Attachment.php',
     'App\\Models\\Client' => $baseDir . '/app/Models/Client.php',
     'App\\Models\\Schedule' => $baseDir . '/app/Models/Schedule.php',
     'App\\Models\\Session' => $baseDir . '/app/Models/Session.php',
