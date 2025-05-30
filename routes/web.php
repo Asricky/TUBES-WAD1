@@ -9,7 +9,7 @@ use App\Http\Controllers\AttachmentController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.register');
 });
 
 Route::get('/dashboard', function () {
@@ -36,5 +36,4 @@ Route::middleware('auth')->group(function () {
     // Attachment routes
     Route::resource('attachments', AttachmentController::class);
 });
-
 require __DIR__.'/auth.php';
