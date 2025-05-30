@@ -15,6 +15,21 @@
     </div>
 
     <div class="grid gap-6">
+        <!-- Notifikasi -->
+        @if(session('success'))
+            <div class="alert alert-success mb-4">
+                {{ session('success') }}
+            </div>
+        @elseif(session('error'))
+            <div class="alert alert-error mb-4">
+                {{ session('error') }}
+            </div>
+        @elseif(session('info'))
+            <div class="alert alert-info mb-4">
+                {{ session('info') }}
+            </div>
+        @endif
+
         <!-- Informasi Topik -->
         <div class="content-card">
             <div class="card-header">
@@ -131,4 +146,4 @@
         </div>
     </div>
 </div>
-@endsection 
+@endsection

@@ -62,6 +62,19 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+
+                    <!-- Edit Jadwal Konsultasi -->
+                    <div class="form-group md:col-span-2">
+                        <label for="schedule" class="form-label">Jadwal Konsultasi</label>
+                        <input type="datetime-local" name="schedule[]" id="schedule" class="form-input"
+                            value="{{ old('schedule', $client->schedules->first()->date ?? '') }}">
+                    </div>
+
+                    <!-- Edit Riwayat Konsultasi -->
+                    <div class="form-group md:col-span-2">
+                        <label for="session" class="form-label">Riwayat Konsultasi</label>
+                        <textarea name="session[]" id="session" rows="3" class="form-input">{{ old('session', $client->sessions->first()->notes ?? '') }}</textarea>
+                    </div>
                 </div>
 
                 <div class="flex justify-end gap-2 mt-6">
@@ -78,4 +91,4 @@
         </div>
     </div>
 </div>
-@endsection 
+@endsection

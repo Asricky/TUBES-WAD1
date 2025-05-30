@@ -84,11 +84,21 @@ class TopicController extends Controller
                 ->withInput();
         }
 
+        // Check if there were any actual changes to the topic
+        $isUpdated = $topic->name !== $request->name || $topic->description !== $request->description;
+
+        // Update topic
         $topic->update($request->all());
 
-        return redirect()
-            ->route('topics.index')
-            ->with('success', 'Topik berhasil diperbarui.');
+        if ($isUpdated) {
+            return redirect()
+                ->route('topics.index')
+                ->with('success', 'Topik berhasil diperbarui.');
+        } else {
+            return redirect()
+                ->route('topics.index')
+                ->with('info', 'Tidak ada perubahan yang disimpan.');
+        }
     }
 
     /**

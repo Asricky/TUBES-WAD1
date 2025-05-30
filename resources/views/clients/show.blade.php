@@ -1,45 +1,57 @@
-<x-app-layout>
-    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-        <div class="p-6 bg-white border-b border-gray-200">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-2xl font-bold">Detail Klien</h2>
-                <div>
-                    <a href="{{ route('clients.edit', $client) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2">
-                        Edit
-                    </a>
-                    <a href="{{ route('clients.index') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
-                        Kembali
-                    </a>
-                </div>
+@extends('layouts.main')
+
+@section('content')
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <div class="flex justify-between items-center">
+            <h1 class="dashboard-title">Detail Klien</h1>
+            <div>
+                <a href="{{ route('clients.edit', $client) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2">
+                    Edit
+                </a>
+                <a href="{{ route('clients.index') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                    Kembali
+                </a>
             </div>
+        </div>
+    </div>
 
-            <div class="bg-gray-50 p-6 rounded-lg">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <h3 class="text-gray-600 text-sm font-bold">Nama</h3>
-                        <p class="text-gray-900">{{ $client->name }}</p>
-                    </div>
-
-                    <div>
-                        <h3 class="text-gray-600 text-sm font-bold">Email</h3>
-                        <p class="text-gray-900">{{ $client->email }}</p>
-                    </div>
-
-                    <div>
-                        <h3 class="text-gray-600 text-sm font-bold">No. HP</h3>
-                        <p class="text-gray-900">{{ $client->phone }}</p>
-                    </div>
-
-                    <div>
-                        <h3 class="text-gray-600 text-sm font-bold">Alamat</h3>
-                        <p class="text-gray-900">{{ $client->address }}</p>
-                    </div>
-
-                    <div class="md:col-span-2">
-                        <h3 class="text-gray-600 text-sm font-bold">Catatan</h3>
-                        <p class="text-gray-900">{{ $client->notes ?? '-' }}</p>
-                    </div>
-                </div>
+    <div class="content-card">
+        <div class="card-body">
+            <h3 class="text-xl font-bold mb-4">Detail Klien</h3>
+            
+            <!-- Client Information Table -->
+            <div class="overflow-x-auto mb-8">
+                <table class="min-w-full divide-y divide-gray-200 shadow-lg rounded-lg">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Field</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Information</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Nama</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $client->name }}</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Email</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $client->email }}</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">No. HP</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $client->phone }}</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Alamat</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $client->address }}</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Catatan</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $client->notes ?? '-' }}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
             <!-- Jadwal Konsultasi -->
@@ -47,7 +59,7 @@
                 <h3 class="text-xl font-bold mb-4">Jadwal Konsultasi</h3>
                 @if($client->schedules->count() > 0)
                     <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200">
+                        <table class="min-w-full divide-y divide-gray-200 shadow-lg rounded-lg">
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal</th>
@@ -59,9 +71,9 @@
                             <tbody class="bg-white divide-y divide-gray-200">
                                 @foreach($client->schedules as $schedule)
                                 <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $schedule->date->format('d/m/Y') }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $schedule->time->format('H:i') }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $schedule->status }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $schedule->date->format('d/m/Y') }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $schedule->time->format('H:i') }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $schedule->status }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <a href="{{ route('schedules.show', $schedule) }}" class="text-blue-600 hover:text-blue-900">Detail</a>
                                     </td>
@@ -80,7 +92,7 @@
                 <h3 class="text-xl font-bold mb-4">Riwayat Konsultasi</h3>
                 @if($client->sessions->count() > 0)
                     <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200">
+                        <table class="min-w-full divide-y divide-gray-200 shadow-lg rounded-lg">
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal</th>
@@ -92,9 +104,9 @@
                             <tbody class="bg-white divide-y divide-gray-200">
                                 @foreach($client->sessions as $session)
                                 <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $session->created_at->format('d/m/Y') }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $session->topic->name }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $session->status }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $session->created_at->format('d/m/Y') }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $session->topic->name }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $session->status }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <a href="{{ route('sessions.show', $session) }}" class="text-blue-600 hover:text-blue-900">Detail</a>
                                     </td>
@@ -109,4 +121,5 @@
             </div>
         </div>
     </div>
-</x-app-layout> 
+</div>
+@endsection
