@@ -19,6 +19,11 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+        User::factory()->create([
+            'name' => 'Test Tubes',
+            'email' => 'test@example.com',
+            'password' => Hash::make('test'),            
+        ]);
 
         $this->call([
             TopicSeeder::class,
