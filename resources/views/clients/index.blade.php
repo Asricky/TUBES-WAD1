@@ -21,24 +21,24 @@
             @endif
 
             <div class="table-container">
-                <table class="min-w-full table-auto border border-gray-200 rounded-lg shadow-sm text-sm text-gray-700">
-                    <thead class="bg-blue-600 text-white">
+                <table class="custom-table">
+                    <thead>
                         <tr>
-                            <th class="p-3 text-left">Nama</th>
-                            <th class="p-3 text-left">Email</th>
-                            <th class="p-3 text-left">No. HP</th>
-                            <th class="p-3 text-left">Alamat</th>
-                            <th class="p-3 text-left">Aksi</th>
+                            <th>Nama</th>
+                            <th>Email</th>
+                            <th>No. HP</th>
+                            <th>Alamat</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($clients as $client)
                         <tr>
-                            <td class="p-3">{{ $client->name }}</td>
-                            <td class="p-3">{{ $client->email }}</td>
-                            <td class="p-3">{{ $client->phone }}</td>
-                            <td class="p-3">{{ $client->address }}</td>
-                            <td class="p-3 flex justify-center gap-2">
+                            <td>{{ $client->name }}</td>
+                            <td>{{ $client->email }}</td>
+                            <td>{{ $client->phone }}</td>
+                            <td>{{ $client->address }}</td>
+                            <td class="flex gap-2">
                                 <a href="{{ route('clients.show', $client) }}" class="btn-action btn-secondary">
                                     <i class="fas fa-eye"></i>
                                     Detail

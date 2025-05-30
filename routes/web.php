@@ -36,4 +36,5 @@ Route::middleware('auth')->group(function () {
     // Attachment routes
     Route::resource('attachments', AttachmentController::class);
 });
+
 require __DIR__.'/auth.php';
