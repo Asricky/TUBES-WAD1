@@ -1,17 +1,38 @@
-<x-app-layout>
-    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-        <div class="p-6 bg-white border-b border-gray-200">
-            <div class="mb-4">
-                <h2 class="text-2xl font-bold">Edit Sesi Konsultasi</h2>
-            </div>
+<!DOCTYPE html>
+<html lang="en">
 
-            <form action="{{ route('sessions.update', $session) }}" method="POST">
-                @csrf
-                @method('PUT')
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Sesi Konsultasi</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100">
+    @extends('layouts.main')
+
+    @section('content')
+    <div class="container mx-auto my-10 p-6 bg-white rounded-lg shadow-lg">
+        <div class="flex justify-between items-center mb-6">
+            <a href="{{ route('sessions.index') }}" class="btn-action btn-secondary flex items-center space-x-2 text-indigo-600 hover:text-indigo-800">
+                <i class="fas fa-arrow-left"></i>
+                <span>Kembali</span>
+            </a>
+        </div>
+
+        <h2 class="text-4xl font-semibold text-center text-gray-900 mb-8">Update Sesi Konsultasi</h2>
+
+        <form action="{{ route('sessions.update', $session->id) }}" method="POST" class="space-y-6">
+            @csrf
+            @method('PUT')
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <!-- Klien -->
                 <div class="mb-4">
-                    <label for="client_id" class="block text-gray-700 text-sm font-bold mb-2">Klien</label>
-                    <select name="client_id" id="client_id" 
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('client_id') border-red-500 @enderror"
+                    <label for="client_id" class="block text-lg font-medium text-gray-800 mb-2">Klien</label>
+                    <select name="client_id" id="client_id"
+                        class="w-full p-4 rounded-lg border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition duration-300 text-gray-700 @error('client_id') border-red-500 @enderror"
                         required>
                         <option value="">Pilih Klien</option>
                         @foreach($clients as $client)
@@ -21,14 +42,15 @@
                         @endforeach
                     </select>
                     @error('client_id')
-                        <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>
 
+                <!-- Jadwal -->
                 <div class="mb-4">
-                    <label for="schedule_id" class="block text-gray-700 text-sm font-bold mb-2">Jadwal</label>
-                    <select name="schedule_id" id="schedule_id" 
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('schedule_id') border-red-500 @enderror"
+                    <label for="schedule_id" class="block text-lg font-medium text-gray-800 mb-2">Jadwal</label>
+                    <select name="schedule_id" id="schedule_id"
+                        class="w-full p-4 rounded-lg border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition duration-300 text-gray-700 @error('schedule_id') border-red-500 @enderror"
                         required>
                         <option value="">Pilih Jadwal</option>
                         @foreach($schedules as $schedule)
@@ -38,14 +60,15 @@
                         @endforeach
                     </select>
                     @error('schedule_id')
-                        <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>
 
+                <!-- Topik -->
                 <div class="mb-4">
-                    <label for="topic_id" class="block text-gray-700 text-sm font-bold mb-2">Topik</label>
-                    <select name="topic_id" id="topic_id" 
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('topic_id') border-red-500 @enderror"
+                    <label for="topic_id" class="block text-lg font-medium text-gray-800 mb-2">Topik</label>
+                    <select name="topic_id" id="topic_id"
+                        class="w-full p-4 rounded-lg border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition duration-300 text-gray-700 @error('topic_id') border-red-500 @enderror"
                         required>
                         <option value="">Pilih Topik</option>
                         @foreach($topics as $topic)
@@ -55,14 +78,15 @@
                         @endforeach
                     </select>
                     @error('topic_id')
-                        <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>
 
+                <!-- Status -->
                 <div class="mb-4">
-                    <label for="status" class="block text-gray-700 text-sm font-bold mb-2">Status</label>
+                    <label for="status" class="block text-lg font-medium text-gray-800 mb-2">Status</label>
                     <select name="status" id="status"
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('status') border-red-500 @enderror"
+                        class="w-full p-4 rounded-lg border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition duration-300 text-gray-700 @error('status') border-red-500 @enderror"
                         required>
                         <option value="scheduled" {{ old('status', $session->status) == 'scheduled' ? 'selected' : '' }}>Scheduled</option>
                         <option value="in_progress" {{ old('status', $session->status) == 'in_progress' ? 'selected' : '' }}>In Progress</option>
@@ -70,38 +94,40 @@
                         <option value="cancelled" {{ old('status', $session->status) == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
                     </select>
                     @error('status')
-                        <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>
+            </div>
 
-                <div class="mb-4">
-                    <label for="summary" class="block text-gray-700 text-sm font-bold mb-2">Ringkasan</label>
-                    <textarea name="summary" id="summary" rows="3"
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('summary') border-red-500 @enderror"
-                        required>{{ old('summary', $session->summary) }}</textarea>
-                    @error('summary')
-                        <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                    @enderror
-                </div>
+            <!-- Ringkasan -->
+            <div class="mb-4">
+                <label for="summary" class="block text-lg font-medium text-gray-800 mb-2">Ringkasan</label>
+                <textarea name="summary" id="summary" rows="4"
+                    class="w-full p-4 rounded-lg border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition duration-300 text-gray-700 @error('summary') border-red-500 @enderror"
+                    required>{{ old('summary', $session->summary) }}</textarea>
+                @error('summary')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
+            </div>
 
-                <div class="mb-4">
-                    <label for="notes" class="block text-gray-700 text-sm font-bold mb-2">Catatan</label>
-                    <textarea name="notes" id="notes" rows="3"
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('notes') border-red-500 @enderror">{{ old('notes', $session->notes) }}</textarea>
-                    @error('notes')
-                        <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                    @enderror
-                </div>
+            <!-- Catatan -->
+            <div class="mb-4">
+                <label for="notes" class="block text-lg font-medium text-gray-800 mb-2">Catatan</label>
+                <textarea name="notes" id="notes" rows="4"
+                    class="w-full p-4 rounded-lg border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition duration-300 text-gray-700 @error('notes') border-red-500 @enderror">{{ old('notes', $session->notes) }}</textarea>
+                @error('notes')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
+            </div>
 
-                <div class="flex items-center justify-between">
-                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                        Simpan Perubahan
-                    </button>
-                    <a href="{{ route('sessions.index') }}" class="text-gray-600 hover:text-gray-800">
-                        Batal
-                    </a>
-                </div>
-            </form>
-        </div>
+            <div class="flex items-center justify-between space-x-2">
+                <button type="submit" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-4 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-300">
+                    Update
+                </button>
+            </div>
+        </form>
     </div>
-</x-app-layout> 
+    @endsection
+</body>
+
+</html>

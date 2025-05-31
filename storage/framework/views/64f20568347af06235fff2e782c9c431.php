@@ -12,7 +12,9 @@
     <link rel="stylesheet" href="<?php echo e(asset('css/custom.css')); ?>">
     
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Vite Assets -->
+    <?php echo app('Illuminate\Foundation\Vite')(['resources/css/app.css', 'resources/js/app.js']); ?>
 </head>
 <body>
     <!-- Navigation -->
@@ -20,7 +22,7 @@
         <div class="container">
             <a href="<?php echo e(url('/')); ?>" class="navbar-brand">
                 <i class="fas fa-comments"></i>
-                Konsultasi Online
+                Konsultasi
             </a>
             
             <button class="mobile-menu-button" id="mobileMenuButton">
@@ -150,4 +152,4 @@
         });
     </script>
 </body>
-</html> <?php /**PATH C:\Users\ADMIN\Documents\Kuliah\SEMESTER 4\PENGEMBANGAN APLIKASI WEBSITE\TUBES-WAD1\resources\views/layouts/main.blade.php ENDPATH**/ ?>
+</html><?php /**PATH C:\Users\ADMIN\Documents\Kuliah\SEMESTER 4\PENGEMBANGAN APLIKASI WEBSITE\TUBES-WAD1\resources\views/layouts/main.blade.php ENDPATH**/ ?>
