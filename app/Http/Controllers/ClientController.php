@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Client;
+use App\Models\Schedule;
+use App\Models\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -74,12 +76,15 @@ class ClientController extends Controller
      */
     public function update(Request $request, Client $client)
     {
+        // Validate client data
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:clients,email,' . $client->id,
             'phone' => 'required|string|max:20',
             'address' => 'required|string',
-            'notes' => 'nullable|string'
+            'notes' => 'nullable|string',
+            'schedule.*' => 'nullable|date',
+            'session.*' => 'nullable|string',
         ]);
 
         if ($validator->fails()) {
@@ -89,11 +94,38 @@ class ClientController extends Controller
                 ->withInput();
         }
 
-        $client->update($request->all());
+        // Update client information
+        $client->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'notes' => $request->notes,
+        ]);
+
+        // Update schedules (Jadwal Konsultasi)
+        foreach ($request->schedule as $scheduleId => $scheduleDate) {
+            $schedule = Schedule::find($scheduleId);
+            if ($schedule) {
+                $schedule->update([
+                    'date' => $scheduleDate,
+                ]);
+            }
+        }
+
+        // Update session history (Riwayat Konsultasi)
+        foreach ($request->session as $sessionId => $sessionNotes) {
+            $session = Session::find($sessionId);
+            if ($session) {
+                $session->update([
+                    'notes' => $sessionNotes,
+                ]);
+            }
+        }
 
         return redirect()
             ->route('clients.index')
-            ->with('success', 'Data klien berhasil diperbarui.');
+            ->with('success', 'Data klien dan data terkait berhasil diperbarui.');
     }
 
     /**
