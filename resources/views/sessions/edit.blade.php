@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
     <meta charset="UTF-8">
@@ -22,7 +22,7 @@
 
         <h2 class="text-4xl font-semibold text-center text-gray-900 mb-8">Update Sesi Konsultasi</h2>
 
-        <form action="{{ route('sessions.update', $session->id) }}" method="POST" class="space-y-6">
+        <form action="{{ route('sessions.update', $session->id) }}" method="POST" class="space-y-6" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -113,11 +113,30 @@
             <!-- Catatan -->
             <div class="mb-4">
                 <label for="notes" class="block text-lg font-medium text-gray-800 mb-2">Catatan</label>
-                <textarea name="notes" id="notes" rows="4"
-                    class="w-full p-4 rounded-lg border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition duration-300 text-gray-700 @error('notes') border-red-500 @enderror">{{ old('notes', $session->notes) }}</textarea>
+                <input type="file" name="notes" id="notes" accept=".pdf,.docx,.jpg,.jpeg,.png,.gif"
+                    class="w-full p-4 rounded-lg border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition duration-300 text-gray-700 @error('notes') border-red-500 @enderror">
                 @error('notes')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                 @enderror
+
+                <!-- Menampilkan file yang sudah ada jika ada -->
+                @if($session->notes)
+                    <div class="mt-4">
+                        <h4 class="text-sm font-semibold">File Saat Ini:</h4>
+                        <!-- Jika file adalah gambar -->
+                        @if(in_array(pathinfo($session->notes, PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png', 'gif']))
+                            <img src="{{ Storage::url($session->notes) }}" alt="Gambar Lampiran" class="max-w-full max-h-96 mt-2">
+                        @elseif(pathinfo($session->notes, PATHINFO_EXTENSION) == 'pdf')
+                            <!-- Jika file adalah PDF -->
+                            <iframe src="{{ Storage::url($session->notes) }}" width="100%" height="500px" class="mt-2 border-2 rounded-lg"></iframe>
+                        @else
+                            <!-- Jika file lain -->
+                            <a href="{{ Storage::url($session->notes) }}" target="_blank" class="text-blue-600 hover:text-blue-900 mt-2">
+                                Lihat File
+                            </a>
+                        @endif
+                    </div>
+                @endif
             </div>
 
             <div class="flex items-center justify-between space-x-2">
