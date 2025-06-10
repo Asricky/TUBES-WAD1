@@ -90,8 +90,8 @@
                                 <x-status-badge :status="$schedule->status" />
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                <a href="{{ route('schedules.show', $schedule) }}" class="text-blue-600 hover:text-blue-900 transition-colors duration-200">
-                                    <i class="fas fa-eye mr-1"></i> Detail
+                                <a href="{{ route('schedules.show', $schedule) }}" class="inline-flex items-center justify-center w-8 h-8 bg-blue-100 text-blue-600 rounded-full hover:bg-blue-200 hover:text-blue-800 transition-all duration-200" title="Lihat Detail">
+                                    <i class="fas fa-eye"></i>
                                 </a>
                             </td>
                         </tr>
@@ -100,8 +100,9 @@
                 </table>
             </div>
             <div class="px-6 py-3 bg-gray-50 text-right text-sm border-t border-gray-100">
-                <a href="{{ route('schedules.index') }}" class="text-blue-600 hover:text-blue-800 font-medium">
-                    Lihat Semua Jadwal <i class="fas fa-arrow-right ml-1"></i>
+                <a href="{{ route('schedules.index') }}" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200">
+                    <span>Lihat Semua Jadwal</span>
+                    <i class="fas fa-arrow-right ml-2"></i>
                 </a>
             </div>
         </div>
@@ -156,8 +157,8 @@
                                 <x-status-badge :status="$session->status" />
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                <a href="{{ route('sessions.show', $session) }}" class="text-blue-600 hover:text-blue-900 transition-colors duration-200">
-                                    <i class="fas fa-eye mr-1"></i> Detail
+                                <a href="{{ route('sessions.show', $session) }}" class="inline-flex items-center justify-center w-8 h-8 bg-blue-100 text-blue-600 rounded-full hover:bg-blue-200 hover:text-blue-800 transition-all duration-200" title="Lihat Detail">
+                                    <i class="fas fa-eye"></i>
                                 </a>
                             </td>
                         </tr>
@@ -166,8 +167,9 @@
                 </table>
             </div>
             <div class="px-6 py-3 bg-gray-50 text-right text-sm border-t border-gray-100">
-                <a href="{{ route('sessions.index') }}" class="text-blue-600 hover:text-blue-800 font-medium">
-                    Lihat Semua Sesi <i class="fas fa-arrow-right ml-1"></i>
+                <a href="{{ route('sessions.index') }}" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200">
+                    <span>Lihat Semua Sesi</span>
+                    <i class="fas fa-arrow-right ml-2"></i>
                 </a>
             </div>
         </div>
