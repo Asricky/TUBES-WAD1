@@ -1,149 +1,113 @@
 @extends('layouts.main')
 
 @section('content')
-<div class="dashboard-container">
-    <div class="dashboard-header">
-        <h1 class="dashboard-title">Dashboard</h1>
+<div class="p-6 space-y-10 bg-gray-50 min-h-screen">
+
+    {{-- Header --}}
+   <div class="relative w-full h-56 rounded-xl overflow-hidden shadow">
+    <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=1200&q=80"
+         alt="Konseling Background"
+         class="absolute inset-0 w-full h-full object-cover brightness-75">
+
+    <div class="relative z-10 flex flex-col justify-center items-start h-full px-6 md:px-10">
+        <h1 class="text-3xl md:text-4xl font-bold text-white drop-shadow-md">Dashboard Konselor</h1>
+        <p class="text-white mt-2 text-sm md:text-base drop-shadow-md">Selamat datang kembali! Pantau aktivitas terbaru di bawah ini.</p>
+    </div>
+</div>
+
+    {{-- Stats Cards --}}
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <x-stat-card icon="users" color="blue" label="Total Klien" :value="\App\Models\Client::count()" />
+        <x-stat-card icon="calendar-day" color="green" label="Jadwal Hari Ini" :value="\App\Models\Schedule::whereDate('date', today())->count()" />
+        <x-stat-card icon="comments" color="purple" label="Total Sesi" :value="\App\Models\Session::count()" />
+        <x-stat-card icon="tags" color="yellow" label="Total Topik" :value="\App\Models\Topic::count()" />
     </div>
 
-    <div class="stats-grid">
-        <!-- Total Klien -->
-        <div class="stat-card">
-            <div class="stat-label">
-                <i class="fas fa-users icon"></i>
-                Total Klien
-            </div>
-            <div class="stat-value">{{ \App\Models\Client::count() }}</div>
-        </div>
-
-        <!-- Jadwal Hari Ini -->
-        <div class="stat-card">
-            <div class="stat-label">
-                <i class="fas fa-calendar-day icon"></i>
-                Jadwal Hari Ini
-            </div>
-            <div class="stat-value">{{ \App\Models\Schedule::whereDate('date', today())->count() }}</div>
-        </div>
-
-        <!-- Total Sesi -->
-        <div class="stat-card">
-            <div class="stat-label">
-                <i class="fas fa-comments icon"></i>
-                Total Sesi
-            </div>
-            <div class="stat-value">{{ \App\Models\Session::count() }}</div>
-        </div>
-
-        <!-- Total Topik -->
-        <div class="stat-card">
-            <div class="stat-label">
-                <i class="fas fa-tags icon"></i>
-                Total Topik
-            </div>
-            <div class="stat-value">{{ \App\Models\Topic::count() }}</div>
-        </div>
-    </div>
-
-    <!-- Jadwal Terbaru -->
-    <div class="content-card">
-        <div class="card-header">
-            <h2 class="card-title">
-                <i class="fas fa-calendar icon"></i>
-                Jadwal Konsultasi Terbaru
+    {{-- Jadwal Konsultasi Terbaru --}}
+    <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-semibold text-gray-800 flex items-center gap-2">
+                <i class="fas fa-calendar text-blue-500"></i> Jadwal Konsultasi Terbaru
             </h2>
+            <a href="{{ route('schedules.index') }}" class="text-blue-600 text-sm hover:underline">Lihat Semua</a>
         </div>
-        <div class="card-body">
-            <div class="table-container">
-                <table class="custom-table">
-                    <thead>
-                        <tr>
-                            <th>Klien</th>
-                            <th>Tanggal</th>
-                            <th>Waktu</th>
-                            <th>Status</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach(\App\Models\Schedule::with('client')->latest()->take(5)->get() as $schedule)
-                        <tr>
-                            <td>
-                                <div class="font-medium">{{ $schedule->client->name }}</div>
-                                <div class="text-gray-500 text-sm">{{ $schedule->client->email }}</div>
-                            </td>
-                            <td>{{ $schedule->date->format('d/m/Y') }}</td>
-                            <td>{{ $schedule->time->format('H:i') }}</td>
-                            <td>
-                                <span class="status-badge {{ 
-                                    $schedule->status == 'completed' ? 'status-completed' :
-                                    ($schedule->status == 'cancelled' ? 'status-cancelled' :
-                                    ($schedule->status == 'confirmed' ? 'status-confirmed' : 'status-pending'))
-                                }}">
-                                    {{ ucfirst($schedule->status) }}
-                                </span>
-                            </td>
-                            <td>
-                                <a href="{{ route('schedules.show', $schedule) }}" class="btn-action btn-secondary">
-                                    <i class="fas fa-eye"></i> Detail
-                                </a>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+        <div class="overflow-x-auto">
+            <table class="min-w-full table-auto text-sm divide-y divide-gray-200">
+                <thead class="bg-gray-100 text-gray-600 font-semibold text-left">
+                    <tr>
+                        <th class="px-4 py-2">Klien</th>
+                        <th class="px-4 py-2">Tanggal</th>
+                        <th class="px-4 py-2">Waktu</th>
+                        <th class="px-4 py-2">Status</th>
+                        <th class="px-4 py-2">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100 bg-white">
+                    @foreach(\App\Models\Schedule::with('client')->latest()->take(5)->get() as $schedule)
+                    <tr>
+                        <td class="px-4 py-2">
+                            <div class="font-medium text-gray-800">{{ $schedule->client->name }}</div>
+                            <div class="text-gray-500 text-xs">{{ $schedule->client->email }}</div>
+                        </td>
+                        <td class="px-4 py-2">{{ $schedule->date->format('d/m/Y') }}</td>
+                        <td class="px-4 py-2">{{ $schedule->time->format('H:i') }}</td>
+                        <td class="px-4 py-2">
+                            <x-status-badge :status="$schedule->status" />
+                        </td>
+                        <td class="px-4 py-2">
+                            <a href="{{ route('schedules.show', $schedule) }}" class="text-blue-600 hover:underline">
+                                <i class="fas fa-eye"></i> Detail
+                            </a>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 
-    <!-- Sesi Terbaru -->
-    <div class="content-card">
-        <div class="card-header">
-            <h2 class="card-title">
-                <i class="fas fa-comments icon"></i>
-                Sesi Konsultasi Terbaru
+    {{-- Sesi Konsultasi Terbaru --}}
+    <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-semibold text-gray-800 flex items-center gap-2">
+                <i class="fas fa-comments text-purple-500"></i> Sesi Konsultasi Terbaru
             </h2>
+            <a href="{{ route('sessions.index') }}" class="text-blue-600 text-sm hover:underline">Lihat Semua</a>
         </div>
-        <div class="card-body">
-            <div class="table-container">
-                <table class="custom-table">
-                    <thead>
-                        <tr>
-                            <th>Klien</th>
-                            <th>Topik</th>
-                            <th>Status</th>
-                            <th>Tanggal</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach(\App\Models\Session::with(['client', 'topic', 'schedule'])->latest()->take(5)->get() as $session)
-                        <tr>
-                            <td>
-                                <div class="font-medium">{{ $session->client->name }}</div>
-                                <div class="text-gray-500 text-sm">{{ $session->client->email }}</div>
-                            </td>
-                            <td>{{ $session->topic->name }}</td>
-                            <td>
-                                <span class="status-badge {{ 
-                                    $session->status == 'completed' ? 'status-completed' :
-                                    ($session->status == 'cancelled' ? 'status-cancelled' :
-                                    ($session->status == 'in_progress' ? 'status-confirmed' : 'status-pending'))
-                                }}">
-                                    {{ ucfirst($session->status) }}
-                                </span>
-                            </td>
-                            <td>{{ $session->schedule->date->format('d/m/Y') }}</td>
-                            <td>
-                                <a href="{{ route('sessions.show', $session) }}" class="btn-action btn-secondary">
-                                    <i class="fas fa-eye"></i> Detail
-                                </a>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+        <div class="overflow-x-auto">
+            <table class="min-w-full table-auto text-sm divide-y divide-gray-200">
+                <thead class="bg-gray-100 text-gray-600 font-semibold text-left">
+                    <tr>
+                        <th class="px-4 py-2">Klien</th>
+                        <th class="px-4 py-2">Topik</th>
+                        <th class="px-4 py-2">Status</th>
+                        <th class="px-4 py-2">Tanggal</th>
+                        <th class="px-4 py-2">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100 bg-white">
+                    @foreach(\App\Models\Session::with(['client', 'topic', 'schedule'])->latest()->take(5)->get() as $session)
+                    <tr>
+                        <td class="px-4 py-2">
+                            <div class="font-medium text-gray-800">{{ $session->client->name }}</div>
+                            <div class="text-gray-500 text-xs">{{ $session->client->email }}</div>
+                        </td>
+                        <td class="px-4 py-2">{{ $session->topic->name }}</td>
+                        <td class="px-4 py-2">
+                            <x-status-badge :status="$session->status" />
+                        </td>
+                        <td class="px-4 py-2">{{ $session->schedule->date->format('d/m/Y') }}</td>
+                        <td class="px-4 py-2">
+                            <a href="{{ route('sessions.show', $session) }}" class="text-blue-600 hover:underline">
+                                <i class="fas fa-eye"></i> Detail
+                            </a>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
+
 </div>
 @endsection
