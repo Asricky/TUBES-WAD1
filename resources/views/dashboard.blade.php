@@ -4,12 +4,12 @@
 <div class="p-6 space-y-10 bg-gray-50 min-h-screen">
 
     {{-- Header dengan gambar background --}}
-    <div class="relative w-full h-56 rounded-xl overflow-hidden shadow">
+    <div class="relative w-full h-56 rounded-xl overflow-hidden shadow-lg">
         <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=1200&q=80"
              alt="Konseling Background"
              class="absolute inset-0 w-full h-full object-cover brightness-75">
         <div class="relative z-10 flex flex-col justify-center items-start h-full px-6 md:px-10">
-            <h1 class="text-3xl md:text-4xl font-bold text-white drop-shadow-md">Dashboard Konselor</h1>
+            <h1 class="text-3xl md:text-4xl font-bold text-white drop-shadow-lg">Dashboard Konselor</h1>
             <p class="text-white mt-2 text-sm md:text-base drop-shadow-md">Selamat datang kembali! Pantau aktivitas terbaru di bawah ini.</p>
         </div>
     </div>
@@ -26,13 +26,13 @@
         @endphp
 
         @foreach ($stats as $stat)
-            <div class="bg-white p-6 rounded-lg shadow hover:shadow-md transition duration-300 flex items-center gap-6">
+            <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 flex items-center gap-6 border border-gray-100 hover:border-{{ $stat['color'] }}-200">
                 <div class="text-4xl text-{{ $stat['color'] }}-500">
                     <i class="fas fa-{{ $stat['icon'] }}"></i>
                 </div>
                 <div>
                     <div class="text-lg text-gray-500">{{ $stat['label'] }}</div>
-                    <div class="text-2xl font-semibold text-gray-800">{{ $stat['value'] }}</div>
+                    <div class="text-2xl font-bold text-gray-800">{{ $stat['value'] }}</div>
                 </div>
             </div>
         @endforeach
@@ -41,39 +41,56 @@
     {{-- Side-by-side Tables --}}
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {{-- Jadwal Konsultasi Terbaru --}}
-        <div class="bg-white rounded-lg shadow p-6">
-            <div class="flex items-center justify-between mb-4">
-                <h2 class="text-xl font-semibold text-gray-800 flex items-center gap-2">
-                    <i class="fas fa-calendar text-blue-500"></i> Jadwal Konsultasi Terbaru
-                </h2>
-                <a href="{{ route('schedules.index') }}" class="text-blue-600 text-sm hover:underline">Lihat Semua</a>
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+            <div class="p-6 pb-4 border-b border-gray-100">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-xl font-bold text-gray-800 flex items-center gap-3">
+                        <div class="p-2 bg-blue-100 rounded-lg text-blue-600">
+                            <i class="fas fa-calendar"></i>
+                        </div>
+                        <span>Jadwal Konsultasi Terbaru</span>
+                    </h2>
+                </div>
             </div>
-            <div class="overflow-x-auto border rounded-lg">
-                <table class="min-w-full text-sm divide-y divide-gray-200">
-                    <thead class="bg-gray-100 text-gray-600 font-semibold text-left">
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-gray-50">
                         <tr>
-                            <th class="px-4 py-3">Klien</th>
-                            <th class="px-4 py-3">Tanggal</th>
-                            <th class="px-4 py-3">Waktu</th>
-                            <th class="px-4 py-3">Status</th>
-                            <th class="px-4 py-3">Aksi</th>
+                            <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Klien</th>
+                            <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Tanggal</th>
+                            <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">Aksi</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-100 bg-white">
+                    <tbody class="divide-y divide-gray-100">
                         @foreach(\App\Models\Schedule::with('client')->latest()->take(5)->get() as $schedule)
-                        <tr class="hover:bg-gray-50 transition duration-200">
-                            <td class="px-4 py-3">
-                                <div class="font-medium text-gray-800">{{ $schedule->client->name }}</div>
-                                <div class="text-gray-500 text-xs">{{ $schedule->client->email }}</div>
+                        <tr class="hover:bg-gray-50 transition-colors duration-150">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 h-10 w-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="font-medium text-gray-900">{{ $schedule->client->name }}</div>
+                                        <div class="text-gray-500 text-xs">{{ $schedule->client->email }}</div>
+                                    </div>
+                                </div>
                             </td>
-                            <td class="px-4 py-3">{{ $schedule->date->format('d/m/Y') }}</td>
-                            <td class="px-4 py-3">{{ $schedule->time->format('H:i') }}</td>
-                            <td class="px-4 py-3">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-gray-900 flex items-center">
+                                    <i class="far fa-calendar-alt mr-2 text-blue-500"></i>
+                                    {{ $schedule->date->format('d M Y') }}
+                                </div>
+                                <div class="text-gray-500 text-sm flex items-center mt-1">
+                                    <i class="far fa-clock mr-2 text-green-500"></i>
+                                    {{ $schedule->time->format('H:i') }}
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
                                 <x-status-badge :status="$schedule->status" />
                             </td>
-                            <td class="px-4 py-3">
-                                <a href="{{ route('schedules.show', $schedule) }}"
-                                   class="text-sm text-blue-600 hover:text-blue-800 transition duration-200">
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <a href="{{ route('schedules.show', $schedule) }}" class="text-blue-600 hover:text-blue-900 transition-colors duration-200">
                                     <i class="fas fa-eye mr-1"></i> Detail
                                 </a>
                             </td>
@@ -81,43 +98,65 @@
                         @endforeach
                     </tbody>
                 </table>
+            </div>
+            <div class="px-6 py-3 bg-gray-50 text-right text-sm border-t border-gray-100">
+                <a href="{{ route('schedules.index') }}" class="text-blue-600 hover:text-blue-800 font-medium">
+                    Lihat Semua Jadwal <i class="fas fa-arrow-right ml-1"></i>
+                </a>
             </div>
         </div>
 
         {{-- Sesi Konsultasi Terbaru --}}
-        <div class="bg-white rounded-lg shadow p-6">
-            <div class="flex items-center justify-between mb-4">
-                <h2 class="text-xl font-semibold text-gray-800 flex items-center gap-2">
-                    <i class="fas fa-comments text-purple-500"></i> Sesi Konsultasi Terbaru
-                </h2>
-                <a href="{{ route('sessions.index') }}" class="text-blue-600 text-sm hover:underline">Lihat Semua</a>
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+            <div class="p-6 pb-4 border-b border-gray-100">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-xl font-bold text-gray-800 flex items-center gap-3">
+                        <div class="p-2 bg-purple-100 rounded-lg text-purple-600">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <span>Sesi Konsultasi Terbaru</span>
+                    </h2>
+                </div>
             </div>
-            <div class="overflow-x-auto border rounded-lg">
-                <table class="min-w-full text-sm divide-y divide-gray-200">
-                    <thead class="bg-gray-100 text-gray-600 font-semibold text-left">
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-gray-50">
                         <tr>
-                            <th class="px-4 py-3">Klien</th>
-                            <th class="px-4 py-3">Topik</th>
-                            <th class="px-4 py-3">Status</th>
-                            <th class="px-4 py-3">Tanggal</th>
-                            <th class="px-4 py-3">Aksi</th>
+                            <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Klien</th>
+                            <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Topik</th>
+                            <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">Aksi</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-100 bg-white">
+                    <tbody class="divide-y divide-gray-100">
                         @foreach(\App\Models\Session::with(['client', 'topic', 'schedule'])->latest()->take(5)->get() as $session)
-                        <tr class="hover:bg-gray-50 transition duration-200">
-                            <td class="px-4 py-3">
-                                <div class="font-medium text-gray-800">{{ $session->client->name }}</div>
-                                <div class="text-gray-500 text-xs">{{ $session->client->email }}</div>
+                        <tr class="hover:bg-gray-50 transition-colors duration-150">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 h-10 w-10 bg-purple-100 rounded-full flex items-center justify-center text-purple-600">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="font-medium text-gray-900">{{ $session->client->name }}</div>
+                                        <div class="text-gray-500 text-xs">{{ $session->client->email }}</div>
+                                    </div>
+                                </div>
                             </td>
-                            <td class="px-4 py-3">{{ $session->topic->name }}</td>
-                            <td class="px-4 py-3">
+                            <td class="px-6 py-4">
+                                <div class="text-gray-900 flex items-center">
+                                    <i class="fas fa-lightbulb mr-2 text-yellow-500"></i>
+                                    {{ $session->topic->name }}
+                                </div>
+                                <div class="text-gray-500 text-xs mt-1 flex items-center">
+                                    <i class="far fa-calendar-alt mr-2 text-blue-500"></i>
+                                    {{ $session->schedule->date->format('d M Y') }}
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
                                 <x-status-badge :status="$session->status" />
                             </td>
-                            <td class="px-4 py-3">{{ $session->schedule->date->format('d/m/Y') }}</td>
-                            <td class="px-4 py-3">
-                                <a href="{{ route('sessions.show', $session) }}"
-                                   class="text-sm text-blue-600 hover:text-blue-800 transition duration-200">
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <a href="{{ route('sessions.show', $session) }}" class="text-blue-600 hover:text-blue-900 transition-colors duration-200">
                                     <i class="fas fa-eye mr-1"></i> Detail
                                 </a>
                             </td>
@@ -125,6 +164,11 @@
                         @endforeach
                     </tbody>
                 </table>
+            </div>
+            <div class="px-6 py-3 bg-gray-50 text-right text-sm border-t border-gray-100">
+                <a href="{{ route('sessions.index') }}" class="text-blue-600 hover:text-blue-800 font-medium">
+                    Lihat Semua Sesi <i class="fas fa-arrow-right ml-1"></i>
+                </a>
             </div>
         </div>
     </div>
