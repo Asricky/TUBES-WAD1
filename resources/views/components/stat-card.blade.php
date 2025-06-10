@@ -1,9 +1,9 @@
-@props(['icon', 'label', 'value', 'color'])
-
-<div class="bg-white shadow rounded-lg p-4">
-    <div class="flex items-center space-x-2 text-gray-700 font-semibold">
-        <i class="fas fa-{{ $icon }} text-{{ $color }}-500"></i>
-        <span>{{ $label }}</span>
+<div class="bg-white p-6 rounded-lg shadow hover:shadow-md transition duration-300 flex items-center gap-6">
+    <div class="text-4xl text-{{ $color }}-500">
+        <i class="fas fa-{{ $icon }}"></i>
     </div>
-    <div class="text-2xl font-bold mt-2 text-gray-800">{{ $value }}</div>
+    <div>
+        <div class="text-lg text-gray-500">{{ $label }}</div>
+        <div class="text-2xl font-semibold text-gray-800">{{ $value }}</div>
+    </div>
 </div>
