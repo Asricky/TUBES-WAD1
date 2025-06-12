@@ -4,7 +4,7 @@
 <div class="dashboard-container">
     <div class="dashboard-header">
         <div class="flex justify-between items-center">
-            <h1 class="dashboard-title">Tambah Klien Baru</h1>
+            <h1 class="dashboard-title">Tambah Konselor Baru</h1>
             <a href="{{ route('clients.index') }}" class="btn-action btn-secondary">
                 <i class="fas fa-arrow-left icon"></i>
                 Kembali

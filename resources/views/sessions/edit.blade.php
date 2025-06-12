@@ -28,13 +28,13 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-                <!-- Klien -->
+                <!-- Konselor -->
                 <div class="mb-4">
-                    <label for="client_id" class="block text-lg font-medium text-gray-800 mb-2">Klien</label>
+                    <label for="client_id" class="block text-lg font-medium text-gray-800 mb-2">Konselor</label>
                     <select name="client_id" id="client_id"
                         class="w-full p-4 rounded-lg border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition duration-300 text-gray-700 @error('client_id') border-red-500 @enderror"
                         required>
-                        <option value="">Pilih Klien</option>
+                        <option value="">Pilih Konselor</option>
                         @foreach($clients as $client)
                             <option value="{{ $client->id }}" {{ old('client_id', $session->client_id) == $client->id ? 'selected' : '' }}>
                                 {{ $client->name }} ({{ $client->email }})

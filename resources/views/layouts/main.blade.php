@@ -37,7 +37,7 @@
                     </a>
                     <a href="{{ route('clients.index') }}" class="nav-link {{ request()->routeIs('clients.*') ? 'active' : '' }}">
                         <i class="fas fa-users"></i>
-                        Klien
+                        Konselor
                     </a>
                     <a href="{{ route('schedules.index') }}" class="nav-link {{ request()->routeIs('schedules.*') ? 'active' : '' }}">
                         <i class="fas fa-calendar"></i>

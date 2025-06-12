@@ -25,7 +25,7 @@
                 <table class="min-w-full table-auto border border-gray-200 rounded-lg shadow-sm text-sm text-gray-700">
                     <thead class="bg-blue-600 text-white">
                         <tr>
-                            <th class="p-3 text-left">Klien</th>
+                            <th class="p-3 text-left">Konselor</th>
                             <th class="p-3 text-left">Jadwal</th>
                             <th class="p-3 text-left">Topik</th>
                             <th class="p-3 text-left">Status</th>

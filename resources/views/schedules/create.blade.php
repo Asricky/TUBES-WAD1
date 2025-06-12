@@ -36,11 +36,11 @@
             <form action="{{ route('schedules.store') }}" method="POST">
                 @csrf
 
-                <!-- Klien -->
+                <!-- Konselor -->
                 <div class="mb-6">
-                    <label for="client_id" class="block text-gray-700 text-sm font-bold mb-2">Klien</label>
+                    <label for="client_id" class="block text-gray-700 text-sm font-bold mb-2">Konselor</label>
                     <select name="client_id" id="client_id" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('client_id') border-red-500 @enderror" required>
-                        <option value="">Pilih Klien</option>
+                        <option value="">Pilih Konselor</option>
                         @foreach($clients as $client)
                             <option value="{{ $client->id }}" {{ old('client_id') == $client->id ? 'selected' : '' }}>
                                 {{ $client->name }} ({{ $client->email }})
