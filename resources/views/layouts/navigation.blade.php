@@ -16,7 +16,7 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     <x-nav-link :href="route('clients.index')" :active="request()->routeIs('clients.*')">
-                        {{ __('Klien') }}
+                        {{ __('Konselor') }}
                     </x-nav-link>
                     <x-nav-link :href="route('schedules.index')" :active="request()->routeIs('schedules.*')">
                         {{ __('Jadwal') }}
@@ -83,7 +83,7 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('clients.index')" :active="request()->routeIs('clients.*')">
-                {{ __('Klien') }}
+                {{ __('Konselor') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('schedules.index')" :active="request()->routeIs('schedules.*')">
                 {{ __('Jadwal') }}

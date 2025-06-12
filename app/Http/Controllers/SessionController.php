@@ -7,6 +7,7 @@ use App\Models\Schedule;
 use App\Models\Topic;
 use App\Models\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class SessionController extends Controller
@@ -36,12 +37,13 @@ class SessionController extends Controller
      */
     public function store(Request $request)
     {
+        // Validasi input
         $validator = Validator::make($request->all(), [
             'schedule_id' => 'required|exists:schedules,id',
             'client_id' => 'required|exists:clients,id',
             'topic_id' => 'required|exists:topics,id',
             'summary' => 'required|string',
-            'notes' => 'nullable|string',
+            'notes' => 'nullable|file|mimes:pdf,docx,jpg,jpeg,png,gif|max:10240', // Validasi file
             'status' => 'required|in:scheduled,in_progress,completed,cancelled'
         ]);
 
@@ -52,7 +54,21 @@ class SessionController extends Controller
                 ->withInput();
         }
 
-        $session = Session::create($request->all());
+        // Menyimpan file jika ada
+        $notesPath = null;
+        if ($request->hasFile('notes')) {
+            $notesPath = $request->file('notes')->store('documents', 'public');  // Menyimpan file di folder 'public/documents'
+        }
+
+        // Simpan sesi konsultasi ke database
+        $session = Session::create([
+            'schedule_id' => $request->schedule_id,
+            'client_id' => $request->client_id,
+            'topic_id' => $request->topic_id,
+            'summary' => $request->summary,
+            'notes' => $notesPath,  // Menyimpan path file
+            'status' => $request->status,
+        ]);
 
         // Update schedule status jika session selesai
         if ($request->status === 'completed') {
@@ -69,7 +85,7 @@ class SessionController extends Controller
      */
     public function show(Session $session)
     {
-        $session->load(['client', 'topic', 'schedule', 'attachments']);
+        $session->load(['client', 'topic', 'schedule']);
         return view('sessions.show', compact('session'));
     }
 
@@ -91,12 +107,13 @@ class SessionController extends Controller
      */
     public function update(Request $request, Session $session)
     {
+        // Validasi input
         $validator = Validator::make($request->all(), [
             'schedule_id' => 'required|exists:schedules,id',
             'client_id' => 'required|exists:clients,id',
             'topic_id' => 'required|exists:topics,id',
             'summary' => 'required|string',
-            'notes' => 'nullable|string',
+            'notes' => 'nullable|file|mimes:pdf,docx,jpg,jpeg,png,gif|max:10240', // Validasi file
             'status' => 'required|in:scheduled,in_progress,completed,cancelled'
         ]);
 
@@ -107,9 +124,28 @@ class SessionController extends Controller
                 ->withInput();
         }
 
-        $session->update($request->all());
+        // Menyimpan file baru jika ada
+        if ($request->hasFile('notes')) {
+            // Hapus file lama jika ada
+            if ($session->notes) {
+                Storage::disk('public')->delete($session->notes);
+            }
 
-        // Update schedule status jika session selesai
+            // Simpan file baru
+            $notesPath = $request->file('notes')->store('documents', 'public');
+            $session->notes = $notesPath;
+        }
+
+        // Update session data
+        $session->update([
+            'schedule_id' => $request->schedule_id,
+            'client_id' => $request->client_id,
+            'topic_id' => $request->topic_id,
+            'summary' => $request->summary,
+            'status' => $request->status,
+        ]);
+
+        // Update status schedule jika session selesai
         if ($request->status === 'completed') {
             $session->schedule->update(['status' => 'completed']);
         }
@@ -127,6 +163,11 @@ class SessionController extends Controller
         // Reset schedule status jika session dihapus
         if ($session->schedule) {
             $session->schedule->update(['status' => 'pending']);
+        }
+
+        // Hapus file jika ada
+        if ($session->notes) {
+            Storage::disk('public')->delete($session->notes);
         }
 
         $session->delete();

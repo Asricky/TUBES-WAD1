@@ -52,7 +52,7 @@
                         <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
                             <div class="flex items-center gap-2">
                                 <i class="fas fa-user text-blue-500"></i>
-                                Klien
+                                Konselor
                             </div>
                         </th>
                         <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">

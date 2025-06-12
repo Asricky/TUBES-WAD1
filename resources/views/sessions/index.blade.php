@@ -10,7 +10,7 @@
                 <i class="fas fa-calendar-check text-blue-600"></i>
                 Daftar Sesi Konsultasi
             </h1>
-            <p class="text-gray-600 mt-1">Kelola sesi konsultasi dengan klien Anda</p>
+            <p class="text-gray-600 mt-1">Kelola sesi konsultasi dengan Konselor Anda</p>
         </div>
         <a href="{{ route('sessions.create') }}"
            class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-xl shadow-lg hover:from-blue-700 hover:to-blue-800 hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200">
@@ -52,7 +52,7 @@
                         <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
                             <div class="flex items-center gap-2">
                                 <i class="fas fa-user text-blue-500"></i>
-                                Klien
+                                Konselor
                             </div>
                         </th>
                         <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">

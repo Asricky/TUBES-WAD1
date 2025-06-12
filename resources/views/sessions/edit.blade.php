@@ -1,4 +1,5 @@
-@extends('layouts.main')
+<!DOCTYPE html>
+<html lang="id">
 
 @section('content')
 <div class="p-6 space-y-6 bg-gradient-to-br from-slate-50 to-blue-50 min-h-screen">
@@ -46,35 +47,31 @@
                         <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
                             <i class="fas fa-user text-blue-600"></i>
                         </div>
-                        <h3 class="text-lg font-semibold text-gray-800">Informasi Klien</h3>
+                        <h3 class="text-lg font-semibold text-gray-800">Informasi Konselor</h3>
                     </div>
 
-                    <div class="form-group">
-                        <label for="client_id" class="block text-sm font-semibold text-gray-700 mb-2">
-                            <i class="fas fa-user-tag text-blue-500 mr-2"></i>
-                            Pilih Klien <span class="text-red-500">*</span>
-                        </label>
-                        <div class="relative">
-                            <select name="client_id" 
-                                    id="client_id" 
-                                    class="w-full px-4 py-3 pl-12 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 @error('client_id') border-red-300 ring-2 ring-red-200 @enderror"
-                                    required>
-                                <option value="">Pilih Klien</option>
-                                @foreach($clients as $client)
-                                    <option value="{{ $client->id }}" {{ old('client_id', $session->client_id) == $client->id ? 'selected' : '' }}>
-                                        {{ $client->name }} ({{ $client->email }})
-                                    </option>
-                                @endforeach
-                            </select>
-                            <i class="fas fa-user-tag absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                        </div>
-                        @error('client_id')
-                            <div class="flex items-center gap-2 mt-2 text-red-600 text-sm">
-                                <i class="fas fa-exclamation-circle"></i>
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
+        <form action="{{ route('sessions.update', $session->id) }}" method="POST" class="space-y-6" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <!-- Konselor -->
+                <div class="mb-4">
+                    <label for="client_id" class="block text-lg font-medium text-gray-800 mb-2">Konselor</label>
+                    <select name="client_id" id="client_id"
+                        class="w-full p-4 rounded-lg border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition duration-300 text-gray-700 @error('client_id') border-red-500 @enderror"
+                        required>
+                        <option value="">Pilih Konselor</option>
+                        @foreach($clients as $client)
+                            <option value="{{ $client->id }}" {{ old('client_id', $session->client_id) == $client->id ? 'selected' : '' }}>
+                                {{ $client->name }} ({{ $client->email }})
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('client_id')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 {{-- Schedule Information Section --}}
@@ -195,27 +192,34 @@
                         <h3 class="text-lg font-semibold text-gray-800">Ringkasan Konsultasi</h3>
                     </div>
 
-                    <div class="form-group">
-                        <label for="summary" class="block text-sm font-semibold text-gray-700 mb-2">
-                            <i class="fas fa-align-left text-emerald-500 mr-2"></i>
-                            Ringkasan <span class="text-red-500">*</span>
-                        </label>
-                        <div class="relative">
-                            <textarea name="summary" 
-                                      id="summary" 
-                                      rows="4" 
-                                      class="w-full px-4 py-3 pl-12 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none @error('summary') border-red-300 ring-2 ring-red-200 @enderror"
-                                      required>{{ old('summary', $session->summary) }}</textarea>
-                            <i class="fas fa-align-left absolute left-4 top-4 text-gray-400"></i>
-                        </div>
-                        @error('summary')
-                            <div class="flex items-center gap-2 mt-2 text-red-600 text-sm">
-                                <i class="fas fa-exclamation-circle"></i>
-                                {{ $message }}
-                            </div>
-                        @enderror
+            <!-- Catatan -->
+            <div class="mb-4">
+                <label for="notes" class="block text-lg font-medium text-gray-800 mb-2">Catatan</label>
+                <input type="file" name="notes" id="notes" accept=".pdf,.docx,.jpg,.jpeg,.png,.gif"
+                    class="w-full p-4 rounded-lg border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition duration-300 text-gray-700 @error('notes') border-red-500 @enderror">
+                @error('notes')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
+
+                <!-- Menampilkan file yang sudah ada jika ada -->
+                @if($session->notes)
+                    <div class="mt-4">
+                        <h4 class="text-sm font-semibold">File Saat Ini:</h4>
+                        <!-- Jika file adalah gambar -->
+                        @if(in_array(pathinfo($session->notes, PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png', 'gif']))
+                            <img src="{{ Storage::url($session->notes) }}" alt="Gambar Lampiran" class="max-w-full max-h-96 mt-2">
+                        @elseif(pathinfo($session->notes, PATHINFO_EXTENSION) == 'pdf')
+                            <!-- Jika file adalah PDF -->
+                            <iframe src="{{ Storage::url($session->notes) }}" width="100%" height="500px" class="mt-2 border-2 rounded-lg"></iframe>
+                        @else
+                            <!-- Jika file lain -->
+                            <a href="{{ Storage::url($session->notes) }}" target="_blank" class="text-blue-600 hover:text-blue-900 mt-2">
+                                Lihat File
+                            </a>
+                        @endif
                     </div>
-                </div>
+                @endif
+            </div>
 
                 {{-- Notes Section --}}
                 <div class="space-y-6">

@@ -37,7 +37,7 @@
                     </a>
                     <a href="<?php echo e(route('clients.index')); ?>" class="nav-link <?php echo e(request()->routeIs('clients.*') ? 'active' : ''); ?>">
                         <i class="fas fa-users"></i>
-                        Klien
+                        Konselor
                     </a>
                     <a href="<?php echo e(route('schedules.index')); ?>" class="nav-link <?php echo e(request()->routeIs('schedules.*') ? 'active' : ''); ?>">
                         <i class="fas fa-calendar"></i>

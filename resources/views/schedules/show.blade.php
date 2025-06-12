@@ -16,7 +16,7 @@
             <div class="bg-gray-50 p-6 rounded-lg">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <h3 class="text-gray-600 text-sm font-bold">Klien</h3>
+                        <h3 class="text-gray-600 text-sm font-bold">Konselor</h3>
                         <p class="text-gray-900">{{ $schedule->client->name }}</p>
                         <p class="text-gray-500 text-sm">{{ $schedule->client->email }}</p>
                     </div>

@@ -12,7 +12,7 @@
                 </div>
                 Edit Jadwal
             </h1>
-            <p class="text-gray-600 mt-1">Perbarui informasi klien dalam database</p>
+            <p class="text-gray-600 mt-1">Perbarui informasi Konselor dalam database</p>
         </div>
         <a href="{{ route('clients.index') }}" 
            class="inline-flex items-center gap-2 px-6 py-3 bg   -gray-100 text-gray-700 font-semibold rounded-xl border border-gray-200 hover:bg-gray-200 hover:shadow-lg transform hover:-translate-y-1 transition-all duration-200">
@@ -46,20 +46,20 @@
                         <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
                             <i class="fas fa-user text-blue-600"></i>
                         </div>
-                        <h3 class="text-lg font-semibold text-gray-800">Informasi Klien</h3>
+                        <h3 class="text-lg font-semibold text-gray-800">Informasi Konselor</h3>
                     </div>
 
                     <div class="form-group">
                         <label for="client_id" class="block text-sm font-semibold text-gray-700 mb-2">
                             <i class="fas fa-user-tag text-blue-500 mr-2"></i>
-                            Pilih Klien <span class="text-red-500">*</span>
+                            Pilih Konselor <span class="text-red-500">*</span>
                         </label>
                         <div class="relative">
                             <select name="client_id" 
                                     id="client_id" 
                                     class="w-full px-4 py-3 pl-12 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 @error('client_id') border-red-300 ring-2 ring-red-200 @enderror"
                                     required>
-                                <option value="">Pilih Klien</option>
+                                <option value="">Pilih Konselor</option>
                                 @foreach($clients as $client)
                                     <option value="{{ $client->id }}" {{ (old('client_id', $schedule->client_id) == $client->id) ? 'selected' : '' }}>
                                         {{ $client->name }} ({{ $client->email }})

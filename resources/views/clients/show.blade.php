@@ -4,7 +4,7 @@
 <div class="dashboard-container">
     <div class="dashboard-header">
         <div class="flex justify-between items-center">
-            <h1 class="dashboard-title">Detail Klien</h1>
+            <h1 class="dashboard-title">Detail Konselor</h1>
             <div>
                 <a href="{{ route('clients.edit', $client) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2">
                     Edit
@@ -18,7 +18,7 @@
 
     <div class="content-card">
         <div class="card-body">
-            <h3 class="text-xl font-bold mb-4">Detail Klien</h3>
+            <h3 class="text-xl font-bold mb-4">Detail Konselor</h3>
             
             <!-- Client Information Table -->
             <div class="overflow-x-auto mb-8">

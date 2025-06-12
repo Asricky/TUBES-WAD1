@@ -1,4 +1,4 @@
- <!-- create klien -->
+ <!-- create Konselor -->
 @extends('layouts.main')
 
 @section('content')
@@ -11,9 +11,9 @@
                 <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center text-white shadow-lg">
                     <i class="fas fa-user-plus text-xl"></i>
                 </div>
-                Tambah Klien Baru
+                Tambah Konselor Baru
             </h1>
-            <p class="text-gray-600 mt-1">Lengkapi informasi klien untuk menambahkan ke database</p>
+            <p class="text-gray-600 mt-1">Lengkapi informasi Konselor untuk menambahkan ke database</p>
         </div>
         <a href="{{ route('clients.index') }}" 
            class="inline-flex items-center gap-2 px-6 py-3 bg-gray-100 text-gray-700 font-semibold rounded-xl border border-gray-200 hover:bg-gray-200 hover:shadow-lg transform hover:-translate-y-1 transition-all duration-200">
@@ -29,7 +29,7 @@
             <div class="flex items-center gap-3 text-white">
                 <i class="fas fa-edit text-xl"></i>
                 <div>
-                    <h2 class="text-xl font-semibold">Formulir Data Klien</h2>
+                    <h2 class="text-xl font-semibold">Formulir Data Konselor</h2>
                     <p class="text-blue-100 text-sm">Pastikan semua informasi yang dimasukkan akurat</p>
                 </div>
             </div>
@@ -62,7 +62,7 @@
                                        id="name" 
                                        class="w-full px-4 py-3 pl-12 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 @error('name') border-red-300 ring-2 ring-red-200 @enderror" 
                                        value="{{ old('name') }}" 
-                                       placeholder="Masukkan nama lengkap klien"
+                                       placeholder="Masukkan nama lengkap Konselor"
                                        required>
                                 <i class="fas fa-user absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                             </div>
@@ -145,7 +145,7 @@
                                           id="address" 
                                           rows="4" 
                                           class="w-full px-4 py-3 pl-12 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none @error('address') border-red-300 ring-2 ring-red-200 @enderror" 
-                                          placeholder="Masukkan alamat lengkap klien..."
+                                          placeholder="Masukkan alamat lengkap Konselor..."
                                           required>{{ old('address') }}</textarea>
                                 <i class="fas fa-map-marker-alt absolute left-4 top-4 text-gray-400"></i>
                             </div>
@@ -178,7 +178,7 @@
                                       id="notes" 
                                       rows="4" 
                                       class="w-full px-4 py-3 pl-12 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none @error('notes') border-red-300 ring-2 ring-red-200 @enderror" 
-                                      placeholder="Tambahkan catatan khusus untuk klien ini...">{{ old('notes') }}</textarea>
+                                      placeholder="Tambahkan catatan khusus untuk Konselor ini...">{{ old('notes') }}</textarea>
                             <i class="fas fa-sticky-note absolute left-4 top-4 text-gray-400"></i>
                         </div>
                         @error('notes')
@@ -200,7 +200,7 @@
                     <button type="submit" 
                             class="inline-flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-xl shadow-lg hover:from-blue-700 hover:to-blue-800 hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200">
                         <i class="fas fa-save"></i>
-                        Simpan Data Klien
+                        Simpan Data Konselor
                     </button>
                 </div>
             </form>

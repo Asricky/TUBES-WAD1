@@ -8,14 +8,14 @@
         <div>
             <h1 class="text-3xl font-bold text-gray-900 flex items-center gap-3">
                 <i class="fas fa-users text-blue-600"></i>
-                Daftar Klien
+                Daftar Konselor
             </h1>
-            <p class="text-gray-600 mt-1">Kelola data klien Anda dengan mudah</p>
+            <p class="text-gray-600 mt-1">Kelola data Konselor Anda dengan mudah</p>
         </div>
         <a href="{{ route('clients.create') }}"
            class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-xl shadow-lg hover:from-blue-700 hover:to-blue-800 hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200">
             <i class="fas fa-plus-circle"></i>
-            Tambah Klien Baru
+            Tambah Konselor Baru
         </a>
     </div>
 
@@ -38,10 +38,10 @@
             <div class="flex items-center justify-between text-white">
                 <div class="flex items-center gap-3">
                     <i class="fas fa-table text-xl"></i>
-                    <span class="font-semibold text-lg">Data Klien</span>
+                    <span class="font-semibold text-lg">Data Konselor</span>
                 </div>
                 <div class="text-sm opacity-90">
-                    Total: <span class="font-bold">{{ $clients->total() ?? count($clients) }}</span> klien
+                    Total: <span class="font-bold">{{ $clients->total() ?? count($clients) }}</span> Konselor
                 </div>
             </div>
         </div>
@@ -54,7 +54,7 @@
                         <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
                             <div class="flex items-center gap-2">
                                 <i class="fas fa-user text-blue-500"></i>
-                                Nama Klien
+                                Nama Konselor
                             </div>
                         </th>
                         <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
@@ -143,7 +143,7 @@
 
                                 {{-- Delete Button --}}
                                 <form action="{{ route('clients.destroy', $client) }}" method="POST" class="inline-block"
-                                      onsubmit="return confirm('⚠️ Apakah Anda yakin ingin menghapus data klien {{ $client->name }}?\n\nTindakan ini tidak dapat dibatalkan!')">
+                                      onsubmit="return confirm('⚠️ Apakah Anda yakin ingin menghapus data Konselor {{ $client->name }}?\n\nTindakan ini tidak dapat dibatalkan!')">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
@@ -170,12 +170,12 @@
                 <div class="w-24 h-24 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
                     <i class="fas fa-users text-4xl text-gray-400"></i>
                 </div>
-                <h3 class="text-xl font-semibold text-gray-700 mb-2">Belum ada data klien</h3>
-                <p class="text-gray-500 mb-6">Mulai dengan menambahkan klien pertama Anda</p>
+                <h3 class="text-xl font-semibold text-gray-700 mb-2">Belum ada data Konselor</h3>
+                <p class="text-gray-500 mb-6">Mulai dengan menambahkan Konselor pertama Anda</p>
                 <a href="{{ route('clients.create') }}"
                    class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transition-colors">
                     <i class="fas fa-plus"></i>
-                    Tambah Klien Pertama
+                    Tambah Konselor Pertama
                 </a>
             </div>
         </div>
