@@ -29,79 +29,37 @@
         </div>
     @endif
 
-    {{-- Enhanced Table --}}
-    <div class="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
-        {{-- Table Header Stats --}}
-        <div class="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4">
-            <div class="flex items-center justify-between text-white">
-                <div class="flex items-center gap-3">
-                    <i class="fas fa-table text-xl"></i>
-                    <span class="font-semibold text-lg">Data Sesi</span>
-                </div>
-                <div class="text-sm opacity-90">
-                    Total: <span class="font-bold">{{ $sessions->total() ?? count($sessions) }}</span> sesi
-                </div>
-            </div>
-        </div>
-
-        {{-- Table Content --}}
-        <div class="overflow-x-auto">
-            <table class="min-w-full">
-                <thead class="bg-gradient-to-r from-gray-50 to-gray-100">
-                    <tr>
-                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
-                            <div class="flex items-center gap-2">
-                                <i class="fas fa-user text-blue-500"></i>
-                                Konselor
-                            </div>
-                        </th>
-                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
-                            <div class="flex items-center gap-2">
-                                <i class="fas fa-clock text-green-500"></i>
-                                Jadwal
-                            </div>
-                        </th>
-                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
-                            <div class="flex items-center gap-2">
-                                <i class="fas fa-comment-dots text-purple-500"></i>
-                                Topik
-                            </div>
-                        </th>
-                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
-                            <div class="flex items-center gap-2">
-                                <i class="fas fa-info-circle text-red-500"></i>
-                                Status
-                            </div>
-                        </th>
-                        <th class="px-6 py-4 text-center text-sm font-semibold text-gray-700 uppercase tracking-wider">
-                            <div class="flex items-center justify-center gap-2">
-                                <i class="fas fa-cogs text-gray-500"></i>
-                                Aksi
-                            </div>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-100">
-                    @foreach($sessions as $session)
-                    <tr class="group hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 transition-all duration-300 hover:shadow-md">
-                        <td class="px-6 py-5">
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg">
-                                    {{ strtoupper(substr($session->client->name, 0, 1)) }}
-                                </div>
-                                <div>
-                                    <div class="font-semibold text-gray-900 group-hover:text-blue-700 transition-colors">
-                                        {{ $session->client->name }}
-                                    </div>
-                                    <div class="text-sm text-gray-500">{{ $session->client->email }}</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="px-6 py-5">
-                            <div class="flex items-center gap-2">
-                                <i class="fas fa-calendar-day text-gray-400 text-sm"></i>
-                                <span class="text-gray-700 group-hover:text-gray-900 transition-colors">
-                                    {{ $session->schedule->date->format('d/m/Y') }}
+            <!-- Tabel Daftar Sesi Konsultasi -->
+            <div class="overflow-x-auto">
+                <table class="min-w-full table-auto border border-gray-200 rounded-lg shadow-sm text-sm text-gray-700">
+                    <thead class="bg-blue-600 text-white">
+                        <tr>
+                            <th class="p-3 text-left">Konselor</th>
+                            <th class="p-3 text-left">Jadwal</th>
+                            <th class="p-3 text-left">Topik</th>
+                            <th class="p-3 text-left">Status</th>
+                            <th class="p-3 text-left">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($sessions as $session)
+                        <tr class="hover:bg-gray-100">
+                            <td class="p-3">
+                                <div class="font-medium">{{ $session->client->name }}</div>
+                                <div class="text-sm text-gray-500">{{ $session->client->email }}</div>
+                            </td>
+                            <td class="p-3">
+                                <div class="font-medium">{{ $session->schedule->date->format('d/m/Y') }}</div>
+                                <div class="text-sm text-gray-500">{{ $session->schedule->time->format('H:i') }}</div>
+                            </td>
+                            <td class="p-3">{{ $session->topic->name }}</td>
+                            <td class="p-3">
+                                <span class="status-badge {{ 
+                                    $session->status == 'completed' ? 'status-completed' :
+                                    ($session->status == 'cancelled' ? 'status-cancelled' :
+                                    ($session->status == 'in_progress' ? 'status-confirmed' : 'status-pending'))
+                                }}">
+                                    {{ ucfirst($session->status) }}
                                 </span>
                             </div>
                             <div class="flex items-center gap-2 mt-1">

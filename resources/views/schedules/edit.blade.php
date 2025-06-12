@@ -39,42 +39,21 @@
             <form action="{{ route('schedules.update', $schedule) }}" method="POST" class="space-y-8">
                 @csrf
                 @method('PUT')
-                
-                {{-- Client Information Section --}}
-                <div class="space-y-6">
-                    <div class="flex items-center gap-3 pb-4 border-b border-gray-200">
-                        <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-user text-blue-600"></i>
-                        </div>
-                        <h3 class="text-lg font-semibold text-gray-800">Informasi Konselor</h3>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="client_id" class="block text-sm font-semibold text-gray-700 mb-2">
-                            <i class="fas fa-user-tag text-blue-500 mr-2"></i>
-                            Pilih Konselor <span class="text-red-500">*</span>
-                        </label>
-                        <div class="relative">
-                            <select name="client_id" 
-                                    id="client_id" 
-                                    class="w-full px-4 py-3 pl-12 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 @error('client_id') border-red-300 ring-2 ring-red-200 @enderror"
-                                    required>
-                                <option value="">Pilih Konselor</option>
-                                @foreach($clients as $client)
-                                    <option value="{{ $client->id }}" {{ (old('client_id', $schedule->client_id) == $client->id) ? 'selected' : '' }}>
-                                        {{ $client->name }} ({{ $client->email }})
-                                    </option>
-                                @endforeach
-                            </select>
-                            <i class="fas fa-user-tag absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                        </div>
-                        @error('client_id')
-                            <div class="flex items-center gap-2 mt-2 text-red-600 text-sm">
-                                <i class="fas fa-exclamation-circle"></i>
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
+                <div class="mb-4">
+                    <label for="client_id" class="block text-gray-700 text-sm font-bold mb-2">Konselor</label>
+                    <select name="client_id" id="client_id" 
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('client_id') border-red-500 @enderror"
+                        required>
+                        <option value="">Pilih Konselor</option>
+                        @foreach($clients as $client)
+                            <option value="{{ $client->id }}" {{ (old('client_id', $schedule->client_id) == $client->id) ? 'selected' : '' }}>
+                                {{ $client->name }} ({{ $client->email }})
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('client_id')
+                        <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 {{-- Schedule Information Section --}}
