@@ -3,25 +3,25 @@
 @section('content')
 <div class="dashboard-container">
     <div class="dashboard-header">
-        <div class="flex justify-between items-center">
-            <h1 class="dashboard-title">Daftar Konselor</h1>
+        <div class="flex items-center justify-between">
+            <h1 class="dashboard-title">Konselor List</h1>
             <a href="{{ route('clients.create') }}" class="btn-action btn-primary">
                 <i class="fas fa-plus icon"></i>
-                Tambah Konselor
+                Add Konselor
             </a>
         </div>
         <a href="{{ route('clients.create') }}"
-           class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-xl shadow-lg hover:from-blue-700 hover:to-blue-800 hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200">
+           class="inline-flex items-center gap-2 px-6 py-3 font-semibold text-white transition-all duration-200 transform shadow-lg bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl hover:from-blue-700 hover:to-blue-800 hover:shadow-xl hover:-translate-y-1">
             <i class="fas fa-plus-circle"></i>
-            Tambah Konselor Baru
+            Add New Konselor 
         </a>
     </div>
 
     {{-- Notifikasi --}}
     @if(session('success'))
-        <div class="px-6 py-4 bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-500 text-green-800 rounded-r-xl shadow-md animate-pulse">
+        <div class="px-6 py-4 text-green-800 border-l-4 border-green-500 shadow-md bg-gradient-to-r from-green-50 to-emerald-50 rounded-r-xl animate-pulse">
             <div class="flex items-center gap-3">
-                <i class="fas fa-check-circle text-green-600 text-lg"></i>
+                <i class="text-lg text-green-600 fas fa-check-circle"></i>
                 <span class="font-medium">{{ session('success') }}</span>
             </div>
         </div>
@@ -30,13 +30,13 @@
 
 
     {{-- Enhanced Table --}}
-    <div class="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+    <div class="overflow-hidden bg-white border border-gray-100 shadow-xl rounded-2xl">
         {{-- Table Header Stats --}}
-        <div class="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4">
+        <div class="px-6 py-4 bg-gradient-to-r from-blue-600 to-blue-700">
             <div class="flex items-center justify-between text-white">
                 <div class="flex items-center gap-3">
-                    <i class="fas fa-table text-xl"></i>
-                    <span class="font-semibold text-lg">Data Konselor</span>
+                    <i class="text-xl fas fa-table"></i>
+                    <span class="text-lg font-semibold">Data Konselor</span>
                 </div>
                 <div class="text-sm opacity-90">
                     Total: <span class="font-bold">{{ $clients->total() ?? count($clients) }}</span> Konselor
@@ -49,33 +49,33 @@
             <table class="min-w-full">
                 <thead class="bg-gradient-to-r from-gray-50 to-gray-100">
                     <tr>
-                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
+                        <th class="px-6 py-4 text-sm font-semibold tracking-wider text-left text-gray-700 uppercase">
                             <div class="flex items-center gap-2">
-                                <i class="fas fa-user text-blue-500"></i>
+                                <i class="text-blue-500 fas fa-user"></i>
                                 Nama Konselor
                             </div>
                         </th>
-                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
+                        <th class="px-6 py-4 text-sm font-semibold tracking-wider text-left text-gray-700 uppercase">
                             <div class="flex items-center gap-2">
-                                <i class="fas fa-envelope text-green-500"></i>
+                                <i class="text-green-500 fas fa-envelope"></i>
                                 Email
                             </div>
                         </th>
-                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
+                        <th class="px-6 py-4 text-sm font-semibold tracking-wider text-left text-gray-700 uppercase">
                             <div class="flex items-center gap-2">
-                                <i class="fas fa-phone text-purple-500"></i>
+                                <i class="text-purple-500 fas fa-phone"></i>
                                 No. Telepon
                             </div>
                         </th>
-                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
+                        <th class="px-6 py-4 text-sm font-semibold tracking-wider text-left text-gray-700 uppercase">
                             <div class="flex items-center gap-2">
-                                <i class="fas fa-map-marker-alt text-red-500"></i>
+                                <i class="text-red-500 fas fa-map-marker-alt"></i>
                                 Alamat
                             </div>
                         </th>
-                        <th class="px-6 py-4 text-center text-sm font-semibold text-gray-700 uppercase tracking-wider">
+                        <th class="px-6 py-4 text-sm font-semibold tracking-wider text-center text-gray-700 uppercase">
                             <div class="flex items-center justify-center gap-2">
-                                <i class="fas fa-cogs text-gray-500"></i>
+                                <i class="text-gray-500 fas fa-cogs"></i>
                                 Aksi
                             </div>
                         </th>
@@ -83,14 +83,14 @@
                 </thead>
                 <tbody class="divide-y divide-gray-100">
                     @foreach($clients as $client)
-                    <tr class="group hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 transition-all duration-300 hover:shadow-md">
+                    <tr class="transition-all duration-300 group hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:shadow-md">
                         <td class="px-6 py-5">
                             <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg">
+                                <div class="flex items-center justify-center w-10 h-10 text-sm font-bold text-white rounded-full shadow-lg bg-gradient-to-br from-blue-500 to-purple-600">
                                     {{ strtoupper(substr($client->name, 0, 1)) }}
                                 </div>
                                 <div>
-                                    <div class="font-semibold text-gray-900 group-hover:text-blue-700 transition-colors">
+                                    <div class="font-semibold text-gray-900 transition-colors group-hover:text-blue-700">
                                         {{ $client->name }}
                                     </div>
                                     <div class="text-sm text-gray-500">ID: #{{ $client->id }}</div>
@@ -99,20 +99,20 @@
                         </td>
                         <td class="px-6 py-5">
                             <div class="flex items-center gap-2">
-                                <i class="fas fa-envelope text-gray-400 text-sm"></i>
-                                <span class="text-gray-700 group-hover:text-gray-900 transition-colors">{{ $client->email }}</span>
+                                <i class="text-sm text-gray-400 fas fa-envelope"></i>
+                                <span class="text-gray-700 transition-colors group-hover:text-gray-900">{{ $client->email }}</span>
                             </div>
                         </td>
                         <td class="px-6 py-5">
                             <div class="flex items-center gap-2">
-                                <i class="fas fa-phone text-gray-400 text-sm"></i>
-                                <span class="text-gray-700 group-hover:text-gray-900 transition-colors font-mono">{{ $client->phone }}</span>
+                                <i class="text-sm text-gray-400 fas fa-phone"></i>
+                                <span class="font-mono text-gray-700 transition-colors group-hover:text-gray-900">{{ $client->phone }}</span>
                             </div>
                         </td>
                         <td class="px-6 py-5">
                             <div class="flex items-center gap-2">
-                                <i class="fas fa-map-marker-alt text-gray-400 text-sm"></i>
-                                <span class="text-gray-700 group-hover:text-gray-900 transition-colors max-w-xs truncate" title="{{ $client->address }}">
+                                <i class="text-sm text-gray-400 fas fa-map-marker-alt"></i>
+                                <span class="max-w-xs text-gray-700 truncate transition-colors group-hover:text-gray-900" title="{{ $client->address }}">
                                     {{ $client->address }}
                                 </span>
                             </div>
@@ -121,20 +121,20 @@
                             <div class="flex items-center justify-center gap-2">
                                 {{-- Detail Button --}}
                                 <a href="{{ route('clients.show', $client) }}"
-                                   class="group/btn relative inline-flex items-center justify-center w-10 h-10 text-blue-600 bg-blue-50 rounded-xl border border-blue-200 hover:bg-blue-600 hover:text-white hover:shadow-lg transform hover:scale-110 transition-all duration-200"
+                                   class="relative inline-flex items-center justify-center w-10 h-10 text-blue-600 transition-all duration-200 transform border border-blue-200 group/btn bg-blue-50 rounded-xl hover:bg-blue-600 hover:text-white hover:shadow-lg hover:scale-110"
                                    title="Lihat Detail">
-                                    <i class="fas fa-eye text-sm"></i>
-                                    <span class="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover/btn:opacity-100 transition-opacity whitespace-nowrap">
+                                    <i class="text-sm fas fa-eye"></i>
+                                    <span class="absolute px-2 py-1 text-xs text-white transition-opacity transform -translate-x-1/2 bg-gray-800 rounded opacity-0 -top-8 left-1/2 group-hover/btn:opacity-100 whitespace-nowrap">
                                         Detail
                                     </span>
                                 </a>
 
                                 {{-- Edit Button --}}
                                 <a href="{{ route('clients.edit', $client) }}"
-                                   class="group/btn relative inline-flex items-center justify-center w-10 h-10 text-amber-600 bg-amber-50 rounded-xl border border-amber-200 hover:bg-amber-500 hover:text-white hover:shadow-lg transform hover:scale-110 transition-all duration-200"
+                                   class="relative inline-flex items-center justify-center w-10 h-10 transition-all duration-200 transform border group/btn text-amber-600 bg-amber-50 rounded-xl border-amber-200 hover:bg-amber-500 hover:text-white hover:shadow-lg hover:scale-110"
                                    title="Edit Data">
-                                    <i class="fas fa-edit text-sm"></i>
-                                    <span class="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover/btn:opacity-100 transition-opacity whitespace-nowrap">
+                                    <i class="text-sm fas fa-edit"></i>
+                                    <span class="absolute px-2 py-1 text-xs text-white transition-opacity transform -translate-x-1/2 bg-gray-800 rounded opacity-0 -top-8 left-1/2 group-hover/btn:opacity-100 whitespace-nowrap">
                                         Edit
                                     </span>
                                 </a>
@@ -145,10 +145,10 @@
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
-                                            class="group/btn relative inline-flex items-center justify-center w-10 h-10 text-red-600 bg-red-50 rounded-xl border border-red-200 hover:bg-red-600 hover:text-white hover:shadow-lg transform hover:scale-110 transition-all duration-200"
+                                            class="relative inline-flex items-center justify-center w-10 h-10 text-red-600 transition-all duration-200 transform border border-red-200 group/btn bg-red-50 rounded-xl hover:bg-red-600 hover:text-white hover:shadow-lg hover:scale-110"
                                             title="Hapus Data">
-                                        <i class="fas fa-trash text-sm"></i>
-                                        <span class="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover/btn:opacity-100 transition-opacity whitespace-nowrap">
+                                        <i class="text-sm fas fa-trash"></i>
+                                        <span class="absolute px-2 py-1 text-xs text-white transition-opacity transform -translate-x-1/2 bg-gray-800 rounded opacity-0 -top-8 left-1/2 group-hover/btn:opacity-100 whitespace-nowrap">
                                             Hapus
                                         </span>
                                     </button>
@@ -163,15 +163,15 @@
 
         {{-- Empty State --}}
         @if($clients->isEmpty())
-        <div class="text-center py-16">
+        <div class="py-16 text-center">
             <div class="max-w-sm mx-auto">
-                <div class="w-24 h-24 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
-                    <i class="fas fa-users text-4xl text-gray-400"></i>
+                <div class="flex items-center justify-center w-24 h-24 mx-auto mb-4 bg-gray-100 rounded-full">
+                    <i class="text-4xl text-gray-400 fas fa-users"></i>
                 </div>
-                <h3 class="text-xl font-semibold text-gray-700 mb-2">Belum ada data Konselor</h3>
-                <p class="text-gray-500 mb-6">Mulai dengan menambahkan Konselor pertama Anda</p>
+                <h3 class="mb-2 text-xl font-semibold text-gray-700">Belum ada data Konselor</h3>
+                <p class="mb-6 text-gray-500">Mulai dengan menambahkan Konselor pertama Anda</p>
                 <a href="{{ route('clients.create') }}"
-                   class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transition-colors">
+                   class="inline-flex items-center gap-2 px-6 py-3 font-medium text-white transition-colors bg-blue-600 rounded-xl hover:bg-blue-700">
                     <i class="fas fa-plus"></i>
                     Tambah Konselor Pertama
                 </a>
@@ -182,8 +182,8 @@
 
     {{-- Enhanced Pagination --}}
     @if(!$clients->isEmpty())
-    <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
-        <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="p-6 bg-white border border-gray-100 shadow-lg rounded-2xl">
+        <div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
             <div class="text-sm text-gray-600">
                 Menampilkan <span class="font-semibold">{{ $clients->firstItem() }}</span> - 
                 <span class="font-semibold">{{ $clients->lastItem() }}</span> dari 
