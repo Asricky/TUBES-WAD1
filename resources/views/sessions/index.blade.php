@@ -43,7 +43,6 @@
                 </div>
             </div>
         </div>
-
         {{-- Table Content --}}
         <div class="overflow-x-auto">
             <table class="min-w-full">

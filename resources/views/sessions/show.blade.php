@@ -21,7 +21,6 @@
         </div>
 
         <h2 class="text-4xl font-semibold text-center text-gray-900 mb-8">Detail Sesi Konsultasi</h2>
-
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 bg-white border-b border-gray-200">
                 <div class="flex justify-between items-center mb-4">

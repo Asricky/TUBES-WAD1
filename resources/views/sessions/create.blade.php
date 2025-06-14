@@ -21,7 +21,6 @@
             Kembali ke Daftar
         </a>
     </div>
-
     {{-- Main Form Card --}}
     <div class="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
         {{-- Card Header --}}
