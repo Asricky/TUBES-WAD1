@@ -21,6 +21,7 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
+    //TAMBAH USER
     public function down(): void
     {
         if (Schema::hasColumn('users', 'role')) {
