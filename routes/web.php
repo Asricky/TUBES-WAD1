@@ -16,7 +16,7 @@ Route::get('/pelanggan/home', function () {
     return view('pelanggan.home');
 })->middleware(['auth'])->name('pelanggan.home');
 
-
+//ROUTE ADMIN
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
     // Attachment routes
     Route::resource('attachments', AttachmentController::class);
 });
+//ROUTE PELANGGAN
 Route::middleware(['auth', 'pelanggan'])->group(function () {
     Route::get('/dashboard/pelanggan', [PelangganController::class, 'index'])->name('pelanggan.dashboard');
     Route::get('/status-konsultasi', [PelangganController::class, 'status'])->name('pelanggan.status');
