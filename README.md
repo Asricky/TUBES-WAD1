@@ -1,3 +1,16 @@
+Disusun Oleh:Kelompok 7
+Anggota Kelompok: Nama Lengkap (NIM) - Peran (Usn Github)
+1. Cantika Nurul Fitri (1202220080) - Konselor (Usn Github: cantikanrlfitri)
+2. Sridamai Wati Panjaitan (102022300049) - Topik Konsultasi (Usn Github: sridamai)
+3. Joshua Theo Pasqualito (102022300278) - Jadwal Konsultasi (Usn Github: joshuatheop)
+4. Lukas Ricky Krisjatmiko (102022330321) - Riwayat Konsultasi (Usn Github: Asricky)
+5. Hilmi Zikri (102022330336) - Dokumen Tambahan (Usn Github: ZIKK23)
+
+Penjelasan singkat tentang Tel2U - Website Konsultasi untuk Mahasiswa Telkom University:
+Pada era digital, layanan konsultasi daring semakin diminati karena kemudahan akses dan fleksibilitas waktu. Namun, banyak penyedia layanan seperti konselor, dosen pembimbing, dan dokter praktek pribadi menghadapi kendala dalam pengelolaan jadwal konsultasi, pendataan klien, dan pencatatan riwayat pertemuan secara efektif. Permasalahan umum meliputi penumpukan jadwal, kehilangan data klien, serta kurangnya pencatatan hasil konsultasi yang terstruktur. Kondisi ini menghambat optimalisasi pelayanan dan menimbulkan potensi kesalahan manajemen data.
+Diperlukan sebuah solusi sistem informasi manajemen konsultasi daring berbasis web yang dapat mengintegrasikan pengelolaan data klien, jadwal, riwayat konsultasi, serta dokumen pendukung dalam satu platform yang mudah diakses dan aman. Sistem ini diharapkan dapat membantu para penyedia layanan dalam menjalankan aktivitas konsultasi secara efisien dan terdokumentasi dengan baik.
+Proyek ini sesuai dengan capaian pembelajaran mata kuliah Pengembangan Aplikasi Web, yaitu mampu merancang dan mengimplementasikan aplikasi web dengan backend API yang memenuhi kebutuhan fungsional dan non-fungsional.
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">

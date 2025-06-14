@@ -3,14 +3,41 @@
 @section('content')
 <div class="p-6 space-y-10 bg-gray-50 min-h-screen">
 
-    {{-- Header dengan gambar background --}}
-    <div class="relative w-full h-56 rounded-xl overflow-hidden shadow-lg">
-        <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=1200&q=80"
-             alt="Konseling Background"
-             class="absolute inset-0 w-full h-full object-cover brightness-75">
-        <div class="relative z-10 flex flex-col justify-center items-start h-full px-6 md:px-10">
-            <h1 class="text-3xl md:text-4xl font-bold text-white drop-shadow-lg">Dashboard Konselor</h1>
-            <p class="text-white mt-2 text-sm md:text-base drop-shadow-md">Selamat datang kembali! Pantau aktivitas terbaru di bawah ini.</p>
+    <div class="stats-grid">
+        <!-- Total Konselor -->
+        <div class="stat-card">
+            <div class="stat-label">
+                <i class="fas fa-users icon"></i>
+                Total Konselor
+            </div>
+            <div class="stat-value">{{ \App\Models\Client::count() }}</div>
+        </div>
+
+        <!-- Jadwal Hari Ini -->
+        <div class="stat-card">
+            <div class="stat-label">
+                <i class="fas fa-calendar-day icon"></i>
+                Jadwal Hari Ini
+            </div>
+            <div class="stat-value">{{ \App\Models\Schedule::whereDate('date', today())->count() }}</div>
+        </div>
+
+        <!-- Total Sesi -->
+        <div class="stat-card">
+            <div class="stat-label">
+                <i class="fas fa-comments icon"></i>
+                Total Sesi
+            </div>
+            <div class="stat-value">{{ \App\Models\Session::count() }}</div>
+        </div>
+
+        <!-- Total Topik -->
+        <div class="stat-card">
+            <div class="stat-label">
+                <i class="fas fa-tags icon"></i>
+                Total Topik
+            </div>
+            <div class="stat-value">{{ \App\Models\Topic::count() }}</div>
         </div>
     </div>
 
@@ -56,10 +83,11 @@
                 <table class="w-full">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Konselor</th>
-                            <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Tanggal</th>
-                            <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
-                            <th class="px-6 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">Aksi</th>
+                            <th>Konselor</th>
+                            <th>Tanggal</th>
+                            <th>Waktu</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100">
@@ -175,5 +203,55 @@
         </div>
     </div>
 
+    <!-- Sesi Terbaru -->
+    <div class="content-card">
+        <div class="card-header">
+            <h2 class="card-title">
+                <i class="fas fa-comments icon"></i>
+                Sesi Konsultasi Terbaru
+            </h2>
+        </div>
+        <div class="card-body">
+            <div class="table-container">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Konselor</th>
+                            <th>Topik</th>
+                            <th>Status</th>
+                            <th>Tanggal</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(\App\Models\Session::with(['client', 'topic', 'schedule'])->latest()->take(5)->get() as $session)
+                        <tr>
+                            <td>
+                                <div class="font-medium">{{ $session->client->name }}</div>
+                                <div class="text-gray-500 text-sm">{{ $session->client->email }}</div>
+                            </td>
+                            <td>{{ $session->topic->name }}</td>
+                            <td>
+                                <span class="status-badge {{ 
+                                    $session->status == 'completed' ? 'status-completed' :
+                                    ($session->status == 'cancelled' ? 'status-cancelled' :
+                                    ($session->status == 'in_progress' ? 'status-confirmed' : 'status-pending'))
+                                }}">
+                                    {{ ucfirst($session->status) }}
+                                </span>
+                            </td>
+                            <td>{{ $session->schedule->date->format('d/m/Y') }}</td>
+                            <td>
+                                <a href="{{ route('sessions.show', $session) }}" class="btn-action btn-secondary">
+                                    <i class="fas fa-eye"></i> Detail
+                                </a>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection

@@ -78,34 +78,24 @@
                             @enderror
                         </div>
 
-                        {{-- Schedule Field --}}
-                        <div class="form-group">
-                            <label for="schedule_id" class="block text-sm font-semibold text-gray-700 mb-2">
-                                <i class="fas fa-calendar text-purple-500 mr-2"></i>
-                                Pilih Jadwal <span class="text-red-500">*</span>
-                            </label>
-                            <div class="relative">
-                                <select name="schedule_id" 
-                                        id="schedule_id" 
-                                        class="w-full px-4 py-3 pl-12 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 @error('schedule_id') border-red-300 ring-2 ring-red-200 @enderror" 
-                                        required>
-                                    <option value="">Pilih Jadwal</option>
-                                    @foreach($schedules as $schedule)
-                                        <option value="{{ $schedule->id }}" {{ old('schedule_id') == $schedule->id ? 'selected' : '' }}>
-                                            {{ $schedule->date->format('d/m/Y') }} {{ $schedule->time->format('H:i') }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                <i class="fas fa-calendar absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                            </div>
-                            @error('schedule_id')
-                                <div class="flex items-center gap-2 mt-2 text-red-600 text-sm">
-                                    <i class="fas fa-exclamation-circle"></i>
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                    </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <!-- Konselor -->
+                <div class="mb-4">
+                    <label for="client_id" class="block text-lg font-medium text-gray-800 mb-2">Konselor</label>
+                    <select name="client_id" id="client_id"
+                        class="w-full p-4 rounded-lg border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition duration-300 text-gray-700 @error('client_id') border-red-500 @enderror"
+                        required>
+                        <option value="">Pilih Konselor</option>
+                        @foreach($clients as $client)
+                            <option value="{{ $client->id }}" {{ old('client_id') == $client->id ? 'selected' : '' }}>
+                                {{ $client->name }} ({{ $client->email }})
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('client_id')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 {{-- Session Details Section --}}

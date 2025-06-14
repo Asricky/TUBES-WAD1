@@ -2,18 +2,14 @@
 @extends('layouts.main')
 
 @section('content')
-<div class="p-6 space-y-6 bg-gradient-to-br from-slate-50 to-blue-50 min-h-screen">
-
-    {{-- Header --}}
-    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
-        <div>
-            <h1 class="text-3xl font-bold text-gray-900 flex items-center gap-3">
-                <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center text-white shadow-lg">
-                    <i class="fas fa-user-plus text-xl"></i>
-                </div>
-                Tambah Konselor Baru
-            </h1>
-            <p class="text-gray-600 mt-1">Lengkapi informasi Konselor untuk menambahkan ke database</p>
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <div class="flex justify-between items-center">
+            <h1 class="dashboard-title">Tambah Konselor Baru</h1>
+            <a href="{{ route('clients.index') }}" class="btn-action btn-secondary">
+                <i class="fas fa-arrow-left icon"></i>
+                Kembali
+            </a>
         </div>
         <a href="{{ route('clients.index') }}" 
            class="inline-flex items-center gap-2 px-6 py-3 bg-gray-100 text-gray-700 font-semibold rounded-xl border border-gray-200 hover:bg-gray-200 hover:shadow-lg transform hover:-translate-y-1 transition-all duration-200">
