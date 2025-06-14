@@ -52,7 +52,7 @@ class ClientController extends Controller
 
         return redirect()
             ->route('clients.index')
-            ->with('success', 'Data klien berhasil ditambahkan.');
+            ->with('success', 'Data Konselor berhasil ditambahkan.');
     }
 
     /**
@@ -125,7 +125,7 @@ class ClientController extends Controller
 
         return redirect()
             ->route('clients.index')
-            ->with('success', 'Data klien dan data terkait berhasil diperbarui.');
+            ->with('success', 'Data Konselor dan data terkait berhasil diperbarui.');
     }
 
     /**
@@ -137,6 +137,6 @@ class ClientController extends Controller
 
         return redirect()
             ->route('clients.index')
-            ->with('success', 'Data klien berhasil dihapus.');
+            ->with('success', 'Data Konselor berhasil dihapus.');
     }
 }
