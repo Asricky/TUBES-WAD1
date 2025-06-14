@@ -74,7 +74,7 @@
                         <div class="form-group">
                             <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">
                                 <i class="fas fa-envelope text-green-500 mr-2"></i>
-                                Alamat Email <span class="text-red-500">*</span>
+                                Email <span class="text-red-500">*</span>
                             </label>
                             <div class="relative">
                                 <input type="email" 

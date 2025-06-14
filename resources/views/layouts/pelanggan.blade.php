@@ -12,7 +12,7 @@
     <nav class="bg-blue-600 text-white p-4 shadow">
         <div class="container mx-auto flex justify-between">
             <div>
-                <a href="{{ route('pelanggan.dashboard') }}" class="font-bold text-lg">Pelanggan</a>
+                <a href="{{ route('pelanggan.dashboard') }}" class="font-bold text-lg">Dashboard Pelanggan</a>
             </div>
             <div>
                 <a href="{{ route('pelanggan.dashboard') }}" class="mr-4">Dashboard</a>
