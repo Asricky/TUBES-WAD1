@@ -60,7 +60,9 @@
                                 <input type="text" 
                                        name="name" 
                                        id="name" 
-                                       class="w-full px-4 py-3 pl-12 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 @error('name') border-red-300 ring-2 ring-red-200 @enderror" 
+                                       class="w-full px-4 py-3 pl-12 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 
+                                                {{ $errors->has('name') ? 'border-red-300 ring-2 ring-red-200' : 'border-gray-200' }}"
+
                                        value="{{ old('name') }}" 
                                        placeholder="Masukkan nama lengkap Konselor"
                                        required>
@@ -84,7 +86,7 @@
                                 <input type="email" 
                                        name="email" 
                                        id="email" 
-                                       class="w-full px-4 py-3 pl-12 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 @error('email') border-red-300 ring-2 ring-red-200 @enderror" 
+                                       class="w-full px-4 py-3 pl-12 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 {{ $errors->has('email') ? 'border-red-300 ring-2 ring-red-200' : 'border-gray-200' }}"
                                        value="{{ old('email') }}" 
                                        placeholder="contoh@email.com"
                                        required>
@@ -120,7 +122,7 @@
                                 <input type="text" 
                                        name="phone" 
                                        id="phone" 
-                                       class="w-full px-4 py-3 pl-12 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 @error('phone') border-red-300 ring-2 ring-red-200 @enderror" 
+                                       class="w-full px-4 py-3 pl-12 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 {{ $errors->has('phone') ? 'border-red-300 ring-2 ring-red-200' : 'border-gray-200' }}"
                                        value="{{ old('phone') }}" 
                                        placeholder="08xxxxxxxxxx"
                                        required>
@@ -144,7 +146,7 @@
                                 <textarea name="address" 
                                           id="address" 
                                           rows="4" 
-                                          class="w-full px-4 py-3 pl-12 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none @error('address') border-red-300 ring-2 ring-red-200 @enderror" 
+                                          class="w-full px-4 py-3 pl-12 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none {{ $errors->has('address') ? 'border-red-300 ring-2 ring-red-200' : 'border-gray-200' }}"
                                           placeholder="Masukkan alamat lengkap Konselor..."
                                           required>{{ old('address') }}</textarea>
                                 <i class="fas fa-map-marker-alt absolute left-4 top-4 text-gray-400"></i>
@@ -177,7 +179,7 @@
                             <textarea name="notes" 
                                       id="notes" 
                                       rows="4" 
-                                      class="w-full px-4 py-3 pl-12 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none @error('notes') border-red-300 ring-2 ring-red-200 @enderror" 
+                                      class="w-full px-4 py-3 pl-12 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none {{ $errors->has('notes') ? 'border-red-300 ring-2 ring-red-200' : 'border-gray-200' }}"
                                       placeholder="Tambahkan catatan khusus untuk Konselor ini...">{{ old('notes') }}</textarea>
                             <i class="fas fa-sticky-note absolute left-4 top-4 text-gray-400"></i>
                         </div>
