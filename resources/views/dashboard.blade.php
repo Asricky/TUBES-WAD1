@@ -3,49 +3,11 @@
 @section('content')
 <div class="p-6 space-y-10 bg-gray-50 min-h-screen">
 
-    <div class="stats-grid">
-        <!-- Total Konselor -->
-        <div class="stat-card">
-            <div class="stat-label">
-                <i class="fas fa-users icon"></i>
-                Total Konselor
-            </div>
-            <div class="stat-value">{{ \App\Models\Client::count() }}</div>
-        </div>
-
-        <!-- Jadwal Hari Ini -->
-        <div class="stat-card">
-            <div class="stat-label">
-                <i class="fas fa-calendar-day icon"></i>
-                Jadwal Hari Ini
-            </div>
-            <div class="stat-value">{{ \App\Models\Schedule::whereDate('date', today())->count() }}</div>
-        </div>
-
-        <!-- Total Sesi -->
-        <div class="stat-card">
-            <div class="stat-label">
-                <i class="fas fa-comments icon"></i>
-                Total Sesi
-            </div>
-            <div class="stat-value">{{ \App\Models\Session::count() }}</div>
-        </div>
-
-        <!-- Total Topik -->
-        <div class="stat-card">
-            <div class="stat-label">
-                <i class="fas fa-tags icon"></i>
-                Total Topik
-            </div>
-            <div class="stat-value">{{ \App\Models\Topic::count() }}</div>
-        </div>
-    </div>
-
     {{-- Stat Cards (Larger Version) --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         @php
             $stats = [
-                ['icon' => 'users', 'color' => 'blue', 'label' => 'Total Konselor', 'value' => \App\Models\Client::count()],
+                ['icon' => 'users', 'color' => 'blue', 'label' => 'Total Klien', 'value' => \App\Models\Client::count()],
                 ['icon' => 'calendar-day', 'color' => 'green', 'label' => 'Jadwal Hari Ini', 'value' => \App\Models\Schedule::whereDate('date', today())->count()],
                 ['icon' => 'comments', 'color' => 'purple', 'label' => 'Total Sesi', 'value' => \App\Models\Session::count()],
                 ['icon' => 'tags', 'color' => 'yellow', 'label' => 'Total Topik', 'value' => \App\Models\Topic::count()],
@@ -83,11 +45,10 @@
                 <table class="w-full">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th>Konselor</th>
-                            <th>Tanggal</th>
-                            <th>Waktu</th>
-                            <th>Status</th>
-                            <th>Aksi</th>
+                            <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Klien</th>
+                            <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Tanggal</th>
+                            <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100">
@@ -107,15 +68,17 @@
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-gray-900 flex items-center">
                                     <i class="far fa-calendar-alt mr-2 text-blue-500"></i>
-                                    {{ $schedule->date->format('d M Y') }}
-                                </div>
-                                <div class="text-gray-500 text-sm flex items-center mt-1">
-                                    <i class="far fa-clock mr-2 text-green-500"></i>
-                                    {{ $schedule->time->format('H:i') }}
+                                    {{ $schedule->date->format('d/m/Y') }} {{ $schedule->time->format('H:i') }}
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <x-status-badge :status="$schedule->status" />
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{
+                                    $schedule->status == 'confirmed' ? 'bg-blue-100 text-blue-800' :
+                                    ($schedule->status == 'pending' ? 'bg-yellow-100 text-yellow-800' :
+                                    ($schedule->status == 'cancelled' ? 'bg-red-100 text-red-800' : 'bg-gray-100 text-gray-800'))
+                                }}">
+                                    {{ ucfirst($schedule->status) }}
+                                </span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <a href="{{ route('schedules.show', $schedule) }}" class="inline-flex items-center justify-center w-8 h-8 bg-blue-100 text-blue-600 rounded-full hover:bg-blue-200 hover:text-blue-800 transition-all duration-200" title="Lihat Detail">
@@ -151,7 +114,7 @@
                 <table class="w-full">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Konselor</th>
+                            <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Klien</th>
                             <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Topik</th>
                             <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
                             <th class="px-6 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">Aksi</th>
@@ -178,11 +141,17 @@
                                 </div>
                                 <div class="text-gray-500 text-xs mt-1 flex items-center">
                                     <i class="far fa-calendar-alt mr-2 text-blue-500"></i>
-                                    {{ $session->schedule->date->format('d M Y') }}
+                                    {{ $session->schedule->date->format('d/m/Y') }}
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <x-status-badge :status="$session->status" />
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{
+                                    $session->status == 'scheduled' ? 'bg-purple-100 text-purple-800' :
+                                    ($session->status == 'completed' ? 'bg-green-100 text-green-800' :
+                                    ($session->status == 'in_progress' ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800'))
+                                }}">
+                                    {{ ucfirst($session->status) }}
+                                </span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <a href="{{ route('sessions.show', $session) }}" class="inline-flex items-center justify-center w-8 h-8 bg-blue-100 text-blue-600 rounded-full hover:bg-blue-200 hover:text-blue-800 transition-all duration-200" title="Lihat Detail">
@@ -203,58 +172,5 @@
         </div>
     </div>
 
-<<<<<<< HEAD
-=======
-    <!-- Sesi Terbaru -->
-    <div class="content-card">
-        <div class="card-header">
-            <h2 class="card-title">
-                <i class="fas fa-comments icon"></i>
-                Sesi Konsultasi Terbaru
-            </h2>
-        </div>
-        <div class="card-body">
-            <div class="table-container">
-                <table class="custom-table">
-                    <thead>
-                        <tr>
-                            <th>Konselor</th>
-                            <th>Topik</th>
-                            <th>Status</th>
-                            <th>Tanggal</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach(\App\Models\Session::with(['client', 'topic', 'schedule'])->latest()->take(5)->get() as $session)
-                        <tr>
-                            <td>
-                                <div class="font-medium">{{ $session->client->name }}</div>
-                                <div class="text-gray-500 text-sm">{{ $session->client->email }}</div>
-                            </td>
-                            <td>{{ $session->topic->name }}</td>
-                            <td>
-                                <span class="status-badge {{ 
-                                    $session->status == 'completed' ? 'status-completed' :
-                                    ($session->status == 'cancelled' ? 'status-cancelled' :
-                                    ($session->status == 'in_progress' ? 'status-confirmed' : 'status-pending'))
-                                }}">
-                                    {{ ucfirst($session->status) }}
-                                </span>
-                            </td>
-                            <td>{{ $session->schedule->date->format('d/m/Y') }}</td>
-                            <td>
-                                <a href="{{ route('sessions.show', $session) }}" class="btn-action btn-secondary">
-                                    <i class="fas fa-eye"></i> Detail
-                                </a>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
->>>>>>> origin/theoganteng
 </div>
 @endsection
