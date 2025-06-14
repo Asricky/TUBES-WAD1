@@ -7,11 +7,11 @@
     </div>
 
     <div class="stats-grid">
-        <!-- Total Klien -->
+        <!-- Total Konselor -->
         <div class="stat-card">
             <div class="stat-label">
                 <i class="fas fa-users icon"></i>
-                Total Klien
+                Total Konselor
             </div>
             <div class="stat-value">{{ \App\Models\Client::count() }}</div>
         </div>
@@ -57,7 +57,7 @@
                 <table class="custom-table">
                     <thead>
                         <tr>
-                            <th>Klien</th>
+                            <th>Konselor</th>
                             <th>Tanggal</th>
                             <th>Waktu</th>
                             <th>Status</th>
@@ -108,7 +108,7 @@
                 <table class="custom-table">
                     <thead>
                         <tr>
-                            <th>Klien</th>
+                            <th>Konselor</th>
                             <th>Topik</th>
                             <th>Status</th>
                             <th>Tanggal</th>

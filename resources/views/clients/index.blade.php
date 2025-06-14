@@ -4,10 +4,10 @@
 <div class="dashboard-container">
     <div class="dashboard-header">
         <div class="flex justify-between items-center">
-            <h1 class="dashboard-title">Daftar Klien</h1>
+            <h1 class="dashboard-title">Daftar Konselor</h1>
             <a href="{{ route('clients.create') }}" class="btn-action btn-primary">
                 <i class="fas fa-plus icon"></i>
-                Tambah Klien
+                Tambah Konselor
             </a>
         </div>
     </div>

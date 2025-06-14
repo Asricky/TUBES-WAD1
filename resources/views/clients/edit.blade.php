@@ -4,7 +4,7 @@
 <div class="dashboard-container">
     <div class="dashboard-header">
         <div class="flex justify-between items-center">
-            <h1 class="dashboard-title">Edit Klien</h1>
+            <h1 class="dashboard-title">Edit Konselor</h1>
             <a href="{{ route('clients.update', $client) }}" class="btn-action btn-secondary">
                 <i class="fas fa-arrow-left icon"></i>
                 Kembali
