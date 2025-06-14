@@ -69,7 +69,7 @@
                         <tr>
                             <td>
                                 <div class="font-medium">{{ $schedule->client->name }}</div>
-                                <div class="text-gray-500 text-sm">{{ $schedule->client->email }}</div>
+                                <div class="text-sm text-gray-500">{{ $schedule->client->email }}</div>
                             </td>
                             <td>{{ $schedule->date->format('d/m/Y') }}</td>
                             <td>{{ $schedule->time->format('H:i') }}</td>
@@ -108,7 +108,7 @@
                 <table class="custom-table">
                     <thead>
                         <tr>
-                            <th>Konselor</th>
+                            <th>Konsoler</th>
                             <th>Topik</th>
                             <th>Status</th>
                             <th>Tanggal</th>
@@ -120,7 +120,7 @@
                         <tr>
                             <td>
                                 <div class="font-medium">{{ $session->client->name }}</div>
-                                <div class="text-gray-500 text-sm">{{ $session->client->email }}</div>
+                                <div class="text-sm text-gray-500">{{ $session->client->email }}</div>
                             </td>
                             <td>{{ $session->topic->name }}</td>
                             <td>
