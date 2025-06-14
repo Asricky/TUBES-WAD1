@@ -3,8 +3,8 @@
 @section('content')
 <div class="dashboard-container">
     <div class="dashboard-header">
-        <div class="flex justify-between items-center">
-            <h1 class="dashboard-title">Edit Topik</h1>
+        <div class="flex items-center justify-between">
+            <h1 class="dashboard-title">Update Topik</h1>
             <a href="{{ route('topics.index') }}" class="btn-action btn-secondary">
                 <i class="fas fa-arrow-left icon"></i>
                 Kembali
