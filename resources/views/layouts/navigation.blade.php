@@ -27,6 +27,9 @@
                     <x-nav-link :href="route('topics.index')" :active="request()->routeIs('topics.*')">
                         {{ __('Topik') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('documents.index')" :active="request()->routeIs('documents.*')">
+                        {{ __('Dokumen Tambahan') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -93,6 +96,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('topics.index')" :active="request()->routeIs('topics.*')">
                 {{ __('Topik') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('documents.index')" :active="request()->routeIs('documents.*')">
+                {{ __('Dokumen Tambahan') }}
             </x-responsive-nav-link>
         </div>
 
