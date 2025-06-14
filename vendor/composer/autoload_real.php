@@ -33,7 +33,11 @@ class ComposerAutoloaderInitd6c083b04e73afd8ea1cc978bddab18d
 
         $loader->register(true);
 
+<<<<<<< Updated upstream
         $filesToLoad = \Composer\Autoload\ComposerStaticInitd6c083b04e73afd8ea1cc978bddab18d::$files;
+=======
+        $filesToLoad = \Composer\Autoload\ComposerStaticInit0d022c0302913e63ce11f86f521cdc67::$files;
+>>>>>>> Stashed changes
         $requireFile = \Closure::bind(static function ($fileIdentifier, $file) {
             if (empty($GLOBALS['__composer_autoload_files'][$fileIdentifier])) {
                 $GLOBALS['__composer_autoload_files'][$fileIdentifier] = true;
