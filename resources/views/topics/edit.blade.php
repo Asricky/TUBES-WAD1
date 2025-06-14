@@ -27,7 +27,7 @@
                 </div>
 
                 <div class="mb-4">
-                    <label for="description" class="form-label">Deskripsi</label>
+                    <label for="description" class="form-label">Description</label>
                     <textarea id="description" name="description" rows="4" class="form-input @error('description') is-invalid @enderror" required>{{ old('description', $topic->description) }}</textarea>
                     @error('description')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -37,11 +37,11 @@
                 <div class="flex gap-2">
                     <button type="submit" class="btn-action btn-primary">
                         <i class="fas fa-save icon"></i>
-                        Simpan Perubahan
+                        Save Changes
                     </button>
                     <a href="{{ route('topics.index') }}" class="btn-action btn-secondary">
                         <i class="fas fa-times icon"></i>
-                        Batal
+                        Cancel
                     </a>
                 </div>
             </form>
