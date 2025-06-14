@@ -8,7 +8,7 @@
         <div class="stat-card">
             <div class="stat-label">
                 <i class="fas fa-users icon"></i>
-                Total Konselor
+                Total Konselor 
             </div>
             <div class="stat-value">{{ \App\Models\Client::count() }}</div>
         </div>
@@ -26,7 +26,7 @@
         <div class="stat-card">
             <div class="stat-label">
                 <i class="fas fa-comments icon"></i>
-                Total Sesi
+                Total Sesi Konsultasi
             </div>
             <div class="stat-value">{{ \App\Models\Session::count() }}</div>
         </div>
