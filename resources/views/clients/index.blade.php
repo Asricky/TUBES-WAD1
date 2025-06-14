@@ -52,7 +52,7 @@
                         <th class="px-6 py-4 text-sm font-semibold tracking-wider text-left text-gray-700 uppercase">
                             <div class="flex items-center gap-2">
                                 <i class="text-blue-500 fas fa-user"></i>
-                                Nama Konselor
+                                Konselor Name
                             </div>
                         </th>
                         <th class="px-6 py-4 text-sm font-semibold tracking-wider text-left text-gray-700 uppercase">
@@ -64,7 +64,7 @@
                         <th class="px-6 py-4 text-sm font-semibold tracking-wider text-left text-gray-700 uppercase">
                             <div class="flex items-center gap-2">
                                 <i class="text-purple-500 fas fa-phone"></i>
-                                No. Telepon
+                                Telephone Number
                             </div>
                         </th>
                         <th class="px-6 py-4 text-sm font-semibold tracking-wider text-left text-gray-700 uppercase">
