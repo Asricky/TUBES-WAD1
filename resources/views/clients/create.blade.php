@@ -1,256 +1,229 @@
- <!-- create Konselor -->
 @extends('layouts.main')
 
 @section('content')
-<div class="dashboard-container">
-    <div class="dashboard-header">
-        <div class="flex justify-between items-center">
+<div class="dashboard-container space-y-6">
+
+    {{-- Header Halaman --}}
+    <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
+        <div>
             <h1 class="dashboard-title">Tambah Konselor Baru</h1>
-            <a href="{{ route('clients.index') }}" class="btn-action btn-secondary">
-                <i class="fas fa-arrow-left icon"></i>
-                Kembali
-            </a>
+            <p class="text-sm text-gray-500 mt-1">Isi detail di bawah ini untuk mendaftarkan konselor baru.</p>
         </div>
         <a href="{{ route('clients.index') }}" 
-           class="inline-flex items-center gap-2 px-6 py-3 bg-gray-100 text-gray-700 font-semibold rounded-xl border border-gray-200 hover:bg-gray-200 hover:shadow-lg transform hover:-translate-y-1 transition-all duration-200">
-            <i class="fas fa-arrow-left"></i>
+           class="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-white text-gray-700 font-semibold rounded-lg border border-gray-300 shadow-sm hover:bg-gray-50 hover:text-blue-600 transform hover:-translate-y-0.5 transition-all duration-200">
+            <i class="fas fa-arrow-left text-sm"></i>
             Kembali ke Daftar
         </a>
     </div>
 
-    {{-- Main Form Card --}}
-    <div class="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
-        {{-- Card Header --}}
-        <div class="bg-gradient-to-r from-blue-600 to-blue-700 px-8 py-6">
-            <div class="flex items-center gap-3 text-white">
-                <i class="fas fa-edit text-xl"></i>
-                <div>
-                    <h2 class="text-xl font-semibold">Formulir Data Konselor</h2>
-                    <p class="text-blue-100 text-sm">Pastikan semua informasi yang dimasukkan akurat</p>
+    {{-- Formulir Utama --}}
+    <form action="{{ route('clients.store') }}" method="POST">
+        @csrf
+        <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+            {{-- Header Kartu --}}
+            <div class="bg-gradient-to-r from-gray-800 to-gray-700 px-6 py-5">
+                <div class="flex items-center gap-4 text-white">
+                    <i class="fas fa-user-plus text-2xl text-blue-300"></i>
+                    <div>
+                        <h2 class="text-lg font-bold">Formulir Data Konselor</h2>
+                        <p class="text-sm text-gray-300">Pastikan semua informasi yang dimasukkan akurat.</p>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Konten Form dengan Seksi --}}
+            <div class="p-6 sm:p-8 space-y-8">
+
+                {{-- Seksi Informasi Personal --}}
+                <div class="space-y-6">
+                    <div class="section-header">
+                        <i class="fas fa-user-circle text-blue-500"></i>
+                        <h3 class="section-title">Informasi Personal</h3>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {{-- Field Nama Lengkap --}}
+                        <div class="form-group">
+                            <label for="name" class="form-label">Nama Lengkap <span class="text-red-500">*</span></label>
+                            <div class="relative">
+                                <input type="text" name="name" id="name" class="form-input @error('name') input-error @enderror" value="{{ old('name') }}" placeholder="Masukkan nama lengkap" required>
+                            </div>
+                            @error('name')<p class="error-message">{{ $message }}</p>@enderror
+                        </div>
+                        
+                        {{-- Field Email --}}
+                        <div class="form-group">
+                            <label for="email" class="form-label">Alamat Email <span class="text-red-500">*</span></label>
+                            <div class="relative">
+                                <input type="email" name="email" id="email" class="form-input @error('email') input-error @enderror" value="{{ old('email') }}" placeholder="contoh@email.com" required>
+                            </div>
+                            @error('email')<p class="error-message">{{ $message }}</p>@enderror
+                        </div>
+                    </div>
+                </div>
+                
+                {{-- Seksi Informasi Kontak --}}
+                <div class="space-y-6">
+                    <div class="section-header">
+                        <i class="fas fa-address-book text-blue-500"></i>
+                        <h3 class="section-title">Informasi Kontak</h3>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {{-- Field Nomor Telepon --}}
+                        <div class="form-group">
+                            <label for="phone" class="form-label">Nomor Telepon <span class="text-red-500">*</span></label>
+                            <div class="relative">
+                                <input type="tel" name="phone" id="phone" class="form-input @error('phone') input-error @enderror" value="{{ old('phone') }}" placeholder="08xxxxxxxxxx" required>
+                            </div>
+                            @error('phone')<p class="error-message">{{ $message }}</p>@enderror
+                        </div>
+
+                        {{-- Field Alamat --}}
+                        <div class="form-group md:col-span-2">
+                            <label for="address" class="form-label">Alamat Lengkap <span class="text-red-500">*</span></label>
+                            <div class="relative">
+                                 <i class="fas fa-map-marker-alt input-icon top-4"></i>
+                                <textarea name="address" id="address" rows="4" class="form-input resize-y @error('address') input-error @enderror" placeholder="Masukkan alamat lengkap..." required>{{ old('address') }}</textarea>
+                            </div>
+                            @error('address')<p class="error-message">{{ $message }}</p>@enderror
+                        </div>
+                    </div> 
+                </div>
+
+                {{-- Seksi Informasi Tambahan --}}
+                 <div class="space-y-6">
+                    <div class="section-header">
+                        <i class="fas fa-sticky-note text-blue-500"></i>
+                        <h3 class="section-title">Informasi Tambahan</h3>
+                    </div>
+                    <div>
+                        {{-- Field Catatan --}}
+                        <div class="form-group">
+                            <label for="notes" class="form-label">Catatan <span class="text-gray-400 text-xs font-normal">(Opsional)</span></label>
+                            <div class="relative">
+                                <i class="fas fa-pencil-alt input-icon top-4"></i>
+                                <textarea name="notes" id="notes" rows="4" class="form-input resize-y @error('notes') input-error @enderror" placeholder="Tambahkan catatan khusus untuk konselor ini...">{{ old('notes') }}</textarea>
+                            </div>
+                            @error('notes')<p class="error-message">{{ $message }}</p>@enderror
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            {{-- Footer Form dengan Tombol Aksi --}}
+            <div class="bg-gray-50 px-6 py-4 border-t border-gray-200">
+                <div class="flex justify-end gap-3">
+                    <a href="{{ route('clients.index') }}" class="btn btn-secondary">Batal</a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save mr-2"></i>
+                        Simpan Data
+                    </button>
                 </div>
             </div>
         </div>
-
-        {{-- Form Content --}}
-        <div class="p-8">
-            <form action="{{ route('clients.store') }}" method="POST" class="space-y-8">
-                @csrf
-                
-                {{-- Personal Information Section --}}
-                <div class="space-y-6">
-                    <div class="flex items-center gap-3 pb-4 border-b border-gray-200">
-                        <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-user text-blue-600"></i>
-                        </div>
-                        <h3 class="text-lg font-semibold text-gray-800">Informasi Personal</h3>
-                    </div>
-
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        {{-- Name Field --}}
-                        <div class="form-group">
-                            <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">
-                                <i class="fas fa-user text-blue-500 mr-2"></i>
-                                Nama Lengkap <span class="text-red-500">*</span>
-                            </label>
-                            <div class="relative">
-                                <input type="text" 
-                                       name="name" 
-                                       id="name" 
-                                       class="w-full px-4 py-3 pl-12 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 @error('name') border-red-300 ring-2 ring-red-200 @enderror" 
-                                       value="{{ old('name') }}" 
-                                       placeholder="Masukkan nama lengkap Konselor"
-                                       required>
-                                <i class="fas fa-user absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                            </div>
-                            @error('name')
-                                <div class="flex items-center gap-2 mt-2 text-red-600 text-sm">
-                                    <i class="fas fa-exclamation-circle"></i>
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-
-                        {{-- Email Field --}}
-                        <div class="form-group">
-                            <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">
-                                <i class="fas fa-envelope text-green-500 mr-2"></i>
-                                Alamat Email <span class="text-red-500">*</span>
-                            </label>
-                            <div class="relative">
-                                <input type="email" 
-                                       name="email" 
-                                       id="email" 
-                                       class="w-full px-4 py-3 pl-12 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 @error('email') border-red-300 ring-2 ring-red-200 @enderror" 
-                                       value="{{ old('email') }}" 
-                                       placeholder="contoh@email.com"
-                                       required>
-                                <i class="fas fa-envelope absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                            </div>
-                            @error('email')
-                                <div class="flex items-center gap-2 mt-2 text-red-600 text-sm">
-                                    <i class="fas fa-exclamation-circle"></i>
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                    </div>
-                </div>
-
-                {{-- Contact Information Section --}}
-                <div class="space-y-6">
-                    <div class="flex items-center gap-3 pb-4 border-b border-gray-200">
-                        <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-phone text-purple-600"></i>
-                        </div>
-                        <h3 class="text-lg font-semibold text-gray-800">Informasi Kontak</h3>
-                    </div>
-
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        {{-- Phone Field --}}
-                        <div class="form-group">
-                            <label for="phone" class="block text-sm font-semibold text-gray-700 mb-2">
-                                <i class="fas fa-phone text-purple-500 mr-2"></i>
-                                Nomor Telepon <span class="text-red-500">*</span>
-                            </label>
-                            <div class="relative">
-                                <input type="text" 
-                                       name="phone" 
-                                       id="phone" 
-                                       class="w-full px-4 py-3 pl-12 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 @error('phone') border-red-300 ring-2 ring-red-200 @enderror" 
-                                       value="{{ old('phone') }}" 
-                                       placeholder="08xxxxxxxxxx"
-                                       required>
-                                <i class="fas fa-phone absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                            </div>
-                            @error('phone')
-                                <div class="flex items-center gap-2 mt-2 text-red-600 text-sm">
-                                    <i class="fas fa-exclamation-circle"></i>
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-
-                        {{-- Address Field --}}
-                        <div class="form-group">
-                            <label for="address" class="block text-sm font-semibold text-gray-700 mb-2">
-                                <i class="fas fa-map-marker-alt text-red-500 mr-2"></i>
-                                Alamat Lengkap <span class="text-red-500">*</span>
-                            </label>
-                            <div class="relative">
-                                <textarea name="address" 
-                                          id="address" 
-                                          rows="4" 
-                                          class="w-full px-4 py-3 pl-12 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none @error('address') border-red-300 ring-2 ring-red-200 @enderror" 
-                                          placeholder="Masukkan alamat lengkap Konselor..."
-                                          required>{{ old('address') }}</textarea>
-                                <i class="fas fa-map-marker-alt absolute left-4 top-4 text-gray-400"></i>
-                            </div>
-                            @error('address')
-                                <div class="flex items-center gap-2 mt-2 text-red-600 text-sm">
-                                    <i class="fas fa-exclamation-circle"></i>
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                    </div>
-                </div>
-
-                {{-- Additional Information Section --}}
-                <div class="space-y-6">
-                    <div class="flex items-center gap-3 pb-4 border-b border-gray-200">
-                        <div class="w-8 h-8 bg-amber-100 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-sticky-note text-amber-600"></i>
-                        </div>
-                        <h3 class="text-lg font-semibold text-gray-800">Informasi Tambahan</h3>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="notes" class="block text-sm font-semibold text-gray-700 mb-2">
-                            <i class="fas fa-sticky-note text-amber-500 mr-2"></i>
-                            Catatan <span class="text-gray-400 text-xs">(Opsional)</span>
-                        </label>
-                        <div class="relative">
-                            <textarea name="notes" 
-                                      id="notes" 
-                                      rows="4" 
-                                      class="w-full px-4 py-3 pl-12 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none @error('notes') border-red-300 ring-2 ring-red-200 @enderror" 
-                                      placeholder="Tambahkan catatan khusus untuk Konselor ini...">{{ old('notes') }}</textarea>
-                            <i class="fas fa-sticky-note absolute left-4 top-4 text-gray-400"></i>
-                        </div>
-                        @error('notes')
-                            <div class="flex items-center gap-2 mt-2 text-red-600 text-sm">
-                                <i class="fas fa-exclamation-circle"></i>
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-                </div>
-
-                {{-- Action Buttons --}}
-                <div class="flex flex-col sm:flex-row justify-end gap-4 pt-6 border-t border-gray-200">
-                    <a href="{{ route('clients.index') }}" 
-                       class="inline-flex items-center justify-center gap-3 px-8 py-4 bg-gray-100 text-gray-700 font-semibold rounded-xl border border-gray-200 hover:bg-gray-200 hover:shadow-lg transform hover:-translate-y-1 transition-all duration-200">
-                        <i class="fas fa-times"></i>
-                        Batal
-                    </a>
-                    <button type="submit" 
-                            class="inline-flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-xl shadow-lg hover:from-blue-700 hover:to-blue-800 hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200">
-                        <i class="fas fa-save"></i>
-                        Simpan Data Konselor
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-
+    </form>
 </div>
+@endsection
 
-{{-- Custom Styles --}}
+@push('styles')
 <style>
-    /* Enhanced form styling */
-    .form-group input:focus,
-    .form-group textarea:focus {
-        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-        transform: translateY(-1px);
+    /* Styling untuk Header Seksi */
+    .section-header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem; /* 12px */
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid #e5e7eb; /* border-gray-200 */
     }
-    
-    /* Smooth animations */
+    .section-title {
+        font-size: 1.125rem; /* text-lg */
+        font-weight: 600; /* font-semibold */
+        color: #1f2937; /* text-gray-800 */
+    }
+
+    /* Styling Grup Form */
     .form-group {
-        transition: all 0.2s ease;
+        width: 100%;
+    }
+    .form-label {
+        display: block;
+        margin-bottom: 0.5rem; /* mb-2 */
+        font-size: 0.875rem; /* text-sm */
+        font-weight: 600; /* font-semibold */
+        color: #374151; /* text-gray-700 */
+    }
+    .form-input {
+        width: 100%;
+        padding: 0.75rem 1rem 0.75rem 2.75rem; /* py-3 px-4 pl-11 */
+        border: 1px solid #d1d5db; /* border-gray-300 */
+        border-radius: 0.75rem; /* rounded-xl */
+        background-color: #f9fafb; /* bg-gray-50 */
+        transition: all 0.2s ease-in-out;
+    }
+    .form-input:focus {
+        outline: none;
+        border-color: #2563eb; /* focus:border-blue-600 */
+        background-color: #fff;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    }
+    .input-icon {
+        position: absolute;
+        left: 1rem; /* left-4 */
+        top: 50%;
+        transform: translateY(-50%);
+        color: #9ca3af; /* text-gray-400 */
+        pointer-events: none;
+    }
+    .input-icon.top-4 {
+        top: 1rem;
+        transform: translateY(0);
     }
     
-    .form-group:hover {
+    /* Styling untuk Error State */
+    .input-error {
+        border-color: #ef4444; /* border-red-500 */
+    }
+    .input-error:focus {
+        border-color: #ef4444;
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+    }
+    .error-message {
+        margin-top: 0.5rem; /* mt-2 */
+        font-size: 0.875rem; /* text-sm */
+        color: #dc2626; /* text-red-600 */
+    }
+
+    /* Styling Tombol Aksi */
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.625rem 1.25rem; /* px-5 py-2.5 */
+        font-weight: 600; /* font-semibold */
+        border-radius: 0.5rem; /* rounded-lg */
+        border: 1px solid transparent;
+        transition: all 0.2s ease-in-out;
+        cursor: pointer;
+    }
+    .btn:hover {
         transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
-    
-    /* Custom scrollbar for textareas */
-    textarea::-webkit-scrollbar {
-        width: 4px;
+    .btn-primary {
+        background-color: #2563eb; /* bg-blue-600 */
+        color: white;
     }
-    
-    textarea::-webkit-scrollbar-track {
-        background: #f1f5f9;
-        border-radius: 4px;
+    .btn-primary:hover {
+        background-color: #1d4ed8; /* hover:bg-blue-700 */
     }
-    
-    textarea::-webkit-scrollbar-thumb {
-        background: #cbd5e1;
-        border-radius: 4px;
+    .btn-secondary {
+        background-color: #e5e7eb; /* bg-gray-200 */
+        color: #374151; /* text-gray-700 */
+        border-color: #d1d5db; /* border-gray-300 */
     }
-    
-    textarea::-webkit-scrollbar-thumb:hover {
-        background: #94a3b8;
-    }
-    
-    /* Responsive improvements */
-    @media (max-width: 640px) {
-        .p-8 {
-            padding: 1.5rem;
-        }
-        
-        .gap-6 {
-            gap: 1rem;
-        }
+    .btn-secondary:hover {
+        background-color: #d1d5db;
+        border-color: #9ca3af;
     }
 </style>
-@endsection
+@endpush

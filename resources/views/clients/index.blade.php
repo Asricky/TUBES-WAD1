@@ -10,24 +10,17 @@
                 Tambah Konselor
             </a>
         </div>
-        <a href="{{ route('clients.create') }}"
-           class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-xl shadow-lg hover:from-blue-700 hover:to-blue-800 hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200">
-            <i class="fas fa-plus-circle"></i>
-            Tambah Konselor Baru
-        </a>
     </div>
 
     {{-- Notifikasi --}}
     @if(session('success'))
-        <div class="px-6 py-4 bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-500 text-green-800 rounded-r-xl shadow-md animate-pulse">
+        <div class="px-6 py-4 bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-500 text-green-800 rounded-r-xl shadow-md animate-pulse mb-6">
             <div class="flex items-center gap-3">
                 <i class="fas fa-check-circle text-green-600 text-lg"></i>
                 <span class="font-medium">{{ session('success') }}</span>
             </div>
         </div>
     @endif
-
-
 
     {{-- Enhanced Table --}}
     <div class="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
@@ -227,18 +220,8 @@
         color: white;
         border-color: #3b82f6;
     }
-    
-    /* Smooth animations */
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-    
-    tbody tr {
-        animation: fadeIn 0.3s ease-out;
-    }
-    
-    /* Responsive improvements */
+
+    /* Responsive Improvements */
     @media (max-width: 768px) {
         .overflow-x-auto {
             -webkit-overflow-scrolling: touch;
