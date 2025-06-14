@@ -22,7 +22,7 @@
         <div class="container">
             <a href="{{ url('/') }}" class="navbar-brand">
                 <i class="fas fa-comments"></i>
-                Konsultasi
+                Tell2U
             </a>
             
             <button class="mobile-menu-button" id="mobileMenuButton">
