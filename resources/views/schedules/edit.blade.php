@@ -46,31 +46,40 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="space-y-2">
                             <label for="date" class="text-sm font-semibold text-secondary-700">Tanggal <span class="text-red-500">*</span></label>
-                            <input type="date" name="date" id="date" value="{{ old('date', $schedule->date->format('Y-m-d')) }}" class="w-full rounded-xl border-gray-200 focus:border-blue-500 focus:ring-blue-500 transition-shadow" required>
+                            <input type="date" name="date" id="date" value="{{ old('date', $schedule->date->format('Y-m-d')) }}" min="{{ date('Y-m-d') }}" class="w-full rounded-xl border-gray-200 focus:border-blue-500 focus:ring-blue-500 transition-shadow" required>
                             @error('date') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                         </div>
 
                         <div class="space-y-2">
                             <label for="time" class="text-sm font-semibold text-secondary-700">Waktu <span class="text-red-500">*</span></label>
-                            <input type="time" name="time" id="time" value="{{ old('time', $schedule->time->format('H:i')) }}" class="w-full rounded-xl border-gray-200 focus:border-blue-500 focus:ring-blue-500 transition-shadow" required>
+                            <input type="time" name="time" id="time" value="{{ old('time', \Carbon\Carbon::parse($schedule->time)->format('H:i')) }}" class="w-full rounded-xl border-gray-200 focus:border-blue-500 focus:ring-blue-500 transition-shadow" required>
                             @error('time') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                         </div>
                     </div>
 
-                    <div class="space-y-2">
-                        <label for="status" class="text-sm font-semibold text-secondary-700">Status <span class="text-red-500">*</span></label>
-                        <div class="relative">
-                            <select name="status" id="status" class="w-full rounded-xl border-gray-200 focus:border-blue-500 focus:ring-blue-500 transition-shadow appearance-none" required>
-                                <option value="pending" {{ old('status', $schedule->status) == 'pending' ? 'selected' : '' }}>Pending</option>
-                                <option value="confirmed" {{ old('status', $schedule->status) == 'confirmed' ? 'selected' : '' }}>Confirmed</option>
-                                <option value="cancelled" {{ old('status', $schedule->status) == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
-                                <option value="completed" {{ old('status', $schedule->status) == 'completed' ? 'selected' : '' }}>Completed</option>
-                            </select>
-                            <div class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none">
-                                <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    <!-- Current Status (Read-only) -->
+                    <div class="bg-gray-50 border border-gray-200 rounded-xl p-4 mb-6">
+                        <div class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-gray-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <div class="flex-1">
+                                <p class="font-semibold text-gray-700 mb-1">Status Saat Ini</p>
+                                <div class="flex items-center gap-2">
+                                    @php
+                                        $statusBadges = [
+                                            'available' => ['bg-green-100 text-green-700', '✓ Available'],
+                                            'booked' => ['bg-blue-100 text-blue-700', '● Booked'],
+                                            'completed' => ['bg-gray-100 text-gray-700', '✓ Completed'],
+                                            'cancelled' => ['bg-red-100 text-red-700', '✕ Cancelled'],
+                                        ];
+                                        $current = $statusBadges[$schedule->status] ?? ['bg-gray-100 text-gray-700', ucfirst($schedule->status)];
+                                    @endphp
+                                    <span class="px-3 py-1 rounded-full text-sm font-semibold {{ $current[0] }}">
+                                        {{ $current[1] }}
+                                    </span>
+                                </div>
+                                <p class="text-xs text-gray-500 mt-2">Status dikelola otomatis oleh sistem berdasarkan booking dan waktu konsultasi.</p>
                             </div>
                         </div>
-                        @error('status') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                     </div>
 
                     <div class="space-y-2">

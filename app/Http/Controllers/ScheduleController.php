@@ -27,16 +27,12 @@ class ScheduleController extends Controller
         return view('schedules.create', compact('clients'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'client_id' => 'required|exists:clients,id',
-            'date' => 'required|date|after:today',
+            'date' => 'required|date|after_or_equal:today',
             'time' => 'required|date_format:H:i',
-            'status' => 'required|in:pending,confirmed,cancelled,completed',
             'notes' => 'nullable|string'
         ]);
 
@@ -47,11 +43,19 @@ class ScheduleController extends Controller
                 ->withInput();
         }
 
-        Schedule::create($request->all());
+        // Auto-set status and duration
+        Schedule::create([
+            'client_id' => $request->client_id,
+            'date' => $request->date,
+            'time' => $request->time,
+            'notes' => $request->notes,
+            'status' => 'available', // Auto-set
+            'duration' => 60, // 1 hour fixed
+        ]);
 
         return redirect()
             ->route('schedules.index')
-            ->with('success', 'Jadwal konsultasi berhasil ditambahkan.');
+            ->with('success', 'Jadwal konsultasi berhasil ditambahkan dengan status "Available".');
     }
 
     /**
@@ -71,16 +75,12 @@ class ScheduleController extends Controller
         return view('schedules.edit', compact('schedule', 'clients'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Schedule $schedule)
     {
         $validator = Validator::make($request->all(), [
             'client_id' => 'required|exists:clients,id',
             'date' => 'required|date',
             'time' => 'required|date_format:H:i',
-            'status' => 'required|in:pending,confirmed,cancelled,completed',
             'notes' => 'nullable|string'
         ]);
 
@@ -91,7 +91,14 @@ class ScheduleController extends Controller
                 ->withInput();
         }
 
-        $schedule->update($request->all());
+        // Update only allowed fields, preserve auto-managed status
+        $schedule->update([
+            'client_id' => $request->client_id,
+            'date' => $request->date,
+            'time' => $request->time,
+            'notes' => $request->notes,
+            // status is NOT updated - auto-managed by system
+        ]);
 
         return redirect()
             ->route('schedules.index')

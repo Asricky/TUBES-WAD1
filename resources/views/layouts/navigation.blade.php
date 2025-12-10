@@ -12,24 +12,38 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="text-secondary-600 hover:text-primary-600 transition-colors duration-300">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('clients.index')" :active="request()->routeIs('clients.*')" class="text-secondary-600 hover:text-primary-600 transition-colors duration-300">
-                        {{ __('Konselor') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('schedules.index')" :active="request()->routeIs('schedules.*')" class="text-secondary-600 hover:text-primary-600 transition-colors duration-300">
-                        {{ __('Jadwal') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('sessions.index')" :active="request()->routeIs('sessions.*')" class="text-secondary-600 hover:text-primary-600 transition-colors duration-300">
-                        {{ __('Sesi Konsultasi') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('topics.index')" :active="request()->routeIs('topics.*')" class="text-secondary-600 hover:text-primary-600 transition-colors duration-300">
-                        {{ __('Topik') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('attachments.index')" :active="request()->routeIs('attachments.*')" class="text-secondary-600 hover:text-primary-600 transition-colors duration-300">
-                        {{ __('Dokumen') }}
-                    </x-nav-link>
+                    @if(Auth::user()->isAdmin())
+                        {{-- Admin Navigation --}}
+                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="text-secondary-600 hover:text-primary-600 transition-colors duration-300">
+                            {{ __('Dashboard') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('clients.index')" :active="request()->routeIs('clients.*')" class="text-secondary-600 hover:text-primary-600 transition-colors duration-300">
+                            {{ __('Konselor') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('schedules.index')" :active="request()->routeIs('schedules.*')" class="text-secondary-600 hover:text-primary-600 transition-colors duration-300">
+                            {{ __('Jadwal') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('sessions.index')" :active="request()->routeIs('sessions.*')" class="text-secondary-600 hover:text-primary-600 transition-colors duration-300">
+                            {{ __('Sesi Konsultasi') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('topics.index')" :active="request()->routeIs('topics.*')" class="text-secondary-600 hover:text-primary-600 transition-colors duration-300">
+                            {{ __('Topik') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('attachments.index')" :active="request()->routeIs('attachments.*')" class="text-secondary-600 hover:text-primary-600 transition-colors duration-300">
+                            {{ __('Dokumen') }}
+                        </x-nav-link>
+                    @else
+                        {{-- User/Mahasiswa Navigation --}}
+                        <x-nav-link :href="route('user.dashboard')" :active="request()->routeIs('user.dashboard')" class="text-secondary-600 hover:text-primary-600 transition-colors duration-300">
+                            {{ __('Dashboard') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('user.jadwal')" :active="request()->routeIs('user.jadwal')" class="text-secondary-600 hover:text-primary-600 transition-colors duration-300">
+                            {{ __('Jadwal Tersedia') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('user.riwayat')" :active="request()->routeIs('user.riwayat*')" class="text-secondary-600 hover:text-primary-600 transition-colors duration-300">
+                            {{ __('Riwayat Saya') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -82,24 +96,38 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden bg-white/90 backdrop-blur-md">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="text-secondary-600 hover:text-primary-600 hover:bg-primary-50">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('clients.index')" :active="request()->routeIs('clients.*')" class="text-secondary-600 hover:text-primary-600 hover:bg-primary-50">
-                {{ __('Konselor') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('schedules.index')" :active="request()->routeIs('schedules.*')" class="text-secondary-600 hover:text-primary-600 hover:bg-primary-50">
-                {{ __('Jadwal') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('sessions.index')" :active="request()->routeIs('sessions.*')" class="text-secondary-600 hover:text-primary-600 hover:bg-primary-50">
-                {{ __('Sesi Konsultasi') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('topics.index')" :active="request()->routeIs('topics.*')" class="text-secondary-600 hover:text-primary-600 hover:bg-primary-50">
-                {{ __('Topik') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('attachments.index')" :active="request()->routeIs('attachments.*')" class="text-secondary-600 hover:text-primary-600 hover:bg-primary-50">
-                {{ __('Dokumen') }}
-            </x-responsive-nav-link>
+            @if(Auth::user()->isAdmin())
+                {{-- Admin Responsive Navigation --}}
+                <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="text-secondary-600 hover:text-primary-600 hover:bg-primary-50">
+                    {{ __('Dashboard') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('clients.index')" :active="request()->routeIs('clients.*')" class="text-secondary-600 hover:text-primary-600 hover:bg-primary-50">
+                    {{ __('Konselor') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('schedules.index')" :active="request()->routeIs('schedules.*')" class="text-secondary-600 hover:text-primary-600 hover:bg-primary-50">
+                    {{ __('Jadwal') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('sessions.index')" :active="request()->routeIs('sessions.*')" class="text-secondary-600 hover:text-primary-600 hover:bg-primary-50">
+                    {{ __('Sesi Konsultasi') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('topics.index')" :active="request()->routeIs('topics.*')" class="text-secondary-600 hover:text-primary-600 hover:bg-primary-50">
+                    {{ __('Topik') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('attachments.index')" :active="request()->routeIs('attachments.*')" class="text-secondary-600 hover:text-primary-600 hover:bg-primary-50">
+                    {{ __('Dokumen') }}
+                </x-responsive-nav-link>
+            @else
+                {{-- User/Mahasiswa Responsive Navigation --}}
+                <x-responsive-nav-link :href="route('user.dashboard')" :active="request()->routeIs('user.dashboard')" class="text-secondary-600 hover:text-primary-600 hover:bg-primary-50">
+                    {{ __('Dashboard') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('user.jadwal')" :active="request()->routeIs('user.jadwal')" class="text-secondary-600 hover:text-primary-600 hover:bg-primary-50">
+                    {{ __('Jadwal Tersedia') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('user.riwayat')" :active="request()->routeIs('user.riwayat*')" class="text-secondary-600 hover:text-primary-600 hover:bg-primary-50">
+                    {{ __('Riwayat Saya') }}
+                </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->

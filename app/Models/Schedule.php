@@ -14,12 +14,12 @@ class Schedule extends Model
         'date',
         'time',
         'status',
-        'notes'
+        'notes',
+        'duration'
     ];
 
     protected $casts = [
         'date' => 'date',
-        'time' => 'datetime'
     ];
 
     // Relasi dengan Client
@@ -32,5 +32,14 @@ class Schedule extends Model
     public function session()
     {
         return $this->hasOne(Session::class);
+    }
+    
+    /**
+     * Helper method to format time for display
+     */
+    public function getFormattedTimeAttribute()
+    {
+        // Parse time string to get H:i format
+        return \Carbon\Carbon::parse($this->time)->format('H:i');
     }
 }
