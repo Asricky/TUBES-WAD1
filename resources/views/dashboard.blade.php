@@ -3,43 +3,7 @@
 @section('content')
 <div class="min-h-screen p-6 space-y-10 bg-gray-50">
 
-    <div class="stats-grid">
-        <!-- Total Konselor -->
-        <div class="stat-card">
-            <div class="stat-label">
-                <i class="fas fa-users icon"></i>
-                Total Konselor 
-            </div>
-            <div class="stat-value">{{ \App\Models\Client::count() }}</div>
-        </div>
 
-        <!-- Jadwal Hari Ini -->
-        <div class="stat-card">
-            <div class="stat-label">
-                <i class="fas fa-calendar-day icon"></i>
-                Jadwal Hari Ini
-            </div>
-            <div class="stat-value">{{ \App\Models\Schedule::whereDate('date', today())->count() }}</div>
-        </div>
-
-        <!-- Total Sesi -->
-        <div class="stat-card">
-            <div class="stat-label">
-                <i class="fas fa-comments icon"></i>
-                Total Sesi Konsultasi
-            </div>
-            <div class="stat-value">{{ \App\Models\Session::count() }}</div>
-        </div>
-
-        <!-- Total Topik -->
-        <div class="stat-card">
-            <div class="stat-label">
-                <i class="fas fa-tags icon"></i>
-                Total Topik
-            </div>
-            <div class="stat-value">{{ \App\Models\Topic::count() }}</div>
-        </div>
-    </div>
 
     {{-- Stat Cards (Larger Version) --}}
     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">

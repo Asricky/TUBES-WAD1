@@ -5,10 +5,6 @@
     <div class="dashboard-header">
         <div class="flex items-center justify-between">
             <h1 class="dashboard-title">Konselor List</h1>
-            <a href="{{ route('clients.create') }}" class="btn-action btn-primary">
-                <i class="fas fa-plus icon"></i>
-                Add Konselor
-            </a>
         </div>
         <a href="{{ route('clients.create') }}"
            class="inline-flex items-center gap-2 px-6 py-3 font-semibold text-white transition-all duration-200 transform shadow-lg bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl hover:from-blue-700 hover:to-blue-800 hover:shadow-xl hover:-translate-y-1">
@@ -180,7 +176,7 @@
         @endif
     </div>
 
-    {{-- Enhanced Pagination --}}
+    {{-- Enhanced Pagination --}} <br>
     @if(!$clients->isEmpty())
     <div class="p-6 bg-white border border-gray-100 shadow-lg rounded-2xl">
         <div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
