@@ -122,7 +122,7 @@
                         </div>
                         <div class="stat-grid">
                             <div class="stat-card"><div class="stat-number">150+</div><div class="stat-label">Konselor</div></div>
-                            <div class="stat-card"><div class="stat-number">2.5K</div><div class="stat-label">Sesi/Bulan</div></div>
+                            <div class="stat-card"><div class="stat-number">2.5K</div><div class="stat-label">Pengguna/Bulan</div></div>
                             <div class="stat-card"><div class="stat-number">98%</div><div class="stat-label">Kepuasan</div></div>
                         </div>
                     </div>
