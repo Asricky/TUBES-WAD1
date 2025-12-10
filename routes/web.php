@@ -14,7 +14,7 @@ use App\Http\Controllers\User\BookingController as UserBookingController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('auth.register');
+    return view('welcome');
 });
 Route::get('/pelanggan/home', function () {
     return view('pelanggan.home');

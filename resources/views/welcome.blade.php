@@ -3,225 +3,184 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{{ config('app.name', 'Laravel') }}</title>
-        <!-- Fonts -->
+        <title>{{ config('app.name', 'Laravel') }} - Konsultasi Online Profesional</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="font-sans antialiased bg-secondary-50 text-secondary-900 selection:bg-primary-500 selection:text-white overflow-x-hidden">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
         
-        <!-- Background Elements -->
-        <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-            <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-primary-400/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-            <div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-400/10 rounded-full blur-3xl translate-y-1/3 -translate-x-1/3"></div>
-        </div>
-
-        <!-- Navbar -->
-        <nav class="fixed w-full z-50 transition-all duration-300" id="navbar">
-            <div class="glass border-b border-white/20 bg-white/70 backdrop-blur-md">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="flex justify-between h-20 items-center">
-                        <div class="flex-shrink-0 flex items-center gap-3">
-                            <div class="p-2 bg-gradient-to-br from-primary-600 to-blue-600 rounded-xl shadow-lg">
-                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
-                            </div>
-                            <span class="font-bold text-2xl tracking-tight text-secondary-900">Tell2U</span>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            @if (Route::has('login'))
-                                @auth
-                                    <a href="{{ url('/dashboard') }}" class="px-5 py-2.5 rounded-xl font-medium text-secondary-600 hover:text-primary-600 hover:bg-white transition-all">Dashboard</a>
-                                @else
-                                    <a href="{{ route('login') }}" class="px-5 py-2.5 rounded-xl font-medium text-secondary-600 hover:text-primary-600 hover:bg-white transition-all hidden sm:block">Log in</a>
-                                    @if (Route::has('register'))
-                                        <a href="{{ route('register') }}" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-primary-600 to-blue-600 text-white font-semibold shadow-lg shadow-primary-500/30 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
-                                            Mulai Sekarang
-                                        </a>
-                                    @endif
-                                @endauth
+        <style>
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; overflow-x: hidden; position: relative; }
+            body::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent 0%, rgba(255,255,255,0.05) 25%, transparent 50%, rgba(255,255,255,0.05) 75%, transparent 100%); animation: shimmer 15s linear infinite; pointer-events: none; }
+            @keyframes shimmer { 0% { transform: translateX(-50%) translateY(-50%) rotate(0deg); } 100% { transform: translateX(-50%) translateY(-50%) rotate(360deg); } }
+            nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(102, 126, 234, 0.1); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); }
+            .nav-container { max-width: 1200px; margin: 0 auto; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+            .logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+            .logo-icon { width: 40px; height: 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 1.25rem; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3); }
+            .logo-text { font-size: 1.5rem; font-weight: 700; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+            .nav-links { display: flex; gap: 1rem; align-items: center; }
+            .btn { padding: 0.75rem 1.75rem; border-radius: 12px; font-weight: 600; text-decoration: none; transition: all 0.3s ease; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem; }
+            .btn-secondary { background: transparent; color: #667eea; border: 2px solid transparent; }
+            .btn-secondary:hover { color: #764ba2; background: rgba(102, 126, 234, 0.05); }
+            .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3); }
+            .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4); }
+            .hero { padding: 8rem 2rem 4rem; max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+            .hero-content { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+            .hero-text { animation: slideUp 0.8s ease-out; }
+            @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+            .badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: rgba(255, 255, 255, 0.95); border-radius: 50px; font-size: 0.875rem; font-weight: 600; color: #667eea; margin-bottom: 2rem; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); }
+            .badge-dot { width: 8px; height: 8px; background: #667eea; border-radius: 50%; animation: pulse 2s ease-in-out infinite; }
+            @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+            h1 { font-size: 3.5rem; font-weight: 800; line-height: 1.2; color: white; margin-bottom: 1.5rem; }
+            .gradient-text { background: linear-gradient(135deg, #fff 0%, #f0f0ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+            .hero-description { font-size: 1.25rem; color: rgba(255, 255, 255, 0.9); line-height: 1.8; margin-bottom: 2.5rem; }
+            .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+            .btn-large { padding: 1rem 2rem; font-size: 1.125rem; }
+            .btn-white { background: white; color: #667eea; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); }
+            .btn-white:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15); }
+            .hero-image { position: relative; animation: fadeIn 1s ease-out 0.3s both; }
+            @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+            .mockup-card { background: white; border-radius: 24px; padding: 2rem; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2), 0 0 100px rgba(102, 126, 234, 0.15); position: relative; overflow: hidden; }
+            .mockup-card::before { content: ''; position: absolute; top: -50%; right: -50%; width: 200px; height: 200px; background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%); border-radius: 50%; animation: float 6s ease-in-out infinite; }
+            @keyframes float { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-20px) rotate(180deg); } }
+            .mockup-header { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; }
+            .mockup-dot { width: 12px; height: 12px; border-radius: 50%; }
+            .dot-red { background: #ef4444; }
+            .dot-yellow { background: #f59e0b; }
+            .dot-green { background: #10b981; }
+            .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+            .stat-card { background: linear-gradient(135deg, #f8f9ff 0%, #f0f2ff 100%); padding: 1.5rem 1rem; border-radius: 16px; border: 2px solid rgba(102, 126, 234, 0.1); text-align: center; transition: transform 0.3s ease; }
+            .stat-card:hover { transform: translateY(-5px); }
+            .stat-number { font-size: 2rem; font-weight: 700; color: #667eea; margin-bottom: 0.25rem; }
+            .stat-label { font-size: 0.875rem; color: #64748b; font-weight: 500; }
+            .features { background: rgba(255, 255, 255, 0.95); padding: 6rem 2rem; position: relative; }
+            .section-title { text-align: center; max-width: 700px; margin: 0 auto 4rem; }
+            .section-title h2 { font-size: 2.5rem; font-weight: 800; color: #1e293b; margin-bottom: 1rem; }
+            .section-title p { font-size: 1.125rem; color: #64748b; line-height: 1.7; }
+            .features-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+            .feature-card { background: white; padding: 2.5rem; border-radius: 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); border: 2px solid transparent; transition: all 0.3s ease; }
+            .feature-card:hover { border-color: #667eea; transform: translateY(-8px); box-shadow: 0 12px 30px rgba(102, 126, 234, 0.15); }
+            .feature-icon { width: 60px; height: 60px; border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; font-size: 1.75rem; transition: transform 0.3s ease; }
+            .feature-card:hover .feature-icon { transform: scale(1.1); }
+            .icon-blue { background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); color: #2563eb; }
+            .icon-purple { background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%); color: #7c3aed; }
+            .icon-green { background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); color: #059669; }
+            .feature-card h3 { font-size: 1.5rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem; }
+            .feature-card p { color: #64748b; line-height: 1.7; }
+            .cta { background: linear-gradient(135deg, #1e3a8a 0%, #4338ca 100%); padding: 6rem 2rem; text-align: center; position: relative; overflow: hidden; }
+            .cta::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%); animation: rotate 20s linear infinite; }
+            @keyframes rotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+            .cta-content { max-width: 800px; margin: 0 auto; position: relative; z-index: 1; }
+            .cta h2 { font-size: 2.5rem; font-weight: 800; color: white; margin-bottom: 1.5rem; }
+            .cta p { font-size: 1.25rem; color: rgba(255, 255, 255, 0.9); margin-bottom: 2.5rem; line-height: 1.7; }
+            footer { background: rgba(255, 255, 255, 0.95); padding: 3rem 2rem 2rem; border-top: 2px solid rgba(102, 126, 234, 0.1); }
+            .footer-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem; }
+            .footer-content p { color: #64748b; }
+            @media (max-width: 768px) { .hero-content { grid-template-columns: 1fr; gap: 3rem; } h1 { font-size: 2.5rem; } .hero-description { font-size: 1.125rem; } .nav-links .btn-secondary { display: none; } .stat-grid { grid-template-columns: 1fr; } }
+        </style>
+    </head>
+    <body>
+        <nav>
+            <div class="nav-container">
+                <a href="{{ url('/') }}" class="logo">
+                    <img src="{{ asset('images/tell2u_logo.png') }}" alt="Tell2U Logo" style="height: 55px; width: auto;">
+                </a>
+                <div class="nav-links">
+                    @if (Route::has('login'))
+                        @auth
+                            <a href="{{ url('/dashboard') }}" class="btn btn-primary"><i class="fas fa-th-large"></i> Dashboard</a>
+                        @else
+                            @if (Route::has('register'))
+                                <a href="{{ route('register') }}" class="btn btn-primary"><i class="fas fa-rocket"></i> Mulai Sekarang</a>
                             @endif
-                        </div>
-                    </div>
+                        @endauth
+                    @endif
                 </div>
             </div>
         </nav>
 
-        <!-- Hero Section -->
-        <main class="pt-32 pb-16 sm:pt-40 sm:pb-24 lg:pb-32 overflow-hidden">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-                <div class="lg:grid lg:grid-cols-12 lg:gap-16 items-center">
-                    <div class="lg:col-span-6 text-center lg:text-left animate-slide-up">
-                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-sm font-semibold mb-6 border border-blue-100">
-                            <span class="flex h-2 w-2 rounded-full bg-blue-600"></span>
-                            Platform Manajemen Konseling Terpercaya
-                        </div>
-                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-secondary-900 mb-6 leading-tight">
-                            Solusi Cerdas untuk <br>
-                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-blue-600">Layanan Konseling</span>
-                        </h1>
-                        <p class="mt-4 text-xl text-secondary-600 mb-8 leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                            Kelola jadwal, klien, dan sesi konseling Anda dalam satu platform yang aman, efisien, dan mudah digunakan. Fokus pada klien Anda, biarkan kami yang mengurus administrasinya.
-                        </p>
-                        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                            @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="px-8 py-4 rounded-xl bg-gradient-to-r from-primary-600 to-blue-600 text-white font-bold text-lg shadow-xl shadow-primary-500/30 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2 group">
-                                Daftar Gratis
-                                <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
-                            </a>
-                            @endif
-                            <!-- Added Learn More button for functionality -->
-                            <a href="#features" class="px-8 py-4 rounded-xl bg-white text-secondary-700 font-bold text-lg shadow-md border border-secondary-200 hover:bg-secondary-50 hover:border-secondary-300 transition-all duration-300">
-                                Pelajari Lebih Lanjut
-                            </a>
-                        </div>
-                        
-                        <div class="mt-10 flex items-center justify-center lg:justify-start gap-8 text-secondary-400 grayscale opacity-70">
-                             <!-- Simple logos for trust indicators -->
-                             <span class="text-lg font-bold">Trusted by Counselors</span>
-                        </div>
-                    </div>
-                    
-                    <div class="lg:col-span-6 mt-16 lg:mt-0 relative">
-                        <div class="relative rounded-2xl bg-white/40 backdrop-blur-xl border border-white/50 p-4 shadow-2xl animate-fade-in delay-200">
-                             <div class="absolute -top-10 -right-10 w-24 h-24 bg-yellow-400 rounded-full blur-2xl opacity-20 animate-pulse"></div>
-                             <div class="rounded-xl overflow-hidden shadow-sm border border-secondary-100 bg-white">
-                                <!-- Mockup Interface -->
-                                <div class="w-full bg-secondary-50 border-b border-secondary-100 p-3 flex gap-2">
-                                    <div class="w-3 h-3 rounded-full bg-red-400"></div>
-                                    <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
-                                    <div class="w-3 h-3 rounded-full bg-green-400"></div>
-                                </div>
-                                <div class="p-6 space-y-4">
-                                    <div class="flex justify-between items-center mb-6">
-                                        <div class="h-8 w-32 bg-secondary-100 rounded-lg"></div>
-                                        <div class="h-8 w-8 bg-blue-100 rounded-full"></div>
-                                    </div>
-                                    <div class="grid grid-cols-3 gap-4 mb-6">
-                                        <div class="h-24 bg-primary-50 rounded-xl border border-primary-100 p-4">
-                                            <div class="h-4 w-4 bg-primary-200 rounded mb-2"></div>
-                                            <div class="h-2 w-16 bg-primary-100 rounded"></div>
-                                        </div>
-                                        <div class="h-24 bg-blue-50 rounded-xl border border-blue-100 p-4">
-                                            <div class="h-4 w-4 bg-blue-200 rounded mb-2"></div>
-                                            <div class="h-2 w-16 bg-blue-100 rounded"></div>
-                                        </div>
-                                        <div class="h-24 bg-secondary-50 rounded-xl border border-secondary-100 p-4">
-                                             <div class="h-4 w-4 bg-secondary-200 rounded mb-2"></div>
-                                             <div class="h-2 w-16 bg-secondary-100 rounded"></div>
-                                        </div>
-                                    </div>
-                                    <div class="space-y-3">
-                                        <div class="h-12 w-full bg-secondary-50 rounded-lg border border-secondary-100"></div>
-                                        <div class="h-12 w-full bg-secondary-50 rounded-lg border border-secondary-100"></div>
-                                        <div class="h-12 w-full bg-secondary-50 rounded-lg border border-secondary-100"></div>
-                                    </div>
-                                </div>
-                             </div>
-                        </div>
-                        
-                        <!-- Floating Card -->
-                        <div class="absolute -bottom-6 -left-6 glass p-4 rounded-xl shadow-xl border-l-4 border-l-green-500 animate-slide-up delay-500">
-                            <div class="flex items-center gap-3">
-                                <div class="p-2 bg-green-100 rounded-lg text-green-600">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                </div>
-                                <div>
-                                    <p class="text-xs text-secondary-500 font-medium">Status Update</p>
-                                    <p class="text-sm font-bold text-secondary-900">Sesi Terjadwal</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-        
-        <!-- Features Section -->
-        <section id="features" class="py-20 relative bg-white/50 backdrop-blur-sm">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center max-w-3xl mx-auto mb-16">
-                    <h2 class="text-3xl font-bold text-secondary-900 mb-4">Fitur Unggulan</h2>
-                    <p class="text-secondary-600 text-lg">Semua yang Anda butuhkan untuk mengelola layanan konseling dengan profesional dan efisien.</p>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- Feature 1 -->
-                    <div class="glass p-8 rounded-2xl hover:bg-white transition-all duration-300 group">
-                        <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-md">
-                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                        </div>
-                        <h3 class="text-xl font-bold text-secondary-900 mb-3">Manajemen Jadwal</h3>
-                        <p class="text-secondary-600 leading-relaxed">
-                            Atur jadwal konsultasi dengan mudah. Hindari jadwal bentrok dan pantau ketersediaan waktu secara real-time.
-                        </p>
-                    </div>
-
-                    <!-- Feature 2 -->
-                    <div class="glass p-8 rounded-2xl hover:bg-white transition-all duration-300 group">
-                         <div class="w-14 h-14 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-md">
-                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 005.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                        </div>
-                        <h3 class="text-xl font-bold text-secondary-900 mb-3">Database Konselor</h3>
-                        <p class="text-secondary-600 leading-relaxed">
-                            Simpan data konselor dengan aman. Akses riwayat interaksi dan informasi penting lainnya kapan saja.
-                        </p>
-                    </div>
-
-                    <!-- Feature 3 -->
-                    <div class="glass p-8 rounded-2xl hover:bg-white transition-all duration-300 group">
-                         <div class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-md">
-                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                        </div>
-                        <h3 class="text-xl font-bold text-secondary-900 mb-3">Catatan Sesi</h3>
-                        <p class="text-secondary-600 leading-relaxed">
-                            Dokumentasikan setiap sesi konsultasi. Upload file pendukung dan buat ringkasan hasil pertemuan dengan rapi.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CTA Section -->
-        <section class="py-20">
-            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="relative bg-gradient-to-br from-primary-900 to-blue-900 rounded-3xl overflow-hidden shadow-2xl">
-                    <!-- Background Patterns -->
-                    <div class="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
-                    <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl"></div>
-                    
-                    <div class="relative z-10 p-12 text-center">
-                        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">Siap Meningkatkan Layanan Konseling Anda?</h2>
-                        <p class="text-blue-100 text-lg mb-10 max-w-2xl mx-auto">
-                            Bergabunglah sekarang dan rasakan kemudahan dalam mengelola sesi konseling. Sistem terintegrasi untuk profesional seperti Anda.
-                        </p>
-                         @if (Route::has('register'))
-                        <a href="{{ route('register') }}" class="inline-block px-10 py-4 bg-white text-primary-900 font-bold text-lg rounded-xl shadow-lg hover:bg-blue-50 transform hover:-translate-y-1 transition-all duration-300">
-                            Daftar Sekarang - Gratis
-                        </a>
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="badge"><span class="badge-dot"></span> Platform Konsultasi #1 di Indonesia</div>
+                    <h1>Kelola Konseling<br><span class="gradient-text">Lebih Profesional</span></h1>
+                    <p class="hero-description">Sistem manajemen konsultasi all-in-one yang membantu Anda fokus pada klien. Jadwal otomatis, notifikasi real-time, dan laporan lengkap dalam satu platform.</p>
+                    <div class="hero-buttons">
+                        @if (Route::has('register'))
+                        <a href="{{ route('register') }}" class="btn btn-white btn-large"><i class="fas fa-rocket"></i> Daftar Gratis Sekarang</a>
                         @endif
+                        <a href="#features" class="btn btn-primary btn-large"><i class="fas fa-info-circle"></i> Pelajari Lebih Lanjut</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="mockup-card">
+                        <div class="mockup-header">
+                            <div class="mockup-dot dot-red"></div>
+                            <div class="mockup-dot dot-yellow"></div>
+                            <div class="mockup-dot dot-green"></div>
+                        </div>
+                        <div class="stat-grid">
+                            <div class="stat-card"><div class="stat-number">150+</div><div class="stat-label">Konselor</div></div>
+                            <div class="stat-card"><div class="stat-number">2.5K</div><div class="stat-label">Sesi/Bulan</div></div>
+                            <div class="stat-card"><div class="stat-number">98%</div><div class="stat-label">Kepuasan</div></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Footer -->
-        <footer class="bg-white border-t border-secondary-100 pt-16 pb-8">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex flex-col md:flex-row justify-between items-center gap-6">
-                    <div class="flex items-center gap-2">
-                        <div class="p-1.5 bg-gradient-to-br from-primary-600 to-blue-600 rounded-lg">
-                             <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
-                        </div>
-                        <span class="font-bold text-xl text-secondary-900">Tell2U</span>
-                    </div>
-                    <p class="text-secondary-500 text-sm">
-                        &copy; {{ date('Y') }} Tell2U. All rights reserved.
-                    </p>
+        <section id="features" class="features">
+            <div class="section-title">
+                <h2>Fitur Unggulan</h2>
+                <p>Semua yang Anda butuhkan untuk mengelola layanan konseling dengan profesional dan efisien</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon icon-blue"><i class="fas fa-calendar-check"></i></div>
+                    <h3>Manajemen Jadwal</h3>
+                    <p>Atur jadwal konsultasi dengan mudah. Sistem otomatis mencegah double booking dan mengirimkan reminder ke klien.</p>
                 </div>
+                <div class="feature-card">
+                    <div class="feature-icon icon-purple"><i class="fas fa-users"></i></div>
+                    <h3>Database Klien</h3>
+                    <p>Simpan data klien dengan aman. Akses riwayat konsultasi dan catatan penting kapan saja, di mana saja.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon icon-green"><i class="fas fa-video"></i></div>
+                    <h3>Video Conference</h3>
+                    <p>Meeting link otomatis dibuat untuk setiap sesi. Akses tersedia 15 menit sebelum konsultasi dimulai.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta">
+            <div class="cta-content">
+                <h2>Siap Meningkatkan Layanan Konseling Anda?</h2>
+                <p>Bergabunglah dengan ratusan konselor profesional yang telah mempercayai Tell2U untuk mengelola praktik mereka.</p>
+                @if (Route::has('register'))
+                <a href="{{ route('register') }}" class="btn btn-white btn-large"><i class="fas fa-rocket"></i> Mulai Gratis Sekarang</a>
+                @endif
+            </div>
+        </section>
+
+        <footer>
+            <div class="footer-content">
+                <div class="logo">
+                    <img src="{{ asset('images/tell2u_logo.png') }}" alt="Tell2U Logo" style="height: 45px; width: auto;">
+                </div>
+                <p>&copy; {{ date('Y') }} Tell2U. All rights reserved.</p>
             </div>
         </footer>
+
+        <script>
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+            });
+        </script>
     </body>
 </html>
