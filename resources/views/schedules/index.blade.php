@@ -1,268 +1,130 @@
-@extends('layouts.main')
-
-@section('content')
-<div class="p-6 space-y-6 bg-gradient-to-br from-slate-50 to-blue-50 min-h-screen">
-
-    {{-- Header --}}
-    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
-        <div>
-            <h1 class="text-3xl font-bold text-gray-900 flex items-center gap-3">
-                <i class="fas fa-calendar-alt text-blue-600"></i>
-                Daftar Jadwal
-            </h1>
-            <p class="text-gray-600 mt-1">Kelola jadwal Anda dengan rapi dan efisien</p>
+<x-app-layout>
+    <x-slot name="header">
+        <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <h2 class="text-xl font-semibold leading-tight text-secondary-800">
+                {{ __('Jadwal Konsultasi') }}
+            </h2>
+            <a href="{{ route('schedules.create') }}" class="btn-primary">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                Tambah Jadwal
+            </a>
         </div>
-        <a href="{{ route('schedules.create') }}"
-           class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-xl shadow-lg hover:from-blue-700 hover:to-blue-800 hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200">
-            <i class="fas fa-plus-circle"></i>
-            Tambah Jadwal
-        </a>
-    </div>
+    </x-slot>
 
-    {{-- Notifikasi --}}
-    @if(session('success'))
-        <div class="px-6 py-4 bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-500 text-green-800 rounded-r-xl shadow-md animate-pulse">
-            <div class="flex items-center gap-3">
-                <i class="fas fa-check-circle text-green-600 text-lg"></i>
-                <span class="font-medium">{{ session('success') }}</span>
-            </div>
-        </div>
-    @endif
-
-    {{-- Enhanced Table --}}
-    <div class="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
-        {{-- Table Header Stats --}}
-        <div class="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4">
-            <div class="flex items-center justify-between text-white">
-                <div class="flex items-center gap-3">
-                    <i class="fas fa-calendar-week text-xl"></i>
-                    <span class="font-semibold text-lg">Data Jadwal</span>
+    <div class="py-12">
+        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+            
+            @if(session('success'))
+                <div class="mb-6 p-4 text-green-700 bg-green-100 border-l-4 border-green-500 rounded-r-lg shadow-sm animate-fade-in flex items-center">
+                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    <span class="font-medium">{{ session('success') }}</span>
                 </div>
-                <div class="text-sm opacity-90">
-                    Total: <span class="font-bold">{{ $schedules->total() ?? count($schedules) }}</span> jadwal
-                </div>
-            </div>
-        </div>
+            @endif
 
-        {{-- Table Content --}}
-        <div class="overflow-x-auto">
-            <table class="min-w-full">
-                <thead class="bg-gradient-to-r from-gray-50 to-gray-100">
-                    <tr>
-                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
-                            <div class="flex items-center gap-2">
-                                <i class="fas fa-user text-blue-500"></i>
-                                Konselor
-                            </div>
-                        </th>
-                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
-                            <div class="flex items-center gap-2">
-                                <i class="fas fa-calendar-day text-green-500"></i>
-                                Tanggal
-                            </div>
-                        </th>
-                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
-                            <div class="flex items-center gap-2">
-                                <i class="fas fa-clock text-purple-500"></i>
-                                Waktu
-                            </div>
-                        </th>
-                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
-                            <div class="flex items-center gap-2">
-                                <i class="fas fa-info-circle text-red-500"></i>
-                                Status
-                            </div>
-                        </th>
-                        <th class="px-6 py-4 text-center text-sm font-semibold text-gray-700 uppercase tracking-wider">
-                            <div class="flex items-center justify-center gap-2">
-                                <i class="fas fa-cogs text-gray-500"></i>
-                                Aksi
-                            </div>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-100">
-                    @foreach($schedules as $schedule)
-                    <tr class="group hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 transition-all duration-300 hover:shadow-md">
-                        <td class="px-6 py-5 text-gray-800 font-medium">
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg">
-                                    {{ strtoupper(substr($schedule->client->name, 0, 1)) }}
-                                </div>
-                                <div>
-                                    <div class="font-semibold text-gray-900 group-hover:text-blue-700 transition-colors">
-                                        {{ $schedule->client->name }}
+            <div class="glass overflow-hidden rounded-2xl">
+                <div class="p-6 border-b border-white/20 bg-white/50 backdrop-blur-sm flex justify-between items-center">
+                    <div class="flex items-center gap-2">
+                        <div class="p-2 bg-blue-100 text-blue-600 rounded-lg">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-secondary-800">Daftar Jadwal</h3>
+                    </div>
+                    <span class="px-3 py-1 text-xs font-semibold text-blue-700 bg-blue-100 rounded-full">
+                        Total: {{ $schedules->total() }}
+                    </span>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left">
+                        <thead class="text-xs text-secondary-500 uppercase bg-secondary-50/80 border-b border-secondary-100">
+                            <tr>
+                                <th class="px-6 py-4 font-semibold">Konselor</th>
+                                <th class="px-6 py-4 font-semibold">Waktu Konsultasi</th>
+                                <th class="px-6 py-4 font-semibold">Status</th>
+                                <th class="px-6 py-4 font-semibold text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            @forelse($schedules as $schedule)
+                            <tr class="hover:bg-secondary-50/50 transition-colors duration-200 group">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="flex items-center justify-center w-10 h-10 text-sm font-bold text-white shadow-md bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full">
+                                            {{ strtoupper(substr($schedule->client->name, 0, 1)) }}
+                                        </div>
+                                        <div>
+                                            <div class="font-medium text-secondary-900 group-hover:text-primary-600 transition-colors">{{ $schedule->client->name }}</div>
+                                            <div class="text-xs text-secondary-400">{{ $schedule->client->email }}</div>
+                                        </div>
                                     </div>
-                                    <div class="text-sm text-gray-500">{{ $schedule->client->email ?? '' }}</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="px-6 py-5">
-                            <div class="flex items-center gap-2">
-                                <i class="fas fa-calendar-day text-gray-400 text-sm"></i>
-                                <span class="text-gray-700 group-hover:text-gray-900 transition-colors">
-                                    {{ $schedule->date->format('d/m/Y') }}
-                                </span>
-                            </div>
-                        </td>
-                        <td class="px-6 py-5 font-mono">
-                            <div class="flex items-center gap-2">
-                                <i class="fas fa-clock text-gray-400 text-sm"></i>
-                                <span class="text-gray-700 group-hover:text-gray-900 transition-colors">
-                                    {{ $schedule->time->format('H:i') }}
-                                </span>
-                            </div>
-                        </td>
-                        <td class="px-6 py-5">
-                            @php
-                                $statusClasses = [
-                                    'completed' => 'bg-green-100 text-green-800',
-                                    'cancelled' => 'bg-red-100 text-red-800',
-                                    'in_progress' => 'bg-blue-100 text-blue-800',
-                                    'pending' => 'bg-yellow-100 text-yellow-800'
-                                ];
-                                $statusIcons = [
-                                    'completed' => 'fa-check-circle',
-                                    'cancelled' => 'fa-times-circle',
-                                    'in_progress' => 'fa-spinner',
-                                    'pending' => 'fa-clock'
-                                ];
-                                $statusKey = strtolower($schedule->status);
-                            @endphp
-                            <div class="flex items-center gap-2">
-                                <span class="px-3 py-1 rounded-full text-xs font-medium {{ $statusClasses[$statusKey] ?? 'bg-gray-100 text-gray-800' }}">
-                                    <i class="fas {{ $statusIcons[$statusKey] ?? 'fa-info-circle' }} mr-1"></i>
-                                    {{ ucfirst(str_replace('_', ' ', $schedule->status)) }}
-                                </span>
-                            </div>
-                        </td>
-                        <td class="px-6 py-5">
-                            <div class="flex items-center justify-center gap-2">
-                                {{-- Detail --}}
-                                <a href="{{ route('schedules.show', $schedule) }}"
-                                   class="group/btn relative inline-flex items-center justify-center w-10 h-10 text-blue-600 bg-blue-50 rounded-xl border border-blue-200 hover:bg-blue-600 hover:text-white hover:shadow-lg transform hover:scale-110 transition-all duration-200"
-                                   title="Lihat Detail">
-                                    <i class="fas fa-eye text-sm"></i>
-                                    <span class="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover/btn:opacity-100 transition-opacity whitespace-nowrap">
-                                        Detail
-                                    </span>
-                                </a>
-                                {{-- Edit --}}
-                                <a href="{{ route('schedules.edit', $schedule) }}"
-                                   class="group/btn relative inline-flex items-center justify-center w-10 h-10 text-amber-600 bg-amber-50 rounded-xl border border-amber-200 hover:bg-amber-500 hover:text-white hover:shadow-lg transform hover:scale-110 transition-all duration-200"
-                                   title="Edit Jadwal">
-                                    <i class="fas fa-edit text-sm"></i>
-                                    <span class="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover/btn:opacity-100 transition-opacity whitespace-nowrap">
-                                        Edit
-                                    </span>
-                                </a>
-                                {{-- Delete --}}
-                                <form action="{{ route('schedules.destroy', $schedule) }}" method="POST" class="inline-block"
-                                      onsubmit="return confirm('⚠️ Apakah Anda yakin ingin menghapus jadwal ini?\n\nTindakan ini tidak dapat dibatalkan!')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit"
-                                            class="group/btn relative inline-flex items-center justify-center w-10 h-10 text-red-600 bg-red-50 rounded-xl border border-red-200 hover:bg-red-600 hover:text-white hover:shadow-lg transform hover:scale-110 transition-all duration-200"
-                                            title="Hapus Jadwal">
-                                        <i class="fas fa-trash text-sm"></i>
-                                        <span class="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover/btn:opacity-100 transition-opacity whitespace-nowrap">
-                                            Hapus
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="flex flex-col">
+                                        <span class="font-medium text-secondary-900 flex items-center gap-2">
+                                            <svg class="w-4 h-4 text-secondary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                            {{ $schedule->date->format('d M Y') }}
                                         </span>
-                                    </button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-
-        {{-- Empty State --}}
-        @if($schedules->isEmpty())
-        <div class="text-center py-16">
-            <div class="max-w-sm mx-auto">
-                <div class="w-24 h-24 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
-                    <i class="fas fa-calendar-times text-4xl text-gray-400"></i>
+                                        <span class="text-xs text-secondary-500 flex items-center gap-2 mt-1">
+                                            <svg class="w-4 h-4 text-secondary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                            {{ $schedule->time->format('H:i') }} WIB
+                                        </span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    @php
+                                        $statusClasses = [
+                                            'completed' => 'bg-green-100 text-green-700 border-green-200',
+                                            'cancelled' => 'bg-red-100 text-red-700 border-red-200',
+                                            'confirmed' => 'bg-blue-100 text-blue-700 border-blue-200',
+                                            'pending' => 'bg-yellow-100 text-yellow-700 border-yellow-200'
+                                        ];
+                                        $statusClass = $statusClasses[$schedule->status] ?? 'bg-gray-100 text-gray-700 border-gray-200';
+                                    @endphp
+                                    <span class="px-2.5 py-1 text-xs font-medium rounded-full border {{ $statusClass }}">
+                                        {{ ucfirst($schedule->status) }}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 text-center">
+                                    <div class="flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                        <a href="{{ route('schedules.show', $schedule) }}" class="p-2 text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 hover:scale-110 transition-all" title="Detail">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                                        </a>
+                                        <a href="{{ route('schedules.edit', $schedule) }}" class="p-2 text-amber-600 bg-amber-50 rounded-lg hover:bg-amber-100 hover:scale-110 transition-all" title="Edit">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                                        </a>
+                                        <form action="{{ route('schedules.destroy', $schedule) }}" method="POST" class="inline-block" onsubmit="return confirm('Apakah Anda yakin ingin menghapus jadwal ini?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="p-2 text-red-600 bg-red-50 rounded-lg hover:bg-red-100 hover:scale-110 transition-all" title="Hapus">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="4" class="px-6 py-12 text-center text-secondary-500">
+                                    <div class="flex flex-col items-center justify-center">
+                                        <div class="p-4 bg-gray-50 rounded-full mb-3">
+                                            <svg class="w-10 h-10 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                        </div>
+                                        <p class="text-lg font-medium">Belum ada jadwal</p>
+                                        <p class="text-sm mt-1">Mulai dengan menambahkan jadwal baru.</p>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
                 </div>
-                <h3 class="text-xl font-semibold text-gray-700 mb-2">Belum ada jadwal</h3>
-                <p class="text-gray-500 mb-6">Silakan tambahkan jadwal baru</p>
-            </div>
-        </div>
-        @endif
-    </div>
 
-    {{-- Enhanced Pagination --}}
-    @if(!$schedules->isEmpty())
-    <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
-        <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div class="text-sm text-gray-600">
-                Menampilkan <span class="font-semibold">{{ $schedules->firstItem() }}</span> - 
-                <span class="font-semibold">{{ $schedules->lastItem() }}</span> dari 
-                <span class="font-semibold">{{ $schedules->total() }}</span> data
-            </div>
-            <div class="pagination-wrapper">
-                {{ $schedules->links() }}
+                @if($schedules->hasPages())
+                <div class="px-6 py-4 border-t border-gray-100 bg-gray-50/50">
+                    {{ $schedules->links() }}
+                </div>
+                @endif
             </div>
         </div>
     </div>
-    @endif
-
-</div>
-
-{{-- Custom Styles --}}
-<style>
-    /* Custom pagination styling */
-    .pagination-wrapper .pagination {
-        display: flex;
-        gap: 0.25rem;
-    }
-    
-    .pagination-wrapper .page-link {
-        padding: 0.5rem 0.75rem;
-        border: 1px solid #e5e7eb;
-        border-radius: 0.75rem;
-        color: #374151;
-        text-decoration: none;
-        transition: all 0.2s;
-    }
-    
-    .pagination-wrapper .page-link:hover {
-        background-color: #3b82f6;
-        color: white;
-        transform: translateY(-1px);
-        box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
-    }
-    
-    .pagination-wrapper .page-item.active .page-link {
-        background-color: #3b82f6;
-        color: white;
-        border-color: #3b82f6;
-    }
-    
-    /* Smooth animations */
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-    
-    tbody tr {
-        animation: fadeIn 0.3s ease-out;
-    }
-    
-    /* Responsive improvements */
-    @media (max-width: 768px) {
-        .overflow-x-auto {
-            -webkit-overflow-scrolling: touch;
-        }
-        
-        table th, table td {
-            min-width: 120px;
-        }
-        
-        .group/btn span {
-            display: none;
-        }
-    }
-</style>
-@endsection
+</x-app-layout>
