@@ -130,7 +130,7 @@
                                 <tr class="hover:bg-secondary-50 transition-colors">
                                     <td class="px-4 py-3 font-medium text-secondary-900">{{ $schedule->client->name }}</td>
                                     <td class="px-4 py-3 text-secondary-500">
-                                        {{ $schedule->date->format('d M') }} {{ $schedule->time->format('H:i') }}
+                                        {{ $schedule->date->format('d M') }} {{ $schedule->formatted_time }}
                                     </td>
                                     <td class="px-4 py-3">
                                          <span class="px-2 py-1 text-xs rounded-full 
