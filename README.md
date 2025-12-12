@@ -46,10 +46,34 @@ php artisan db:seed
 php artisan storage:link
 ```
 
-5. **Run Server**
+5. **Run Development Server**
+
+⚠️ **PENTING:** Anda harus menjalankan **2 terminal** secara bersamaan!
+
+**Terminal 1 - Vite Dev Server (untuk CSS/JS):**
 
 ```bash
 npm run dev
+```
+
+**Terminal 2 - Laravel Server:**
+
+```bash
+php artisan serve
+```
+
+**ATAU gunakan 1 perintah:**
+
+```bash
+npm run serve  # Menjalankan keduanya sekaligus
+```
+
+> ⚠️ **Jika CSS hilang:** Pastikan `npm run dev` berjalan! Tanpa Vite dev server, CSS tidak akan ter-load.
+
+**Untuk Production/Demo:**
+
+```bash
+npm run build  # Compile assets sekali
 php artisan serve
 ```
 
