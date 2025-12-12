@@ -11,6 +11,17 @@ use App\Http\Controllers\User\JadwalController as UserJadwalController;
 use App\Http\Controllers\User\RiwayatController as UserRiwayatController;
 use App\Http\Controllers\User\BookingController as UserBookingController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
+Route::get('/home', function () {
+    $user = Auth::user();
+    if ($user->isAdmin()) {
+        return redirect()->route('dashboard');
+    } elseif ($user->isPelanggan()) {
+        return redirect()->route('user.dashboard');
+    }
+    return view('welcome');
+})->middleware(['auth', 'verified'])->name('home');
 
 Route::get('/', function () {
     return view('welcome');

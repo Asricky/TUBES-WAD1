@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
-    public const HOME = '/dashboard'; // <-- ini yang biasa dipanggil setelah login/register
+    public const HOME = '/home'; // <-- Redirect ke route /home yang menangani logika role
 
     public function boot(): void
     {
