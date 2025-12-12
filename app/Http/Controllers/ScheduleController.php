@@ -23,7 +23,7 @@ class ScheduleController extends Controller
      */
     public function create()
     {
-        $clients = Client::all();
+        $clients = Client::all() ?? collect();
         return view('schedules.create', compact('clients'));
     }
 
@@ -71,7 +71,7 @@ class ScheduleController extends Controller
      */
     public function edit(Schedule $schedule)
     {
-        $clients = Client::all();
+        $clients = Client::all() ?? collect();
         return view('schedules.edit', compact('schedule', 'clients'));
     }
 

@@ -29,8 +29,8 @@ class JadwalController extends Controller
         $schedules = $query->orderBy('date')->orderBy('time')->paginate(10);
         
         // Get list of clients for filter
-        $clients = Client::orderBy('name')->get();
-        $topics = Topic::orderBy('name')->get();
+        $clients = Client::orderBy('name')->get() ?? collect();
+        $topics = Topic::orderBy('name')->get() ?? collect();
         
         return view('user.jadwal', compact('schedules', 'clients', 'topics'));
     }

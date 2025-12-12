@@ -64,11 +64,11 @@
                          <div class="space-y-2">
                             <label for="schedule_id" class="text-sm font-semibold text-secondary-700">Jadwal Sesi <span class="text-red-500">*</span></label>
                             <div class="relative">
-                                <select name="schedule_id" id="schedule_id" class="w-full rounded-xl border-gray-200 focus:border-emerald-500 focus:ring-emerald-500 transition-shadow appearance-none" required>
+                                 <select name="schedule_id" id="schedule_id" class="w-full rounded-xl border-gray-200 focus:border-emerald-500 focus:ring-emerald-500 transition-shadow appearance-none" required>
                                     <option value="">-- Pilih Jadwal --</option>
                                     @foreach($schedules as $schedule)
                                         <option value="{{ $schedule->id }}" {{ old('schedule_id') == $schedule->id ? 'selected' : '' }}>
-                                            {{ $schedule->date->format('d/m/Y') }} - {{ $schedule->time->format('H:i') }} ({{ $schedule->client->name }})
+                                            {{ $schedule->date->format('d/m/Y') }} - {{ $schedule->time->format('H:i') }} @if($schedule->client)({{ $schedule->client->name }})@endif
                                         </option>
                                     @endforeach
                                 </select>

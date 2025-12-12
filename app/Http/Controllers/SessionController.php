@@ -26,9 +26,9 @@ class SessionController extends Controller
      */
     public function create()
     {
-        $schedules = Schedule::whereDoesntHave('session')->get();
-        $topics = Topic::all();
-        $clients = Client::all();
+        $schedules = Schedule::whereDoesntHave('session')->get() ?? collect();
+        $topics = Topic::all() ?? collect();
+        $clients = Client::all() ?? collect();
         return view('sessions.create', compact('schedules', 'topics', 'clients'));
     }
 
@@ -96,9 +96,9 @@ class SessionController extends Controller
     {
         $schedules = Schedule::whereDoesntHave('session')
             ->orWhere('id', $session->schedule_id)
-            ->get();
-        $topics = Topic::all();
-        $clients = Client::all();
+            ->get() ?? collect();
+        $topics = Topic::all() ?? collect();
+        $clients = Client::all() ?? collect();
         return view('sessions.edit', compact('session', 'schedules', 'topics', 'clients'));
     }
 

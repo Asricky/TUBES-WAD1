@@ -19,7 +19,7 @@ class BookingController extends Controller
             return redirect()->route('user.jadwal')->with('error', 'Jadwal sudah tidak tersedia.');
         }
         
-        $topics = Topic::orderBy('name')->get();
+        $topics = Topic::orderBy('name')->get() ?? collect();
         
         return view('user.booking.create', compact('schedule', 'topics'));
     }
