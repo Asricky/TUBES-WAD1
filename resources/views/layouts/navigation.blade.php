@@ -29,9 +29,6 @@
                         <x-nav-link :href="route('topics.index')" :active="request()->routeIs('topics.*')" class="text-secondary-600 hover:text-primary-600 transition-colors duration-300">
                             {{ __('Topik') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('attachments.index')" :active="request()->routeIs('attachments.*')" class="text-secondary-600 hover:text-primary-600 transition-colors duration-300">
-                            {{ __('Dokumen') }}
-                        </x-nav-link>
                     @else
                         {{-- User/Mahasiswa Navigation --}}
                         <x-nav-link :href="route('user.dashboard')" :active="request()->routeIs('user.dashboard')" class="text-secondary-600 hover:text-primary-600 transition-colors duration-300">
@@ -112,9 +109,6 @@
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('topics.index')" :active="request()->routeIs('topics.*')" class="text-secondary-600 hover:text-primary-600 hover:bg-primary-50">
                     {{ __('Topik') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('attachments.index')" :active="request()->routeIs('attachments.*')" class="text-secondary-600 hover:text-primary-600 hover:bg-primary-50">
-                    {{ __('Dokumen') }}
                 </x-responsive-nav-link>
             @else
                 {{-- User/Mahasiswa Responsive Navigation --}}

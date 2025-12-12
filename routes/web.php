@@ -5,7 +5,6 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\TopicController;
-use App\Http\Controllers\AttachmentController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\User\DashboardController as UserDashboardController;
 use App\Http\Controllers\User\JadwalController as UserJadwalController;
@@ -45,8 +44,6 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     // Topic management
     Route::resource('topics', TopicController::class);
     
-    // Attachment management
-    Route::resource('attachments', AttachmentController::class);
 });
 
 // USER (MAHASISWA) ROUTES
