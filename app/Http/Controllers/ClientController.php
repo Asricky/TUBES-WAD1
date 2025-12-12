@@ -104,22 +104,26 @@ class ClientController extends Controller
         ]);
 
         // Update schedules (Jadwal Konsultasi)
-        foreach ($request->schedule as $scheduleId => $scheduleDate) {
-            $schedule = Schedule::find($scheduleId);
-            if ($schedule) {
-                $schedule->update([
-                    'date' => $scheduleDate,
-                ]);
+        if ($request->has('schedule') && is_array($request->schedule)) {
+            foreach ($request->schedule as $scheduleId => $scheduleDate) {
+                $schedule = Schedule::find($scheduleId);
+                if ($schedule) {
+                    $schedule->update([
+                        'date' => $scheduleDate,
+                    ]);
+                }
             }
         }
 
         // Update session history (Riwayat Konsultasi)
-        foreach ($request->session as $sessionId => $sessionNotes) {
-            $session = Session::find($sessionId);
-            if ($session) {
-                $session->update([
-                    'notes' => $sessionNotes,
-                ]);
+        if ($request->has('session') && is_array($request->session)) {
+            foreach ($request->session as $sessionId => $sessionNotes) {
+                $session = Session::find($sessionId);
+                if ($session) {
+                    $session->update([
+                        'notes' => $sessionNotes,
+                    ]);
+                }
             }
         }
 
