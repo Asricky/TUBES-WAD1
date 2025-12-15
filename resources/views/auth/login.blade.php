@@ -230,20 +230,7 @@
             margin-top: 1.5rem;
         }
 
-        .forgot-password {
-            color: #667eea;
-            font-weight: 600;
-            text-decoration: none;
-            font-size: 0.9375rem;
-            transition: color 0.3s ease;
-            display: inline-block;
-            margin-bottom: 0.75rem;
-        }
 
-        .forgot-password:hover {
-            color: #764ba2;
-            text-decoration: underline;
-        }
 
         .register-link {
             color: #64748b;
@@ -364,12 +351,6 @@
                 </div>
 
                 <div class="auth-links">
-                    @if (Route::has('password.request'))
-                        <a href="{{ route('password.request') }}" class="forgot-password">
-                            <i class="fas fa-lock" style="margin-right: 0.25rem;"></i>
-                            Forgot Password?
-                        </a>
-                    @endif
                     <p class="register-link">
                         Don't have an account?
                         <a href="{{ route('register') }}">

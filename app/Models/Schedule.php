@@ -20,6 +20,7 @@ class Schedule extends Model
 
     protected $casts = [
         'date' => 'date',
+        'time' => 'datetime',
     ];
 
     // Relasi dengan Client

@@ -367,16 +367,6 @@ body {
     text-align: center;
 }
 
-.forgot-password {
-    color: var(--primary-color);
-    text-decoration: none;
-    font-size: 0.875rem;
-}
-
-.forgot-password:hover {
-    text-decoration: underline;
-}
-
 .register-link,
 .login-link {
     margin-top: 1rem;
